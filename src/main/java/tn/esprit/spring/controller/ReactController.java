@@ -41,14 +41,14 @@ public class ReactController {
 	
 	@GetMapping("/get/{reactid}")
 	@ResponseBody
-	private React getReact(@PathVariable("reactid") int commid) {
-		return reactService.getById(commid);
+	private React getReact(@PathVariable("reactid") int reactid) {
+		return reactService.getById(reactid);
 	}
 
 	@DeleteMapping("/{reactid}")
 	@ResponseBody
-	private void deleteReact(@PathVariable("reactid") int commid) {
-		reactService.delete(commid);
+	private void deleteReact(@PathVariable("reactid") int reactid) {
+		reactService.delete(reactid);
 	}
 
 	@PutMapping("/")
