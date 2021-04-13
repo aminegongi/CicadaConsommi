@@ -41,14 +41,14 @@ public class RatingController {
 	
 	@GetMapping("/get/{Ratingid}")
 	@ResponseBody
-	private Rating getRating(@PathVariable("Ratingid") int commid) {
-		return RatingService.getById(commid);
+	private Rating getRating(@PathVariable("Ratingid") int Ratingid) {
+		return RatingService.getById(Ratingid);
 	}
 
 	@DeleteMapping("/{Ratingid}")
 	@ResponseBody
-	private void deleteRating(@PathVariable("Ratingid") int commid) {
-		RatingService.delete(commid);
+	private void deleteRating(@PathVariable("Ratingid") int Ratingid) {
+		RatingService.delete(Ratingid);
 	}
 
 	@PutMapping("/")
