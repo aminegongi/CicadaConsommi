@@ -44,7 +44,8 @@ public class ProduitServiceImpl implements ProduitService{
 	@Override
 	public Produit retrieveProducts(String id_produit) {
 		// TODO Auto-generated method stub
-		return null;
+//		return null;
+		return produiRepository.findById(Long.parseLong(id_produit)).get() ; 
 //		return produiRepository.findById(Long.parseLong(id_produit));
 //		return produiRepository.findById(Long.parseLong(id_produit).orElse(null));
 	}

@@ -19,31 +19,27 @@ import tn.esprit.spring.entity.Produit;
 import tn.esprit.spring.service.ProduitService;
 
 @RestController
+@RequestMapping("/produit")
 public class ProduitController {
 	@Autowired 
 	ProduitService produitservice;
-	
-//	-----------------------------
-	@RequestMapping("/sayhello")
-	public String welcome(Map<String, Object> model, @RequestParam("myName") String name){
-		model.put("receive name", name);
-		return "hellopage";
-	}
-//-----------------------------
+
 @GetMapping("/retrieve-all-products")
 @ResponseBody
 public List<Produit> getProducts(){
 	List<Produit> produits = produitservice.retrieveAllProducts();
 	return produits;
 }
+
 @GetMapping("/retrieve-product/{id_product}")
 @ResponseBody
 public Produit getProductById(@PathVariable("id_product") String id_product){
 	return produitservice.retrieveProducts(id_product);
 }
+
 @PostMapping("/add-product")
 @ResponseBody
-public Produit addUser(@RequestBody Produit p){
+public Produit addProduct(@RequestBody Produit p){
 	Produit produit= produitservice.addProducts(p);
 	return produit;
 }
@@ -60,4 +56,11 @@ public Produit UpdateUser(@RequestBody Produit produits){
 	return produitservice.updateProducts(produits);
 }
 
+//-----------------------------
+@RequestMapping("/sayhello")
+public String welcome(Map<String, Object> model, @RequestParam("myName") String name){
+	model.put("receive name", name);
+	return "hellopage";
+}
+//-----------------------------
 }
