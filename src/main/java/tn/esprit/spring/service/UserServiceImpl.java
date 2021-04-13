@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User retrieveUser(String id_user) {
-		return null;
+		return null ;
 
 	}
 

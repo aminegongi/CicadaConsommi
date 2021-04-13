@@ -37,6 +37,7 @@ public class User implements Serializable {
     private Role role;
    @Temporal (TemporalType.DATE)
    private Date date_naissance;
+   
 public Role getRole() {
 	return role;
 }
