@@ -19,7 +19,7 @@ public class ProduitServiceImpl implements ProduitService{
 	public List<Produit> retrieveAllProducts() {
 		List<Produit> produits=(List<Produit>) produiRepository.findAll();
 		for(Produit produit: produits){
-			l.info("user list : "+ produit);
+			l.info("Products list : "+ produit);
 		}
 		return produits;
 	}
