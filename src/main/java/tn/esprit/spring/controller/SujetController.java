@@ -3,6 +3,7 @@ package tn.esprit.spring.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -54,6 +55,12 @@ public class SujetController {
 	private Sujet updateSujet(@RequestBody Sujet sujet) {
 		sujetservice.update(sujet);
 		return sujet;
+	}
+	
+	@DeleteMapping("/noInter")
+	@ResponseBody
+	private void deleteSujetNoInteraction() {
+		sujetservice.deleteSujetNoInteraction();
 	}
 
 }
