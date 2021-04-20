@@ -51,10 +51,6 @@ public class React {
 		this.type = type;
 	}
 	
-	
-	public Commentaire getReactComm() {
-		return reactComm;
-	}
 
 	public void setReactComm(Commentaire reactComm) {
 		this.reactComm = reactComm;
@@ -74,7 +70,7 @@ public class React {
 
 	@Override
 	public String toString() {
-		return "React [id=" + id + ", type=" + type + ", reactComm=" + reactComm + ", reactUser=" + reactUser + "]";
+		return "React [id=" + id + ", type=" + type + ", reactUser=" + reactUser + "]";
 	}
 	
 	

@@ -44,6 +44,12 @@ public class RatingController {
 	private Rating getRating(@PathVariable("Ratingid") int Ratingid) {
 		return RatingService.getById(Ratingid);
 	}
+	
+	@GetMapping("/getSumCount/{Ratingid}")
+	@ResponseBody
+	private String getRatingSumCount(@PathVariable("Ratingid") int Ratingid) {
+		return "Sum : " + RatingService.getRatingSum(Ratingid) + " // Count : " +  RatingService.getRatingCount(Ratingid);
+	}
 
 	@DeleteMapping("/{Ratingid}")
 	@ResponseBody
