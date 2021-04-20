@@ -1,6 +1,8 @@
 package tn.esprit.spring.controller;
 
+import java.math.BigInteger;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -32,9 +34,9 @@ public class SujetController {
 
 	@PostMapping("/add")
 	@ResponseBody
-	private Sujet saveSujets(@RequestBody Sujet sujets) {
-		sujetservice.save(sujets);
-		return sujets;
+	private String saveSujets(@RequestBody Sujet sujets) {
+		
+		return sujetservice.save(sujets); 
 	}
 
 
@@ -61,6 +63,18 @@ public class SujetController {
 	@ResponseBody
 	private void deleteSujetNoInteraction() {
 		sujetservice.deleteSujetNoInteraction();
+	}
+	
+	@GetMapping("/getSujet/Comm")
+	@ResponseBody
+	private List<Map< Sujet , BigInteger >> getNbComSujets() {
+		return sujetservice.getNbComSujets();
+	}
+	
+	@GetMapping("/getSujet/Rating")
+	@ResponseBody
+	private List<Map< Sujet , BigInteger >> getSumRatSujets() {
+		return sujetservice.getSumRatSujets();
 	}
 
 }

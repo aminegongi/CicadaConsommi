@@ -51,10 +51,6 @@ public class Rating {
 		this.nombre = nombre;
 	}
 
-	public Sujet getRatingSujet() {
-		return ratingSujet;
-	}
-
 	public void setRatingSujet(Sujet ratingSujet) {
 		this.ratingSujet = ratingSujet;
 	}
@@ -73,7 +69,7 @@ public class Rating {
 
 	@Override
 	public String toString() {
-		return "Rating [id=" + id + ", nombre=" + nombre + ", ratingSujet=" + ratingSujet + ", ratingUser=" + ratingUser
+		return "Rating [id=" + id + ", nombre=" + nombre + ", ratingUser=" + ratingUser
 				+ "]";
 	}
 	

@@ -1,7 +1,8 @@
 package tn.esprit.spring.controller;
 
+import java.math.BigInteger;
 import java.util.List;
-
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,10 +34,10 @@ public class CommentaireController {
 	 
 	@PostMapping("/add")  
 	@ResponseBody
-	private int saveCommentaire(@RequestBody Commentaire commentaires)   
+	private String saveCommentaire(@RequestBody Commentaire commentaires)   
 	{  
-		commService.save(commentaires);  
-		return commentaires.getId();  
+		return commService.save(commentaires);  
+		//return commentaires.getId();  
 	}  
 	
 	@GetMapping("/get/{commid}")
@@ -53,9 +54,15 @@ public class CommentaireController {
 
 	@PutMapping("/")
 	@ResponseBody
-	private Commentaire updateCommentaire(@RequestBody Commentaire commentaires) {
-		commService.update(commentaires);
-		return commentaires;
+	private String updateCommentaire(@RequestBody Commentaire commentaires) {
+		return commService.update(commentaires);
 	}
+	
+	@GetMapping("/getComm/React")  
+	@ResponseBody
+	private List<Map< Commentaire , BigInteger >> getComByPert()   
+	{  
+		return commService.getComByPert();
+	} 
 	
 }  

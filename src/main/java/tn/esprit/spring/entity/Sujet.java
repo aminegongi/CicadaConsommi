@@ -1,6 +1,5 @@
 package tn.esprit.spring.entity;
 
-
 import java.util.Date;
 import java.util.Set;
 
@@ -15,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Sujet")
+@Table(name = "Sujet")
 public class Sujet {
 	/**
 	 * 
@@ -24,114 +23,98 @@ public class Sujet {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_sujet")
+	@Column(name = "id_sujet")
 	private int id;
-	
+
 	@Column(name = "titre")
 	private String Titre;
-	
+
 	@Column(name = "description")
 	private String description;
-	
+
 	@Column(name = "datePublication", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date datePublication;
-	
-	
+
 	@ManyToOne
 	User sujetUser;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="commSujet")
-	private Set<Commentaire> sujetComms;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="ratingSujet")
-	private Set<Rating> sujetRating;
-	
 
-	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "commSujet")
+	private Set<Commentaire> sujetComms;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ratingSujet")
+	private Set<Rating> sujetRating;
+
 	public int getId() {
 		return id;
 	}
-
-
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-
-
 	public String getTitre() {
 		return Titre;
 	}
-
-
 
 	public void setTitre(String titre) {
 		Titre = titre;
 	}
 
-
-
 	public String getDescription() {
 		return description;
 	}
-
-
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-
-
 	public Date getDatePublication() {
 		return datePublication;
 	}
 
-
-
 	public void setDatePublication(Date datePublication) {
 		this.datePublication = datePublication;
 	}
-	
-	
-
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	
-	
-	
-	
+	public Set<Commentaire> getSujetComms() {
+		return sujetComms;
+	}
+
+	public void setSujetComms(Set<Commentaire> sujetComms) {
+		this.sujetComms = sujetComms;
+	}
+
+	public Set<Rating> getSujetRating() {
+		return sujetRating;
+	}
+
+	public void setSujetRating(Set<Rating> sujetRating) {
+		this.sujetRating = sujetRating;
+	}
 
 	@Override
 	public String toString() {
 		return "Sujet [id=" + id + ", Titre=" + Titre + ", description=" + description + ", datePublication="
-				+ datePublication + ", sujetUser=" + sujetUser + "]";
+				+ datePublication + ", sujetUser=" + sujetUser + ", sujetComms=" + sujetComms + ", sujetRating="
+				+ sujetRating + "]";
 	}
-
-
 
 	public User getSujetUser() {
 		return sujetUser;
 	}
 
-
-
 	public void setSujetUser(User sujetUser) {
 		this.sujetUser = sujetUser;
 	}
-	
-	
-	
+
 	public Sujet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-
 
 	@Override
 	public int hashCode() {
@@ -144,8 +127,6 @@ public class Sujet {
 		result = prime * result + ((sujetUser == null) ? 0 : sujetUser.hashCode());
 		return result;
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -180,7 +161,5 @@ public class Sujet {
 			return false;
 		return true;
 	}
-	
-	
-	
+
 }

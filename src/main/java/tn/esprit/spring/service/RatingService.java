@@ -36,4 +36,12 @@ public class RatingService {
 	public void delete(int id) {
 		ratingRepository.deleteById(id);
 	}
+	
+	public float getRatingSum(int id) {
+		return ratingRepository.sumrating(id);
+	}
+	
+	public float getRatingCount(int id) {
+		return ratingRepository.countrating(id);
+	}
 }

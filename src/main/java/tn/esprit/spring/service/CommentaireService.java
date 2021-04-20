@@ -1,7 +1,14 @@
 package tn.esprit.spring.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.math.BigInteger;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +27,26 @@ public class CommentaireService {
 		return commentaires;
 	}
 
-	public void save(Commentaire commentaires) {
-		commentaireRepository.save(commentaires);
+	public String save(Commentaire commentaires) {
+		List<String> list = new ArrayList<>();
+		try {
+			list = Files.readAllLines(new File("src\\main\\resources\\motinterdit.txt").toPath(), Charset.defaultCharset() );
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if (list.isEmpty() ){
+			commentaireRepository.save(commentaires);
+			return "Commentaire ajouté // liste vide ";
+		}
+		else{
+			for (String mot : list) {
+				if (commentaires.getDescription().contains(mot)) {
+					return "Votre Commentaire contient des mots interdits ";
+				}
+			}
+			commentaireRepository.save(commentaires);
+			return "Commentaire ajouté list feha";
+		}
 	}
 
 	public Commentaire getById(int id) {
@@ -29,11 +54,33 @@ public class CommentaireService {
 	}
 
 
-	public void update(Commentaire commentaires) {
-		commentaireRepository.save(commentaires);
+	public String update(Commentaire commentaires) {
+		List<String> list = new ArrayList<>();
+		try {
+			list = Files.readAllLines(new File("src\\main\\resources\\motinterdit.txt").toPath(), Charset.defaultCharset() );
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if (list.isEmpty() ){
+			commentaireRepository.save(commentaires);
+			return "Commentaire modifié // liste vide ";
+		}
+		else{
+			for (String mot : list) {
+				if (commentaires.getDescription().contains(mot)) {
+					return "Votre Commentaire contient des mots interdits ";
+				}
+			}
+			commentaireRepository.save(commentaires);
+			return "Commentaire modifié list feha";
+		}
 	}
 
 	public void delete(int id) {
 		commentaireRepository.deleteById(id);
+	}
+	
+	public List<Map< Commentaire , BigInteger >> getComByPert() {
+		return commentaireRepository.getComByPert();
 	}
 }

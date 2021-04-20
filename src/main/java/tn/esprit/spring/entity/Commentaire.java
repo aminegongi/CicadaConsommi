@@ -77,12 +77,6 @@ public class Commentaire {
 		this.dateCommentaire = dateCommentaire;
 	}
 
-
-	public Sujet getCommSujet() {
-		return commSujet;
-	}
-
-
 	public void setCommSujet(Sujet commSujet) {
 		this.commSujet = commSujet;
 	}
@@ -96,6 +90,18 @@ public class Commentaire {
 	public void setCommUser(User commUser) {
 		this.commUser = commUser;
 	}
+	
+	
+
+
+	public Set<React> getCommReact() {
+		return commReact;
+	}
+
+
+	public void setCommReact(Set<React> commReact) {
+		this.commReact = commReact;
+	}
 
 
 	public static long getSerialversionuid() {
@@ -103,10 +109,13 @@ public class Commentaire {
 	}
 
 
+	
+
+
 	@Override
 	public String toString() {
 		return "Commentaire [id=" + id + ", description=" + description + ", dateCommentaire=" + dateCommentaire
-				+ ", commSujet=" + commSujet + ", commUser=" + commUser + "]";
+				+ ", commUser=" + commUser + ", commReact=" + commReact + "]";
 	}
 
 
