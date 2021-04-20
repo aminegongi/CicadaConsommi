@@ -2,6 +2,7 @@ package tn.esprit.spring.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -20,9 +22,6 @@ import javax.persistence.Table;
 
 public class Commande implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -37,6 +36,9 @@ public class Commande implements Serializable {
     
     private String etat_commande;
     
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="commande")
+	private Set<Produit_Commandes> P_cmd;
+	
     @OneToOne
     Livraison livraison;
     

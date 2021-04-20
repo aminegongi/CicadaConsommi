@@ -31,7 +31,7 @@ public class Produit  implements Serializable {
 	private String Description_produit;
 	private String Tab_produit;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="Produit")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="produit")
 	private Set<Produit_Commandes> P_cmd;
 	
 	public Produit(long id_produit, long ref_produit, String nom_produit, String img_produit, float prix_produit,
