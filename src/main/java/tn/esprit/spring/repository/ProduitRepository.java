@@ -21,9 +21,11 @@ public interface ProduitRepository  extends CrudRepository<Produit, Long>
 //	public List<Produit> findProduitById(@Param("id_produit") Long id_produit);
 //	
 	@Query(value="SELECT * FROM Produit WHERE "
-			+"MATCH(nom_produit)"
-			+"AGAINST (?1)",
+			+"nom_produit like"
+			+"(?1)",
 			nativeQuery = true)
 	public List<Produit> findProduitByNom(@Param("nom_produit") String nom_produit);
+	
+	
 	
 }

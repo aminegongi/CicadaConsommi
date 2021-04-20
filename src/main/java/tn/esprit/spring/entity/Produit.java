@@ -24,7 +24,7 @@ public class Produit  implements Serializable {
 	private float prix_produit;
 	private String marque_produit;
 	private String codeBarre_produit;
-//	private int rating;
+	private int rating;
 	private Date dateExpiration_produit;
 	private Date dateFabrication_produit;
 	private Date dateAjout_produit;
@@ -149,5 +149,16 @@ public class Produit  implements Serializable {
 	}
 	
 	
-	
+	public int getRating() {
+		return rating;
+	}
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+	public Set<Produit_Commandes> getP_cmd() {
+		return P_cmd;
+	}
+	public void setP_cmd(Set<Produit_Commandes> p_cmd) {
+		P_cmd = p_cmd;
+	}
 }

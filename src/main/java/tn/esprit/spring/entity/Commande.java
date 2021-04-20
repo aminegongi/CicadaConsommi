@@ -22,6 +22,14 @@ import javax.persistence.Table;
 
 public class Commande implements Serializable {
 
+	public Set<Produit_Commandes> getP_cmd() {
+		return P_cmd;
+	}
+
+	public void setP_cmd(Set<Produit_Commandes> p_cmd) {
+		P_cmd = p_cmd;
+	}
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id
