@@ -1,12 +1,16 @@
 package tn.esprit.spring.entity;
 
 import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name= "Produit")
@@ -20,11 +24,16 @@ public class Produit  implements Serializable {
 	private float prix_produit;
 	private String marque_produit;
 	private String codeBarre_produit;
+//	private int rating;
 	private Date dateExpiration_produit;
 	private Date dateFabrication_produit;
 	private Date dateAjout_produit;
 	private String Description_produit;
 	private String Tab_produit;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="Produit")
+	private Set<Produit_Commandes> P_cmd;
+	
 	public Produit(long id_produit, long ref_produit, String nom_produit, String img_produit, float prix_produit,
 			String marque_produit, String codeBarre_produit, Date dateExpiration_produit, Date dateFabrication_produit,
 			Date dateAjout_produit, String description_produit, String tab_produit) {
@@ -60,6 +69,11 @@ public class Produit  implements Serializable {
 	}
 	public Produit() {
 		super();
+	}
+	
+	public Produit(long id_produit) {
+		super();
+		this.id_produit = id_produit;
 	}
 	public long getId_produit() {
 		return id_produit;

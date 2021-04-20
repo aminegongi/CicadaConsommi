@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>[[${pageTitle}]]</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  background-color: #0B81FF;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+<h2> Search Product for '[[${keyword}]]' </h2>
+<br> 
+	<table>
+    <thead>
+        <tr>
+            <th> product's ID </th>
+            <th> product's reference </th>
+            <th> product's name </th>
+            <th> product's Image </th>
+            <th> product's price </th>
+            <th> product's brand </th>
+            <th> product's Bar Code </th>
+            <th> product's expiration date </th>
+            <th> product's creation date </th>
+            <th> product's added date </th>
+            <th> product's Description </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="produit : ${SearchResult}">
+            <td><span th:text="${produit.id_produit}"> Id </span></td>
+            <td><span th:text="${produit.ref_produit}"> reference  </span></td>
+            <td><span th:text="${produit.nom_produit}"> Name </span></td>
+            <td><span th:text="${produit.img_produit}"> Image </span></td>
+            <td><span th:text="${produit.prix_produit}"> Price </span></td>
+            <td><span th:text="${produit.marque_produit}"> brand </span></td>
+            <td><span th:text="${produit.codeBarre_produit}"> Bar Code </span></td>
+            <td><span th:text="${produit.dateExpiration_produit}"> expiration date </span></td>
+            <td><span th:text="${produit.dateFabrication_produit}"> product's creation date </span></td>
+            <td><span th:text="${produit.dateAjout_produit}"> product's added date </span></td>
+            <td><span th:text="${produit.Description_produit}"> product's Description </span></td>
+        </tr>
+    </tbody>
+</table> 
+</body>
+</html>

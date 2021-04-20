@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>List of ALL the products</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  background-color: #0B81FF;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+<body>
+<div class="container">
+<form class="form-inline my-2 my-lg-0" th:action="@{/consommi/produit/search}" method="GET" >
+    <input type="search" name="keyword" size="50" class="form-control mr-sm-2" placeholder="keyword" required />
+    <input type="submit" value="search" class="btn btn-outline-success my-1 my-sm-0" />
+</form>
+</div> 
+<table>
+    <thead>
+        <tr>
+            <th> product's ID </th>
+            <th> product's reference </th>
+            <th> product's name </th>
+            <th> product's Image </th>
+            <th> product's price </th>
+            <th> product's brand </th>
+            <th> product's Bar Code </th>
+            <th> product's expiration date </th>
+            <th> product's creation date </th>
+            <th> product's added date </th>
+            <th> product's Description </th>
+            <th> Verify </th>
+        </tr>
+    </thead>
+    <tbody>
+	<tr th:if="${produits.empty}">
+            <td colspan="2"> No Products Available </td>
+        </tr>
+        <tr th:each="produit : ${produits}">
+            <td><span  th:text="${produit.id_produit}"> Id </span></td>
+            <td><span th:text="${produit.ref_produit}"> reference  </span></td>
+            <td><span th:text="${produit.nom_produit}"> Name </span></td>
+            <td><img src="../images/tropico.jpg" width="1000" th:src="@{images/{img_produit}/(img_produit=${produit.img_produit})}"/></td>
+            <td><span th:text="${produit.prix_produit}"> Price </span></td>
+            <td><span th:text="${produit.marque_produit}"> brand </span></td>
+            <td><span th:text="${produit.codeBarre_produit}"> Bar Code </span></td>
+            <td><span th:text="${produit.dateExpiration_produit}"> expiration date </span></td>
+            <td><span th:text="${produit.dateFabrication_produit}"> product's creation date </span></td>
+            <td><span th:text="${produit.dateAjout_produit}"> product's added date </span></td>
+            <td><span th:text="${produit.Description_produit}"> product's Description </span></td>
+            <td> <form th:action="@{/consommi/produit/verify/{id_produit}/(id_produit=${produit.id_produit})}"  method="GET">
+            <input class="btn btn-primary" type="submit" value="verify" >
+            </form>
+        </tr>
+    </tbody>
+</table> 
+</body>
+</html>

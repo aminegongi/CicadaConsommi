@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Create a Product </title>
+</head>
+<body>
+<!-- <form class="form-inline my-2 my-lg-0" th:action="@{/consommi/produit/add}" method="GET" > -->
+<form:form method="POST" action="/spring-mvc-basics/addEmployee" 
+  modelAttribute="produit">
+    <form:label path="productName">Name</form:label>
+		<input type="text" path="productName" />
+    
+    <form:label path="productPrice">productPrice</form:label>
+		<input type="text" path="productPrice" />
+    
+    <form:label path="productDescription">productDescription</form:label>
+		<input type="text" path="productDescription" />
+    
+	<form:label path="productBrand">productBrand</form:label>
+    	<input type="text" path="productBrand" />
+    
+	<form:label path="productBarCode">productBarCode</form:label>
+	    <input type="text" path="productBarCode" />
+    
+    <input type="submit" action="#" value="Submit" />
+ 
+</form:form>
+</body>
+</html>
