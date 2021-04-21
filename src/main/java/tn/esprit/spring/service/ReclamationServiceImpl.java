@@ -54,4 +54,10 @@ public class ReclamationServiceImpl implements ReclamationService {
 		
 	}
 
+	@Override
+	public List<Reclamation> search(String keyword) {
+		// TODO Auto-generated method stub
+		return ReclamationRepository.findReclamationByEtat(keyword);
+	}
+
 }
