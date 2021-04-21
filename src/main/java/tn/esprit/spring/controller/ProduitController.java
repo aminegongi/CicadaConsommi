@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -59,8 +60,6 @@ public Produit addProduct(@RequestBody Produit p){
 	Produit produit= produitservice.addProducts(p);
 	return produit;
 }
-
-
 
 @DeleteMapping("/delete-product/{id_product}")
 @ResponseBody
@@ -138,7 +137,7 @@ public String ShowById(@PathVariable("id_product") String id_product , Model mod
 
 
 //@RequestMapping(value = "/create")
-@GetMapping("/create")
+//@GetMapping("/create")
 //public String submit(Model model) {
 //	
 //    	produitservice.addProducts(new Produit());
@@ -147,16 +146,26 @@ public String ShowById(@PathVariable("id_product") String id_product , Model mod
 //    model.addAttribute("form", produitservice);
 //    return "products/CreateProduct";
 //}
-@PostMapping(value = "/create")
-public String submitproduct(@ModelAttribute("produit")Produit produit, ModelMap model) {
-long rand = (long) ((Math.random() * (999 - 1)) + 1);
-produit.setId_produit(rand);
-	model.addAttribute("productName", produit.getNom_produit());
-	model.addAttribute("productPrice", produit.getPrix_produit());
-	model.addAttribute("productDescription", produit.getDescription_produit());
-	model.addAttribute("productBrand", produit.getMarque_produit());
-	model.addAttribute("productBarCode", produit.getCodeBarre_produit());
-return "products/CreateProduct";
+
+
+@RequestMapping(value = "/create", method = RequestMethod.GET)
+public ModelAndView showForm() {
+    return new ModelAndView("products/CreateProduct", "produit", new Produit());
+}
+
+@RequestMapping(value = "/created-product", method = RequestMethod.POST)
+public String submitproduct(@Valid @ModelAttribute("produit")Produit produit, 
+  BindingResult result, ModelMap model) {
+    if (result.hasErrors()) {
+        return "error";
+    }
+model.addAttribute("productID", produit.getId_produit());
+model.addAttribute("productName", produit.getNom_produit());
+model.addAttribute("productPrice", produit.getPrix_produit());
+model.addAttribute("productDescription", produit.getDescription_produit());
+model.addAttribute("productBrand", produit.getMarque_produit());
+model.addAttribute("productBarCode", produit.getCodeBarre_produit());
+    return "products/ProductList";
 }
 
 @GetMapping("/search")
@@ -168,4 +177,5 @@ public String search(@Param("keyword") String keyword, Model model) {
 
 	return "products/search_result";
 }
+ 
 }

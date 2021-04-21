@@ -24,12 +24,15 @@ tr:nth-child(even) {
 }
 </style>
 <body>
-<div class="container">
+<br>
+<div class="container" style="text-align: center;">
 <form class="form-inline my-2 my-lg-0" th:action="@{/consommi/produit/search}" method="GET" >
     <input type="search" name="keyword" size="50" class="form-control mr-sm-2" placeholder="keyword" required />
     <input type="submit" value="search" class="btn btn-outline-success my-1 my-sm-0" />
 </form>
 </div> 
+<br>
+<hr>
 <table>
     <thead>
         <tr>
@@ -46,6 +49,7 @@ tr:nth-child(even) {
             <th> product's Description </th>
             <th> Verify </th>
             <th> Rate </th>
+            <th> state </th>
         </tr>
     </thead>
     <tbody>
@@ -64,13 +68,23 @@ tr:nth-child(even) {
             <td><span th:text="${produit.dateFabrication_produit}"> product's creation date </span></td>
             <td><span th:text="${produit.dateAjout_produit}"> product's added date </span></td>
             <td><span th:text="${produit.Description_produit}"> product's Description </span></td>
-            <td> <form th:action="@{/consommi/produit/verify/{id_produit}/(id_produit=${produit.id_produit})}"  method="GET">
+            <td> 
+            <form th:action="@{/consommi/produit/verify/{id_produit}/(id_produit=${produit.id_produit})}"  method="GET">
             <input class="btn btn-primary" type="submit" value="verify" >
-            </form></td>
+            </form>
+            </td>
             
-            <td> <form th:action="@{/consommi/produit/rate/{id_produit}/(id_produit=${produit.id_produit})}"  method="GET">
+            <td> 
+            <form th:action="@{/consommi/produit/Rate/{id_produit}/(id_produit=${produit.id_produit})}"  method="GET">
             <input class="btn btn-primary" type="submit" value="Rate" >
-            </form></td>
+            </form>
+            </td>
+            
+            <td> 
+            <form th:action="@{/consommi/produit/Etat-produit/{id_produit}/(id_produit=${produit.id_produit})}"  method="GET">
+            <input class="btn btn-primary" type="submit" value="state" >
+            </form>
+            </td>
         </tr>
     </tbody>
 </table> 

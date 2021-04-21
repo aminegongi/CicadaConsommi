@@ -5,26 +5,35 @@
 <title>Create a Product </title>
 </head>
 <body>
-<!-- <form class="form-inline my-2 my-lg-0" th:action="@{/consommi/produit/add}" method="GET" > -->
-<form:form method="POST" action="/spring-mvc-basics/addEmployee" 
-  modelAttribute="produit">
-    <form:label path="productName">Name</form:label>
-		<input type="text" path="productName" />
-    
-    <form:label path="productPrice">productPrice</form:label>
-		<input type="text" path="productPrice" />
-    
-    <form:label path="productDescription">productDescription</form:label>
-		<input type="text" path="productDescription" />
-    
-	<form:label path="productBrand">productBrand</form:label>
-    	<input type="text" path="productBrand" />
-    
-	<form:label path="productBarCode">productBarCode</form:label>
-	    <input type="text" path="productBarCode" />
-    
-    <input type="submit" action="#" value="Submit" />
- 
-</form:form>
+<h3>Welcome, Here you can add your products :</h3>
+ <div align="center"> 
+	<form:form method="POST" th:action="@{/consommi/produit/created-product}"  th:object="${produit}" modelAttribute="produit">
+		<table>
+                <tr>
+                    <td><form:label path="productName">productName</form:label></td>
+                    <td><input th:field="*{nom_produit}" path="productName"/></td>
+                </tr>
+                <tr>
+                    <td><form:label path="productPrice">productPrice</form:label></td>
+                    <td><input type="text" th:field="*{prix_produit}" /></td>
+                </tr>
+                <tr>
+                    <td><form:label path="productDescription">productDescription</form:label></td>
+                    <td><input type="text" th:field="*{Description_produit}"/></td>
+                </tr>
+                <tr>
+                    <td><form:label path="productBrand">productBrand</form:label></td>
+                    <td><input type="text"  th:field="*{marque_produit}" path="productBrand"/></td>
+                </tr>
+                <tr>
+                    <td><form:label path="productBarCode">productBarCode</form:label></td>
+                    <td><input path="productBarCode" th:field="*{codeBarre_produit}" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><input type="submit" value="Submit"/></td>
+                </tr>
+		</table>
+	</form:form>
+</div>
 </body>
 </html>
