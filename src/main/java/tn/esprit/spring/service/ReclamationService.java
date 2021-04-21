@@ -10,5 +10,6 @@ public interface ReclamationService {
 	void deleteReclamation(String id);
 	Reclamation updateReclamation(Reclamation u);
 	Reclamation retrieveReclamation(String id);
-
+	
+	List<Reclamation> search(String keyword);    
 }

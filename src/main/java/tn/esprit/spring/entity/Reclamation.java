@@ -33,7 +33,7 @@ public class Reclamation implements Serializable {
 	private String Description;
 	@Column(name = "datePublication", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date DatePublication;
-	@Column(name = "état")
+	@Column(name = "Etat")
 	private String Etat; //0:Non traité   1:en cours de traintement  2:Traité 
 	@Column(name = " Decision ")
 	private String Decision ;
