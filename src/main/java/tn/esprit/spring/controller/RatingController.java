@@ -18,7 +18,7 @@ import tn.esprit.spring.entity.Rating;
 import tn.esprit.spring.service.RatingService;
 
 @RestController  
-@RequestMapping("/rating")
+@RequestMapping("/client/rating")
 public class RatingController {
 	
 	@Autowired  
