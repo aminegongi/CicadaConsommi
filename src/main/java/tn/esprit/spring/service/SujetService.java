@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import info.debatty.java.stringsimilarity.JaroWinkler;
 import tn.esprit.spring.entity.Sujet;
+import tn.esprit.spring.entity.SujetRecherche;
+import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.SujetRepository;
 
 @EnableScheduling
@@ -61,5 +63,19 @@ public class SujetService {
 	
 	public List<Map< Sujet , BigInteger >> getSumRatSujets() {
 		return sujetRepository.getSumRatSujets();
+	}
+	
+	public List<Sujet> rechercheSujet(String rech) {
+		/*SujetRechercheService srs = new SujetRechercheService();
+		User u = new User();
+		u.setId(Long.valueOf(1));
+		srs.save(new SujetRecherche(rech, u ));*/
+		return sujetRepository.rechercheSujet(rech);
+	}
+	
+	public List<Sujet> sujetParUser(Long id) {
+		User u = new User() ;
+		u.setId(id);
+		return sujetRepository.SujetParUser(u);
 	}
 }

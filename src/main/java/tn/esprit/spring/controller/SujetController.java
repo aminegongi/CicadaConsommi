@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -76,5 +75,19 @@ public class SujetController {
 	private List<Map< Sujet , BigInteger >> getSumRatSujets() {
 		return sujetservice.getSumRatSujets();
 	}
+	
+	@GetMapping("/rech/{r}")
+	@ResponseBody
+	private List<Sujet> rechercheSujet(@PathVariable("r") String r) {
+		return sujetservice.rechercheSujet(r);
+	}
+	
+	@GetMapping("/sujetUser/{id}")
+	@ResponseBody
+	private List<Sujet> SujetParUSer(@PathVariable("id") Long id) {
+		return sujetservice.sujetParUser(id);
+	}
+	
+	
 
 }

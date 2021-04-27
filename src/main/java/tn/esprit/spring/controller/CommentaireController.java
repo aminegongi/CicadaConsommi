@@ -19,7 +19,7 @@ import tn.esprit.spring.entity.Commentaire;
 import tn.esprit.spring.service.CommentaireService;
 
 @RestController  
-@RequestMapping("/commentaire")
+@RequestMapping("/client/commentaire")
 public class CommentaireController {
 	
 	@Autowired  
