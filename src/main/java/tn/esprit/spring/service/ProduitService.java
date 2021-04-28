@@ -14,5 +14,8 @@ public interface ProduitService {
 	boolean verification619(String id_product);
 	String Etat_produit(String id_product);
 	String Rating(String id_product);
-	List<Produit> search(String keyword);
+	List<Produit> searchNom(String keyword);
+	List<Produit> searchRef(String keyword);
+	List<Produit> searchPrice(String keyword);
+	List<Produit> searchBrand(String keyword);
 }

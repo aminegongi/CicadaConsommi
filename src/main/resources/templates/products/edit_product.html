@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Edit Product</title>
+</head>
+<body>
+  <div th:replace="header :: myheader"></div>
+    <div align="center">
+        <h1>Edit Product :</h1>
+        <br />
+        <form action="#" th:action="@{/save}" th:object="${product}"
+            method="post">
+ 
+            <table border="0" cellpadding="10">
+                <tr>             
+                    <td>Product ID:</td>
+                    <td>
+                        <input type="text" th:field="*{id_produit}" readonly="readonly" />
+                    </td>
+                </tr>        
+			<tr>                  
+					<td>Product Name:</td>                     
+					<td><input type="text" th:field="*{nom_produit}" /></td>          
+				</tr>
+				 
+				<tr>
+					<td>Product Price:</td>                     
+					<td><input type="text" th:field="*{prix_produit}" /></td>
+				</tr>
+				 
+				<tr>
+					<td>Product Image:</td>                     
+					<td><input type="file" th:field="*{img_produit}"></td>
+				</tr>
+				 
+				<tr>               
+					<td>Product Description:</td>                     
+					<td><input type="text" th:field="*{description_produit}" /></td>           
+				</tr>
+				 
+				
+				<tr>		                    
+					<td>Product's Tab:</td>                     
+					<td><input type="text" th:field="*{tab_produit}" /></td>
+					                
+				</tr>
+				
+				
+				<tr>		                    
+					<td>Product's Brand:</td>                     
+					<td><input type="text" th:field="*{marque_produit}" /></td>
+					                
+				</tr>
+				 
+				<tr>                 
+					<td>Product Bar code:</td>                     
+					<td><input type="text" th:field="*{codeBarre_produit}" /></td>               
+				</tr>
+				 
+				<tr>
+					                    
+					<td>Product Reference:</td>                     
+					<td><input type="text" th:field="*{ref_produit}" /></td>           
+				</tr>
+				 
+				<tr>
+					                    
+					<td>Product Add Date:</td>                     
+					<td><input type="date" th:field="*{dateAjout_produit}" /></td>         
+				</tr>
+
+				<tr>
+					                    
+					<td>Product Creation Date:</td>                     
+					<td><input type="date" th:field="*{dateFabrication_produit}" /></td>         
+				</tr>
+
+				<tr>
+					                    
+					<td>Product Expiration Date :</td>                     
+					<td><input type="date" th:field="*{dateExpiration_produit}" /></td>         
+				</tr>
+           		  <tr>
+                    <td colspan="2"><button class="btn btn-primary" type="submit">Save</button> </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div th:replace="footer :: myfooter"></div>
+</body>
+</html>

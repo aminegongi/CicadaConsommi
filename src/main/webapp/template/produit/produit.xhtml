@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/produit/template.xhtml">
+	<ui:param name="page_name" value="Connexion" />
+	<ui:define name="menu">
+		<h:form id="form">
+			<b>produit </b>
+			<h:panelGrid columns="2">
+				<h:outputText value="product name" />
+				<h:inputText value="#{produitcontroller.abc}" />
+<!-- 				<h:outputText value="Mot de passe" /> -->
+<!-- 				<h:inputSecret value="#{userController.password}" /> -->
+				<h:commandButton id="btn" value="Connexion" action="#" />
+				<h:message for="btn" />
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -7,13 +7,15 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tn.esprit.spring.entity.Produit;
 import tn.esprit.spring.entity.Produit_Commandes;
 import tn.esprit.spring.repository.Produit_CommandeRepository;
-
+import tn.esprit.spring.repository.ProduitRepository;
 @Service
 public class Produit_CommandesServiceImpl implements Produit_CommandesService {
 	@Autowired
 	Produit_CommandeRepository Produit_cmdRepository ;
+	ProduitRepository produitrepository;
 	private static final Logger l = LogManager.getLogger(ProduitServiceImpl.class);
 	private List<Produit_Commandes> Produit_Cmds;
 	@Override
@@ -26,39 +28,55 @@ public class Produit_CommandesServiceImpl implements Produit_CommandesService {
 	}
 
 	@Override
-	public Produit_Commandes addProducts(Produit_Commandes pc) {
-		// TODO Auto-generated method stub
-		return null;
+	public void addProduit_cmd(Produit_Commandes pc) {
+		this.Produit_Cmds.add(pc);
+		
 	}
-
+	
 	@Override
-	public void addProduit(Produit_Commandes pc) {
+	public Produit_Commandes addProduits_cmds(Produit_Commandes pc) {
+		return Produit_cmdRepository.save(pc);
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
-	public void deleteProducts(String id) {
-		// TODO Auto-generated method stub
-		
+	public Produit_Commandes retrieveProducts_cmds(String id_Produit_Cmd) {
+		return Produit_cmdRepository.findById(Long.parseLong(id_Produit_Cmd)).get() ; 
+	}
+	
+	
+	@Override
+	public void deleteProduct_cmd(String id_Produit_Cmd) { 
+		Produit_cmdRepository.deleteById(Long.parseLong(id_Produit_Cmd));
 	}
 
 	@Override
 	public Produit_Commandes updateProducts(Produit_Commandes pc) {
-		// TODO Auto-generated method stub
-		return null;
+		return Produit_cmdRepository.save(pc);
 	}
 
-	@Override
-	public Produit_Commandes retrieveProducts(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public List<Produit_Commandes> search(String keyword) {
-		// TODO Auto-generated method stub
-		return null;
+		return null ; 
 	}
+
+	@Override
+	public float getPoidcmd(long qte, long produit_id_produit) { 
+		Produit p = produitrepository.findById(produit_id_produit).get() ; 
+		float pod=p.getPoid_produit();
+		float poidcmd=pod*qte;
+		return poidcmd;
+	}
+
+
+
+	
+
+
+
+	
 
 }
