@@ -12,4 +12,5 @@ public interface Produit_CommandesService {
 	Produit_Commandes updateProducts(Produit_Commandes pc);
 	Produit_Commandes retrieveProducts_cmds(String id_Produit_Cmd);
 	List<Produit_Commandes> search(String keyword);
+	float getPoidcmd(long qte,long produit_id_produit );
 }

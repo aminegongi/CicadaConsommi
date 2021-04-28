@@ -7,13 +7,15 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tn.esprit.spring.entity.Produit;
 import tn.esprit.spring.entity.Produit_Commandes;
 import tn.esprit.spring.repository.Produit_CommandeRepository;
-
+import tn.esprit.spring.repository.ProduitRepository;
 @Service
 public class Produit_CommandesServiceImpl implements Produit_CommandesService {
 	@Autowired
 	Produit_CommandeRepository Produit_cmdRepository ;
+	ProduitRepository produitrepository;
 	private static final Logger l = LogManager.getLogger(ProduitServiceImpl.class);
 	private List<Produit_Commandes> Produit_Cmds;
 	@Override
@@ -59,6 +61,14 @@ public class Produit_CommandesServiceImpl implements Produit_CommandesService {
 	@Override
 	public List<Produit_Commandes> search(String keyword) {
 		return null ; 
+	}
+
+	@Override
+	public float getPoidcmd(long qte, long produit_id_produit) { 
+		Produit p = produitrepository.findById(produit_id_produit).get() ; 
+		float pod=p.getPoid_produit();
+		float poidcmd=pod*qte;
+		return poidcmd;
 	}
 
 
