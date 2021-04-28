@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: spring-boot-data-jpa-entity
+Implementation-Version: 1.0
+Built-By: MedLah
+Implementation-Vendor-Id: tn.esprit.spring
+Build-Jdk: 1.8.0_281
+Implementation-URL: https://spring.io/projects/spring-boot/spring-boot
+ -data-jpa-entity
+Created-By: Maven Integration for Eclipse
+

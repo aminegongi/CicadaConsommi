@@ -94,9 +94,26 @@ public class ProduitServiceImpl implements ProduitService{
 	}
 
 	@Override
-	public List<Produit> search(String keyword) {
+	public List<Produit> searchNom(String keyword) {
 		// TODO Auto-generated method stub
 		return produiRepository.findProduitByNom(keyword);
 	}
+	
+	@Override
+	public List<Produit> searchRef(String keyword) {
+		return produiRepository.findProduitByRef(keyword);
+	}
+
+	@Override
+	public List<Produit> searchPrice(String keyword) {
+		return produiRepository.findProduitByPrice(keyword);
+	}
+
+	@Override
+	public List<Produit> searchBrand(String keyword) {
+		// TODO Auto-generated method stub
+		return produiRepository.findProduitByMarque(keyword);
+	}
+
 
 }

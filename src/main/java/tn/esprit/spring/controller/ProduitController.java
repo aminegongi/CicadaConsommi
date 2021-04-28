@@ -1,9 +1,13 @@
 package tn.esprit.spring.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.ocpsoft.rewrite.annotation.Join;
+import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpEntity;
@@ -32,150 +36,169 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 
 import tn.esprit.spring.entity.Produit;
-import tn.esprit.spring.service.ProduitService; 
+import tn.esprit.spring.service.ProduitService;
 
-@Controller
+@Scope(value = "session")
+@Controller(value = "produitcontroller")
+@ELBeanName(value = "produitcontroller")
 @RequestMapping("/produit")
+@Join(path = "/produit", to = "/produit.jsf")
 public class ProduitController {
-	@Autowired 
+	@Autowired
 	ProduitService produitservice;
+	String abc = "abc";
 
-@GetMapping("/retrieve-all-products")
-@ResponseBody
-public List<Produit> getProducts(){
-	List<Produit> produits = produitservice.retrieveAllProducts();
-	return produits;
-}
+	@GetMapping("/retrieve-all-products")
+	@ResponseBody
+	public List<Produit> getProducts() {
+		List<Produit> produits = produitservice.retrieveAllProducts();
+		return produits;
+	}
 
+	@GetMapping("/retrieve-product/{id_product}")
+	@ResponseBody
+	public Produit getProductById(@PathVariable("id_product") String id_product) {
+		return produitservice.retrieveProducts(id_product);
+	}
 
-@GetMapping("/retrieve-product/{id_product}")
-@ResponseBody
-public Produit getProductById(@PathVariable("id_product") String id_product){
-	return produitservice.retrieveProducts(id_product);
-}
+	@PostMapping("/add-product")
+	@ResponseBody
+	public Produit addProduct(@RequestBody Produit p) {
+		Produit produit = produitservice.addProducts(p);
+		return produit;
+	}
 
-@PostMapping("/add-product")
-@ResponseBody
-public Produit addProduct(@RequestBody Produit p){
-	Produit produit= produitservice.addProducts(p);
-	return produit;
-}
+	@DeleteMapping("/delete-product/{id_product}")
+	@ResponseBody
+	public ResponseEntity deleteProduct(@PathVariable("id_product") String id_product) {
+		produitservice.deleteProducts(id_product);
+		return new ResponseEntity(HttpStatus.OK);
+	}
 
-@DeleteMapping("/delete-product/{id_product}")
-@ResponseBody
-public ResponseEntity deleteProduct(@PathVariable("id_product") String id_product){
-	produitservice.deleteProducts(id_product);
-	return new ResponseEntity(HttpStatus.OK);
-}
+	@PutMapping("/update-product")
+	@ResponseBody
+	public Produit UpdateProduct(@RequestBody Produit produits) {
+		return produitservice.updateProducts(produits);
+	}
 
-@PutMapping("/update-product")
-@ResponseBody
-public Produit UpdateProduct(@RequestBody Produit produits){
-	return produitservice.updateProducts(produits);
-}
+	@GetMapping("/Etat-produit/{id_product}")
+	@ResponseBody
+	public String Etat_product(@PathVariable("id_product") String id_product) {
+		String etat = produitservice.Etat_produit(id_product);
+		if (etat.contains("Expire"))
+			return "Expired";
+		else if (etat.contains("equal"))
+			return "both dates are equal";
+		else
+			return "Not expired";
+	}
 
-@GetMapping("/Etat-produit/{id_product}")
-@ResponseBody
-public String Etat_product(@PathVariable("id_product") String id_product){
-//	boolean v = 
-	String etat = produitservice.Etat_produit(id_product);
-	if (etat.contains("Expire"))
-		return "Expired";
-	else if (etat.contains("equal"))
-		return "both dates are equal";
-	else
-		return "Not expired";
-}
+	@GetMapping("/verify/{id_product}")
+	@ResponseBody
+	public String verify619(@PathVariable("id_product") String id_product) {
+		// boolean v =
+		if (produitservice.verification619(id_product) == true)
+			return "Tounsi";
+		else
+			return "Mch Tounsi";
+	}
 
-@GetMapping("/verify/{id_product}")
-@ResponseBody
-public String verify619(@PathVariable("id_product") String id_product){
-//	boolean v = 
-	if (produitservice.verification619(id_product) == true) 
-		return "Tounsi";
-	else 
-		return "mch Tounsi";
-}
+	@GetMapping("/Rate/{id_product}")
+	@ResponseBody
+	public String Rating(@PathVariable("id_product") String id_product) {
+		String nom_produit = produitservice.Rating(id_product);
+		return "Rating the recived product : " + nom_produit;
+	}
 
+	// -----------------------------
+	@RequestMapping("/greeting")
+	public String greeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
+			Model model) {
+		model.addAttribute("name", name);
+		return "products/product";
+	}
 
-@GetMapping("/Rate/{id_product}")
-@ResponseBody
-public String Rating(@PathVariable("id_product") String id_product){
-	String nom_produit = produitservice.Rating(id_product);
-		return "Rating the recived product : "+ nom_produit ;
-}
+	@GetMapping("/all")
+	public String showAll(Model model) {
+		model.addAttribute("produits", produitservice.retrieveAllProducts());
+		return "products/ProductsList";
+	}
 
-//-----------------------------
-@RequestMapping("/greeting")
-public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
-	model.addAttribute("name", name);
-	return "products/product";
-}
+	@DeleteMapping("/delete/{id_product}")
+	public String DeleteProductPage(@PathVariable("id_product") String id_product, Model model) {
+		produitservice.deleteProducts(id_product);
+		model.addAttribute("produit", produitservice.retrieveProducts(id_product));
+		return "products/DeleteProduct";
+	}
 
-@GetMapping("/all")
-public String showAll(Model model) {
-    model.addAttribute("produits", produitservice.retrieveAllProducts());
-    return "products/ProductsList";
-}
+	@GetMapping("/show_product/{id_product}")
+	public String ShowById(@PathVariable("id_product") String id_product, Model model) {
+		Produit p = produitservice.retrieveProducts(id_product);
+		model.addAttribute("pageTitle", "Result for " + p.getNom_produit());
+		model.addAttribute("produit", produitservice.retrieveProducts(id_product));
+		return "products/ProductList";
+	}
+	
+	
+//	-----------------Partie EDIT --------------------------
+	@RequestMapping("/edit/{id_product}")
+	public ModelAndView showEditProductPage(@PathVariable(name = "id_product") String id_product) {
+		ModelAndView mav = new ModelAndView("products/edit_product");
+		Produit product =  produitservice.retrieveProducts(id_product); 
+		mav.addObject("product", product); 
+		return mav;
+	}
 
+	
+//	-----------------Partie Create --------------------------
+	@RequestMapping("/new")
+	public String showNewProductPage(Model model) {
+		Produit product = new Produit();
+		model.addAttribute("product", product);
 
-@DeleteMapping("/delete/{id_product}")
-public String DeleteProductPage(@PathVariable("id_product") String id_product,Model model){
-	produitservice.deleteProducts(id_product);
-	 model.addAttribute("produit",produitservice.retrieveProducts(id_product));
-	return "products/DeleteProduct";
-}
+		return "products/CreateProduct";
+	}
 
-@GetMapping("/show_product/{id_product}")
-public String ShowById(@PathVariable("id_product") String id_product , Model model)
-{
-	Produit p =produitservice.retrieveProducts(id_product);
-	model.addAttribute("pageTitle","Result for "+ p.getNom_produit());
-	 model.addAttribute("produit",produitservice.retrieveProducts(id_product));
-	 return "products/ProductList";
-}
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public String saveProduct(@ModelAttribute("product") Produit product ) {
+		Date date = new Date(System.currentTimeMillis());
+//		LocalDate date = LocalDate.now();
+		product.setDateAjout_produit(date);
+		produitservice.addProducts(product);
+		return "products/add";
+	}
+//	-----------------Partie SEARCH --------------------------
+	@GetMapping("/search")
+	public String search(@Param("keyword") String keyword,@Param("choix") String choix, Model model) {
+		List<Produit> searchResult = null ;
+		String c=(String) model.getAttribute(choix);
+		if (c == "ByName") {
+			searchResult = produitservice.searchNom(keyword);
+		}else if (c == "ByBrand"){
+			 produitservice.searchBrand(keyword);
+		}else if(c == "ByRef"){
+			 produitservice.searchRef(keyword);
+		}else{
+			searchResult = produitservice.searchNom(keyword);
+		}
+		
+		model.addAttribute("choix", choix);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("pageTitle", " Search Results for '" + keyword + "'" + choix);
+		model.addAttribute("SearchResult", searchResult);
 
+		return "products/search_result";
+	}
 
-//@RequestMapping(value = "/create")
-//@GetMapping("/create")
-//public String submit(Model model) {
-//	
-//    	produitservice.addProducts(new Produit());
-////    	produitservice.addProducts(new Produit());
-//    
-//    model.addAttribute("form", produitservice);
-//    return "products/CreateProduct";
-//}
-
-
-@RequestMapping(value = "/create", method = RequestMethod.GET)
-public ModelAndView showForm() {
-    return new ModelAndView("products/CreateProduct", "produit", new Produit());
-}
-
-@RequestMapping(value = "/created-product", method = RequestMethod.POST)
-public String submitproduct(@Valid @ModelAttribute("produit")Produit produit, 
-  BindingResult result, ModelMap model) {
-    if (result.hasErrors()) {
-        return "error";
-    }
-model.addAttribute("productID", produit.getId_produit());
-model.addAttribute("productName", produit.getNom_produit());
-model.addAttribute("productPrice", produit.getPrix_produit());
-model.addAttribute("productDescription", produit.getDescription_produit());
-model.addAttribute("productBrand", produit.getMarque_produit());
-model.addAttribute("productBarCode", produit.getCodeBarre_produit());
-    return "products/ProductList";
-}
-
-@GetMapping("/search")
-public String search(@Param("keyword") String keyword, Model model) {
-	List<Produit> searchResult = produitservice.search(keyword);
-	model.addAttribute("keyword",keyword);
-	model.addAttribute("pageTitle"," Search Results for '"+keyword+"'");
-	model.addAttribute("SearchResult",searchResult);
-
-	return "products/search_result";
-}
- 
+	
+	@RequestMapping("/delete/{id_product}")
+	public String deleteProduit(@PathVariable("id_product") String id_product, Model model) {
+		Produit p =produitservice.retrieveProducts(id_product);
+		model.addAttribute("produit",  p);
+		produitservice.deleteProducts(id_product);
+		return "products/Delete";
+	}
+	
+	
+	
 }

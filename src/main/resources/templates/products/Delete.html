@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Delete</title>
+</head>
+<body>
+  <div th:replace="header :: myheader"></div>
+<h1>Product Delete Successfully</h1>
+<form th:object="${produit}" ></form>
+  <table border="0" cellpadding="10">
+                <tr>             
+                    <td>Product ID:</td>
+                    <td>
+                    <span th:text="*{produit.id_produit}"> 
+                    </td>
+                </tr>        
+			<tr>                  
+					<td>Product Name:</td>                     
+					<td><span th:text="*{produit.nom_produit}" ></td>          
+				</tr>
+				 
+				<tr>
+					<td>Product Price:</td>                     
+					<td><span type="text" th:text="*{produit.prix_produit}" ></td>
+				</tr>
+				 
+				<tr>
+					<td>Product Image:</td>               
+					<td><img src="*{produit.img_produit}" alt="Trulli" width="500" height="333"></td>
+				</tr>
+				 
+				<tr>               
+					<td>Product Description:</td>                     
+					<td><span type="text" th:text="*{produit.description_produit}" ></td>           
+				</tr>
+				 
+				<tr>
+					                    
+					<td>Product's Brand:</td>                     
+					<td><span type="text" th:text="*{produit.marque_produit}" ></td>
+					                
+				</tr>
+				 
+<!-- 				<tr>                  -->
+<!-- 					<td>Product Bar code:</td>                      -->
+<!-- 					<td><span type="text" th:text="*{produit.code_barre_produit}" ></td>                -->
+<!-- 				</tr> -->
+				 
+				<tr>
+					                    
+					<td>Product Reference:</td>                     
+					<td><span type="text" th:text="*{produit.ref_produit}" ></td>           
+				</tr>
+				 
+				<tr>
+					                    
+					<td>Product Add Date:</td>                     
+					<td><span type="date" th:text="*{produit.date_ajout_produit}" ></td>         
+				</tr>
+
+				<tr>
+					                    
+					<td>Product Creation Date:</td>                     
+					<td><span type="date" th:text="*{produit.date_fabrication_produit}" ></td>         
+				</tr>
+
+				<tr>
+					                    
+					<td>Product Expiration Date :</td>                     
+					<td><span type="date" th:text="*{produit.date_expiration_produit	}" ></td>         
+				</tr> 
+            </table>
+<div th:replace="footer :: myfooter"></div>
+</body>
+</html>

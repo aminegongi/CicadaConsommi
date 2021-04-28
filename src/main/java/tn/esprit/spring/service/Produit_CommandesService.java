@@ -6,10 +6,10 @@ import tn.esprit.spring.entity.Produit_Commandes;;
 
 public interface Produit_CommandesService {
 	List<Produit_Commandes> retrieveAllProducts_commands();
-	Produit_Commandes addProducts(Produit_Commandes pc);
-	void addProduit(Produit_Commandes pc);
-	void deleteProducts(String id);
+	Produit_Commandes addProduits_cmds(Produit_Commandes pc);
+	void addProduit_cmd(Produit_Commandes pc);
+	void deleteProduct_cmd(String id_Produit_Cmd);
 	Produit_Commandes updateProducts(Produit_Commandes pc);
-	Produit_Commandes retrieveProducts(String id);
+	Produit_Commandes retrieveProducts_cmds(String id_Produit_Cmd);
 	List<Produit_Commandes> search(String keyword);
 }

@@ -26,39 +26,47 @@ public class Produit_CommandesServiceImpl implements Produit_CommandesService {
 	}
 
 	@Override
-	public Produit_Commandes addProducts(Produit_Commandes pc) {
-		// TODO Auto-generated method stub
-		return null;
+	public void addProduit_cmd(Produit_Commandes pc) {
+		this.Produit_Cmds.add(pc);
+		
 	}
-
+	
 	@Override
-	public void addProduit(Produit_Commandes pc) {
+	public Produit_Commandes addProduits_cmds(Produit_Commandes pc) {
+		return Produit_cmdRepository.save(pc);
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
-	public void deleteProducts(String id) {
-		// TODO Auto-generated method stub
-		
+	public Produit_Commandes retrieveProducts_cmds(String id_Produit_Cmd) {
+		return Produit_cmdRepository.findById(Long.parseLong(id_Produit_Cmd)).get() ; 
+	}
+	
+	
+	@Override
+	public void deleteProduct_cmd(String id_Produit_Cmd) { 
+		Produit_cmdRepository.deleteById(Long.parseLong(id_Produit_Cmd));
 	}
 
 	@Override
 	public Produit_Commandes updateProducts(Produit_Commandes pc) {
-		// TODO Auto-generated method stub
-		return null;
+		return Produit_cmdRepository.save(pc);
 	}
 
-	@Override
-	public Produit_Commandes retrieveProducts(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public List<Produit_Commandes> search(String keyword) {
-		// TODO Auto-generated method stub
-		return null;
+		return null ; 
 	}
+
+
+
+	
+
+
+
+	
 
 }

@@ -24,6 +24,7 @@ public class Produit  implements Serializable {
 	private float prix_produit;
 	private String marque_produit;
 	private String codeBarre_produit;
+	private float poid_produit;
 	private int rating;
 	private Date dateExpiration_produit;
 	private Date dateFabrication_produit;
@@ -35,8 +36,9 @@ public class Produit  implements Serializable {
 	private Set<Produit_Commandes> P_cmd;
 	
 	public Produit(long id_produit, long ref_produit, String nom_produit, String img_produit, float prix_produit,
-			String marque_produit, String codeBarre_produit, Date dateExpiration_produit, Date dateFabrication_produit,
-			Date dateAjout_produit, String description_produit, String tab_produit) {
+			String marque_produit, String codeBarre_produit, float poid_produit, int rating,
+			Date dateExpiration_produit, Date dateFabrication_produit, Date dateAjout_produit,
+			String description_produit, String tab_produit, Set<Produit_Commandes> p_cmd) {
 		super();
 		this.id_produit = id_produit;
 		this.ref_produit = ref_produit;
@@ -45,15 +47,20 @@ public class Produit  implements Serializable {
 		this.prix_produit = prix_produit;
 		this.marque_produit = marque_produit;
 		this.codeBarre_produit = codeBarre_produit;
+		this.poid_produit = poid_produit;
+		this.rating = rating;
 		this.dateExpiration_produit = dateExpiration_produit;
 		this.dateFabrication_produit = dateFabrication_produit;
 		this.dateAjout_produit = dateAjout_produit;
 		Description_produit = description_produit;
 		Tab_produit = tab_produit;
+		P_cmd = p_cmd;
 	}
+
 	public Produit(long ref_produit, String nom_produit, String img_produit, float prix_produit, String marque_produit,
-			String codeBarre_produit, Date dateExpiration_produit, Date dateFabrication_produit, Date dateAjout_produit,
-			String description_produit, String tab_produit) {
+			String codeBarre_produit, float poid_produit, int rating, Date dateExpiration_produit,
+			Date dateFabrication_produit, Date dateAjout_produit, String description_produit, String tab_produit,
+			Set<Produit_Commandes> p_cmd) {
 		super();
 		this.ref_produit = ref_produit;
 		this.nom_produit = nom_produit;
@@ -61,12 +68,16 @@ public class Produit  implements Serializable {
 		this.prix_produit = prix_produit;
 		this.marque_produit = marque_produit;
 		this.codeBarre_produit = codeBarre_produit;
+		this.poid_produit = poid_produit;
+		this.rating = rating;
 		this.dateExpiration_produit = dateExpiration_produit;
 		this.dateFabrication_produit = dateFabrication_produit;
 		this.dateAjout_produit = dateAjout_produit;
 		Description_produit = description_produit;
 		Tab_produit = tab_produit;
+		P_cmd = p_cmd;
 	}
+
 	public Produit() {
 		super();
 	}
@@ -105,6 +116,15 @@ public class Produit  implements Serializable {
 	public void setPrix_produit(float prix_produit) {
 		this.prix_produit = prix_produit;
 	}
+	
+	public float getPoid_produit() {
+		return poid_produit;
+	}
+
+	public void setPoid_produit(float poid_produit) {
+		this.poid_produit = poid_produit;
+	}
+
 	public String getMarque_produit() {
 		return marque_produit;
 	}

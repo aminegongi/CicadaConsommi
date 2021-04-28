@@ -2,20 +2,31 @@ package tn.esprit.spring.controller;
 
 import java.util.List;
 
+import org.ocpsoft.rewrite.annotation.Join;
+import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
+import tn.esprit.spring.controller.ProduitController;
+import tn.esprit.spring.controller.ProduitController;
 import tn.esprit.spring.entity.Commande;
-
 import tn.esprit.spring.service.CommandeService;
-@RestController
+
+
+@Scope(value = "session")
+@Controller(value = "commandecontroller")
+@ELBeanName(value = "commandecontroller")
+@RequestMapping("/commande")
+//@Join(path = "/commande", to = "/commande.jsf")
 public class CommandeController {
 	@Autowired
 	CommandeService commandeservice ; 
