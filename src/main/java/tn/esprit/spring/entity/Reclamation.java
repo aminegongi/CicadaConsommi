@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,9 +24,7 @@ public class Reclamation implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_reclamation")
-	private long Id;
-	@Column(name = "type")
-	private String  type; //0: fonctionnement de l'application  1:Produit 2:livraison
+	private long id_reclamation;
 	@Column(name = "titre")
 	private String Titre;
 	@Column(name = "Image")
@@ -33,20 +33,43 @@ public class Reclamation implements Serializable {
 	private String Description;
 	@Column(name = "datePublication", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date DatePublication;
-	@Column(name = "Etat")
-	private String Etat; //0:Non traité   1:en cours de traintement  2:Traité 
 	@Column(name = " Decision ")
 	private String Decision ;
+	 @Enumerated(EnumType.STRING)
+	 @Column(name = " State ", nullable = false )
+	   private RState State;
+	 @Enumerated(EnumType.STRING)
+	 @Column(name = " Type " , nullable = false )
+	   private  RType Type ;
 	
 	@ManyToOne 
 	User reclamationUser;
 
-	public long getId() {
-		return Id;
+	
+
+
+	public RState getState() {
+		return State;
 	}
 
-	public void setId(long id) {
-		Id = id;
+	public void setState(RState state) {
+		State = state;
+	}
+
+	public RType getType() {
+		return Type;
+	}
+
+	public void setType(RType type) {
+		Type = type;
+	}
+
+	public long getId_reclamation() {
+		return id_reclamation;
+	}
+
+	public void setId_reclamation(long id_reclamation) {
+		this.id_reclamation = id_reclamation;
 	}
 
 	public Reclamation() {
@@ -54,13 +77,7 @@ public class Reclamation implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getType() {
-		return type;
-	}
 
-	public void setType(String type) {
-		this.type = type;
-	}
 
 	public String getTitre() {
 		return Titre;
@@ -94,13 +111,6 @@ public class Reclamation implements Serializable {
 		DatePublication = datePublication;
 	}
 
-	public String getEtat() {
-		return Etat;
-	}
-
-	public void setEtat(String etat) {
-		Etat = etat;
-	}
 
 	public String getDecision() {
 		return Decision;

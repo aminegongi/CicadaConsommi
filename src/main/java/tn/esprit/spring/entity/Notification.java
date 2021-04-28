@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,16 +20,32 @@ public class Notification implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_Notif")
-	private long Id;
+	private long id_Notification;
 	@Column(name = "date", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date Date;
 	@Column(name = "Icone")
 	private String Icone;
 	@Column(name = "description")
 	private String Description;
-	public long getId() {
-		return Id;
+	 @Enumerated(EnumType.STRING)
+	 @Column(name = " State ", nullable = false )
+	   private NState State;
+	public NState getState() {
+		return State;
 	}
+	public void setState(NState state) {
+		State = state;
+	}
+	
+	
+	public long getId_Notification() {
+		return id_Notification;
+	}
+	public void setId_Notification(long id_Notification) {
+		this.id_Notification = id_Notification;
+	}
+
+
 	@ManyToOne 
 	User NotifUser;
 	
@@ -58,9 +76,7 @@ public class Notification implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	public void setId(long id) {
-		Id = id;
-	}
+	
 	public Notification() {
 		super();
 		// TODO Auto-generated constructor stub
