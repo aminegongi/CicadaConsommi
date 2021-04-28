@@ -18,7 +18,7 @@ import tn.esprit.spring.entity.React;
 import tn.esprit.spring.service.ReactService;
 
 @RestController  
-@RequestMapping("/react")
+@RequestMapping("/client/react")
 public class ReactController {
 	
 	@Autowired  
