@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import tn.esprit.spring.entity.Produit;
 import tn.esprit.spring.entity.Sujet;
 import tn.esprit.spring.service.SujetService;
 
@@ -34,10 +38,9 @@ public class SujetController {
 	@PostMapping("/add")
 	@ResponseBody
 	private String saveSujets(@RequestBody Sujet sujets) {
-		
-		return sujetservice.save(sujets); 
-	}
 
+		return sujetservice.save(sujets);
+	}
 
 	@GetMapping("/get/{sujetid}")
 	@ResponseBody
@@ -57,37 +60,41 @@ public class SujetController {
 		sujetservice.update(sujet);
 		return sujet;
 	}
-	
+
 	@DeleteMapping("/noInter")
 	@ResponseBody
 	private void deleteSujetNoInteraction() {
 		sujetservice.deleteSujetNoInteraction();
 	}
-	
+
 	@GetMapping("/getSujet/Comm")
 	@ResponseBody
-	private List<Map< Sujet , BigInteger >> getNbComSujets() {
+	private List<Map<Sujet, BigInteger>> getNbComSujets() {
 		return sujetservice.getNbComSujets();
 	}
-	
+
 	@GetMapping("/getSujet/Rating")
 	@ResponseBody
-	private List<Map< Sujet , BigInteger >> getSumRatSujets() {
+	private List<Map<Sujet, BigInteger>> getSumRatSujets() {
 		return sujetservice.getSumRatSujets();
 	}
-	
+
 	@GetMapping("/rech/{r}")
 	@ResponseBody
 	private List<Sujet> rechercheSujet(@PathVariable("r") String r) {
 		return sujetservice.rechercheSujet(r);
 	}
-	
+
 	@GetMapping("/sujetUser/{id}")
 	@ResponseBody
 	private List<Sujet> SujetParUSer(@PathVariable("id") Long id) {
 		return sujetservice.sujetParUser(id);
 	}
 	
-	
+	@GetMapping("/pertUser/{id}")
+	@ResponseBody
+	private List<Sujet> sujetParPertinenceUser(@PathVariable("id") int id) {
+		return sujetservice.rechPertinenceUser(id);
+	}
 
 }

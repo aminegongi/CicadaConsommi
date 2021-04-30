@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Recherche Sujet</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	
+	<br>
+	<div class="container" style="text-align: center;">
+	<h3> Résultat Recherche : [[${keyword}]] </h2>
+		<br>
+		<hr>
+		<table class="table">
+			<thead>
+				<tr>
+					<th style="text-align: center;" scope="col">#</th>
+					<th style="text-align: center;" scope="col">Titre</th>
+					<th style="text-align: center;" scope="col">Description</th>
+					<th style="text-align: center;" scope="col">Date Publication</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${SearchResult.empty}">
+					<td colspan="2">Pas de Sujet avec votre recherche [[${keyword}]] :( </td>
+				</tr>
+				<tr th:each="sujet : ${SearchResult}">
+					<td><span th:text="${sujet.id}"></span></td>
+					<td><span th:text="${sujet.Titre}"></span></td>
+					<td><span th:text="${sujet.description}"></span></td>
+					<td><span th:text="${sujet.datePublication}"></span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

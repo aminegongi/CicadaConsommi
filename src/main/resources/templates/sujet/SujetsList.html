@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Liste des Sujets</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<h2 style="text-align: center;">List Des Sujets</h2>
+	<br>
+	<div class="container" style="text-align: center;">
+		<form class="form-inline my-2 my-lg-0"
+			th:action="@{/client/sujet/front/rech}" method="GET">
+			<input type="search" name="keyword" size="50"
+				class="form-control mr-sm-2" placeholder="Recherche" required /> <input
+				type="submit" value="Recherche"
+				class="btn btn-outline-success my-1 my-sm-0" />
+		</form>
+		<br>
+		<hr>
+		<table class="table">
+			<thead>
+				<tr>
+					<th style="text-align: center;" scope="col">#</th>
+					<th style="text-align: center;" scope="col">Titre</th>
+					<th style="text-align: center;" scope="col">Description</th>
+					<th style="text-align: center;" scope="col">Date Publication</th>
+					<th style="text-align: center;" scope="col">Date Publication</th>
+					<th style="text-align: center;" scope="col">Nombre de Commentaire</th>
+					<th style="text-align: center;" scope="col">Nombre de Vote</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${sujets.empty}">
+					<td colspan="2">Pas de Sujet :(</td>
+				</tr>
+				<tr th:each="sujet : ${sujets}">
+					<td><span th:text="${sujet.id}"></span></td>
+					<td><span th:text="${sujet.Titre}"></span></td>
+					<td><span th:text="${sujet.description}"></span></td>
+					<td><span th:text="${sujet.datePublication}"></span></td>
+					<td><span th:text="${sujet.SujetUser.username}"></span></td>
+					<td><span th:text="${sujet.sujetComms.size}"></span></td>
+					<td><span th:text="${sujet.sujetRating.size}"></span></td>
+					<td>
+						<form th:action="@{/clinet/sujet/front/delete/{id}/(id=${sujet.id})}"
+							method="GET">
+							<input class="btn btn-primary"
+								onclick="return confirm(' met2aked ya weldi ?');"
+								type="submit" value="Delete">
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

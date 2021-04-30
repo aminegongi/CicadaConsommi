@@ -21,6 +21,8 @@ import tn.esprit.spring.repository.SujetRepository;
 public class SujetService {
 	@Autowired
 	SujetRepository sujetRepository;
+	@Autowired
+	SujetRechercheService srs;
 
 	public List<Sujet> getAll() {
 		List<Sujet> sujets = new ArrayList<Sujet>();
@@ -36,8 +38,8 @@ public class SujetService {
 		JaroWinkler jw = new JaroWinkler();
 
 		for (Sujet sujetE : getAll()) {
-			if  ( jw.similarity(sujets.getTitre().toUpperCase(), sujetE.getTitre().toUpperCase()) > 0.9 ){
-				return "Sujet Non Unique Merci de changer le Titre" ;
+			if (jw.similarity(sujets.getTitre().toUpperCase(), sujetE.getTitre().toUpperCase()) > 0.98) {
+				return "Sujet Non Unique Merci de changer le Titre";
 			}
 		}
 		sujetRepository.save(sujets);
@@ -51,31 +53,47 @@ public class SujetService {
 	public void delete(int id) {
 		sujetRepository.deleteById(id);
 	}
-	
-	@Scheduled(cron = "0 0 0 * * *" , zone="Africa/Tunis") //every day
+
+	@Scheduled(cron = "0 0 0 * * *", zone = "Africa/Tunis") // every day
 	public void deleteSujetNoInteraction() {
 		sujetRepository.deleteSujetWithNoInteraction();
 	}
-	
-	public List<Map< Sujet , BigInteger >> getNbComSujets() {
+
+	public List<Map<Sujet, BigInteger>> getNbComSujets() {
 		return sujetRepository.getNbComSujets();
 	}
-	
-	public List<Map< Sujet , BigInteger >> getSumRatSujets() {
+
+	public List<Map<Sujet, BigInteger>> getSumRatSujets() {
 		return sujetRepository.getSumRatSujets();
 	}
-	
+
 	public List<Sujet> rechercheSujet(String rech) {
-		/*SujetRechercheService srs = new SujetRechercheService();
 		User u = new User();
 		u.setId(Long.valueOf(1));
-		srs.save(new SujetRecherche(rech, u ));*/
-		return sujetRepository.rechercheSujet(rech);
+		List<Sujet> listRech = sujetRepository.rechercheSujet(rech);
+		if (!listRech.isEmpty())
+			srs.save(new SujetRecherche(rech, u));
+		return listRech;
 	}
-	
+
 	public List<Sujet> sujetParUser(Long id) {
-		User u = new User() ;
+		User u = new User();
 		u.setId(id);
 		return sujetRepository.SujetParUser(u);
+	}
+
+	public List<Sujet> rechPertinenceUser(int uid){
+		List<String> rsu = srs.listSrparUser(uid);
+		List<Sujet> sg = getAll() ;
+		List<Sujet> sgp = new ArrayList<>();
+		
+		for (String rs : rsu){
+			for (Sujet sujet : sg) {
+				if( sujet.getTitre().toUpperCase().contains(rs.toUpperCase()) ){
+					sgp.add(sujet);
+				}
+			}
+		}
+		return sgp;
 	}
 }
