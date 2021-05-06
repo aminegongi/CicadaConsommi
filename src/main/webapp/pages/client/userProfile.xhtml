@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/template/template.xhtml">
+
+
+	<ui:param name="page_name" value="CT-My Account" />
+	<ui:param name="page_title" value="My Account"></ui:param>
+	<ui:param name="page_title_sub" value="Profile"></ui:param>
+	<ui:define name="content">
+	
+	<div class="page-content">
+        <div class="dashboard">
+          <div class="container">
+            <div class="row">
+              <ul class="nav nav-dashboard flex-column mb-3 mb-md-0">
+                <li class="nav-item">
+                  <a class="nav-link active" href="/pages/client/userProfile.jsf" > Profile </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/pages/client/userReclamation.jsf" > Claim </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="tab-downloads-link"
+                  href="#tab-downloads">Downloads</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="tab-address-link"
+                  href="#tab-address">Adresses</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="tab-account-link"
+                  href="#tab-account">Account Details</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Sign Out</a>
+                </li>
+              </ul>
+              <!--  End .col-lg-3 -->
+              <div class="col-md-8 col-lg-9">
+                <div class="tab-content">
+                  <div class="show active">
+                    <h:form>
+                    	<h:outputText> ADDDD </h:outputText>
+                    	<h:inputText  ></h:inputText>
+                    </h:form>
+                  </div>
+                  <!--  .End .tab-pane -->
+                  
+                </div>
+              </div>
+              <!--  End .col-lg-9 -->
+            </div>
+            <!--  End .row -->
+          </div>
+          <!--  End .container -->
+        </div>
+        <!--  End .dashboard -->
+      </div>
+      <!--  End .page-content -->
+	
+	
+	</ui:define>
+</ui:composition>
+
+
+
+
+
+
+

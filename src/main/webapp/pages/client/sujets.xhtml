@@ -1,0 +1,182 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/template/template.xhtml">
+
+
+	<ui:param name="page_name" value="CT-Les Sujets" />
+	<ui:param name="page_title" value="Forum"></ui:param>
+	<ui:param name="page_title_sub" value="Les Sujets"></ui:param>
+	<ui:define name="content">
+	<div class="page-content">
+        <div class="container">
+          <div class="row" style="flex-wrap:nowrap;">
+            <div class="col-lg-8">
+            
+            
+            <ui:repeat value="#{fsujetController.listSujetRechTri}" var="sujets">
+	            <!-- min houni ka3ba card blog -->
+	              <div class="row align-items-center">
+	                <div class="col-lg-10">
+	                  <div class="entry-body">
+	                    <div class="entry-meta">
+	                      <span class="entry-author"> by #{sujets.sujetUser.username}</span> 
+	                      <span class="meta-separator">|</span>
+	                      <h:outputText value="#{sujets.datePublication}">
+						     <f:convertDateTime pattern="MM/dd/yyyy" type="date" />
+						  </h:outputText> 
+						  ,
+						  <h:outputText value="#{sujets.datePublication}">
+						     <f:convertDateTime pattern="HH:mm" type="date" />
+						  </h:outputText>
+	                      <span class="meta-separator">|</span> 
+	                      #{sujets.sujetComms.size()} Comments
+	                      <span class="meta-separator">|</span> 
+	                      #{sujets.sujetRating.size()} Rates
+	                    </div>
+	                    <!--  End .entry-meta -->
+	                    <h2 class="entry-title" style="margin-bottom: 20px;margin-top: 13px;">
+	                      #{sujets.titre}
+	                    </h2>
+	                    <!--  End .entry-title -->
+	                    <div class="entry-content">
+	                      <p>
+	                        #{fn:substring(sujets.description, 0,250)} ...
+	                      </p>
+	                      
+	                      <h:form>
+		                      <h:commandLink class="read-more" value="Continue Reading" action ="#{fsujetController.showsujet()}" >
+		                      <f:param name="id" value="#{sujets.id}" />
+		                      </h:commandLink>
+						  </h:form>
+	                    </div>
+	                    <!--  End .entry-content -->
+	                  </div>
+	                  <!--  End .entry-body -->
+	                </div>
+	                <!--  End .col-md-7 -->
+	              </div>
+	              <!--  End .row -->
+	              <!--  End .entry -->
+	              <hr/>
+	              <!-- Fin ka3ba card blog -->
+              </ui:repeat>
+              
+              
+              <!--
+              <ul class="pagination">
+                <li class="page-item disabled">
+                  <a class="page-link page-link-prev" href="#" tabindex="-1">
+                  <span><i class="icon-long-arrow-left"></i></span>Prev
+                  </a>
+                </li>
+                <li class="page-item active">
+                  <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link page-link-next" href="#"> Next <span><i
+                  class="icon-long-arrow-right"></i></span> </a>
+                </li>
+              </ul>
+              -->
+            </div>
+            <!--  End -->
+            <!--  .col-lg-7 -->
+            <div class="sidebar">
+              <div class="widget widget-search">
+                <h3 class="widget-title">
+                  Search
+                </h3>
+                <!--  End .widget-title -->
+                
+                <h:form>
+                  <label for="ws" class="sr-only">Search in blog</label>
+                  <h:inputText class="form-control" value="#{fsujetController.recherche}" pt:placeholder="Search" name="ws" id="ws" /> 
+                  <h:commandLink ajax="true" class="btn" action ="#{fsujetController.search()}" >
+	                  <i class="icon-search"></i> <span class="sr-only">Search</span>
+	                  <f:param name="rechtri" value="1" />
+                  </h:commandLink>	
+                </h:form>
+                
+              </div>
+              <!--  End .widget -->
+              <div class="widget widget-cats">
+                <h3 class="widget-title">
+                  Categories
+                </h3>
+                <!--  End .widget-title -->
+                <ul>
+                  <li>
+                    <a href="#">Lifestyle<span>3</span></a>
+                  </li>
+                  <li>
+                    <a href="#">Shopping<span>3</span></a>
+                  </li>
+                  <li>
+                    <a href="#">Fashion<span>1</span></a>
+                  </li>
+                  <li>
+                    <a href="#">Travel<span>3</span></a>
+                  </li>
+                  <li>
+                    <a href="#">Hobbies<span>2</span></a>
+                  </li>
+                </ul>
+              </div>
+              <!--  End .widget -->
+
+              <div class="widget">
+                <h3 class="widget-title">
+                  Browse Tags
+                </h3>
+                <!--  End .widget-title -->
+                <div class="tagcloud">
+                  <a href="#">fashion</a> <a href="#">style</a>
+                  <a href="#">women</a> <a href="#">photography</a>
+                  <a href="#">travel</a> <a href="#">shopping</a>
+                  <a href="#">hobbies</a>
+                </div>
+                <!--  End .tagcloud -->
+              </div>
+              <!--  End .widget -->
+              <div class="widget widget-text">
+                <h3 class="widget-title">
+                  About Blog
+                </h3>
+                <!--  End .widget-title -->
+                <div class="widget-text-content">
+                  <p>
+                    Vestibulum volutpat, lacus a ultrices sagittis, mi neque
+                    euismod dui, pulvinar nunc sapien ornare nisl.
+                  </p>
+                </div>
+                <!--  End .widget-text-content -->
+              </div>
+              <!--  End .widget -->
+            </div>
+            <!--  End .sidebar -->
+            <!--  End .col-lg-3 -->
+          </div>
+          <!--  End .row -->
+        </div>
+        <!--  End .container -->
+      </div>
+      <!--  End .page-content -->
+      <!--  End .main -->
+	</ui:define>
+</ui:composition>
+
+
+
+
+
+
+

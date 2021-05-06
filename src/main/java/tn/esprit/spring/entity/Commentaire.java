@@ -165,6 +165,15 @@ public class Commentaire {
 			return false;
 		return true;
 	}
+
+
+	public Commentaire(String description, Sujet commSujet, User commUser) {
+		this.description = description;
+		this.commSujet = commSujet;
+		this.commUser = commUser;
+	}
+	
+	
 	
 	
 	

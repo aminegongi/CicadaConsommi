@@ -18,8 +18,9 @@
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 	</properties>
 	<dependencies>
-	
-	
+
+
+		<!-- JSF -->
 		<dependency>
 			<groupId>org.apache.myfaces.core</groupId>
 			<artifactId>myfaces-impl</artifactId>
@@ -45,6 +46,11 @@
 			<version>3.4.1.Final</version>
 		</dependency>
 		<dependency>
+			<groupId>org.ocpsoft.rewrite</groupId>
+			<artifactId>rewrite-config-prettyfaces</artifactId>
+			<version>3.4.1.Final</version>
+		</dependency>
+		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>6.1</version>
@@ -54,7 +60,31 @@
 			<artifactId>lombok</artifactId>
 			<version>1.16.16</version>
 		</dependency>
+		<!-- JSF -->
 
+		<!-- Bootfaces Bootstrap -->
+		<dependency>
+			<groupId>net.bootsfaces</groupId>
+			<artifactId>bootsfaces</artifactId>
+			<version>1.5.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Bootfaces Bootstrap -->
+		
+		<!-- https://mvnrepository.com/artifact/org.primefaces.themes/all-themes -->
+		<dependency>
+		    <groupId>org.primefaces.themes</groupId>
+		    <artifactId>all-themes</artifactId>
+		    <version>1.0.10</version>
+		</dependency>
+		
+				
+		
+		<!-- Dependance ThymeLeaf 
+		<dependency> 
+		<groupId>org.springframework.boot</groupId> 
+			<artifactId>spring-boot-starter-thymeleaf</artifactId> 
+		</dependency> -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -102,10 +132,9 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
+
+		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -130,10 +159,19 @@
 			<artifactId>spring-security-web</artifactId>
 		</dependency>
 		
+		<!-- PrettyTime -->
+		<!-- https://mvnrepository.com/artifact/org.ocpsoft.prettytime/prettytime -->
+		<dependency>
+		    <groupId>org.ocpsoft.prettytime</groupId>
+		    <artifactId>prettytime</artifactId>
+		    <version>4.0.0.Final</version>
+		</dependency>
+		
+
 	</dependencies>
 
 	<build>
-	<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
+		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -141,5 +179,14 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<repositories>
+    <repository>
+        <id>prime-repo</id>
+        <name>PrimeFaces Maven Repository</name>
+        <url>http://repository.primefaces.org</url>
+        <layout>default</layout>
+    </repository>
+</repositories>
 
 </project>

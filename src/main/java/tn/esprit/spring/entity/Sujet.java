@@ -29,7 +29,7 @@ public class Sujet {
 	@Column(name = "titre")
 	private String Titre;
 
-	@Column(name = "description")
+	@Column(name = "description" , columnDefinition = "TEXT")
 	private String description;
 
 	@Column(name = "datePublication", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -43,6 +43,16 @@ public class Sujet {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ratingSujet")
 	private Set<Rating> sujetRating;
+
+	
+	
+	
+	public Sujet(String titre, String description, User sujetUser) {
+		super();
+		Titre = titre;
+		this.description = description;
+		this.sujetUser = sujetUser;
+	}
 
 	public int getId() {
 		return id;
@@ -161,5 +171,15 @@ public class Sujet {
 			return false;
 		return true;
 	}
+
+	public Sujet(int id, String titre, String description, User sujetUser) {
+		super();
+		this.id = id;
+		Titre = titre;
+		this.description = description;
+		this.sujetUser = sujetUser;
+	}
+
+	
 
 }

@@ -72,6 +72,23 @@ public class Rating {
 		return "Rating [id=" + id + ", nombre=" + nombre + ", ratingUser=" + ratingUser
 				+ "]";
 	}
+
+	public Rating(float nombre, Sujet ratingSujet, User ratingUser) {
+		super();
+		this.nombre = nombre;
+		this.ratingSujet = ratingSujet;
+		this.ratingUser = ratingUser;
+	}
+
+	public Rating(int id, float nombre, Sujet ratingSujet, User ratingUser) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.ratingSujet = ratingSujet;
+		this.ratingUser = ratingUser;
+	}
+	
+	
 	
 	
 

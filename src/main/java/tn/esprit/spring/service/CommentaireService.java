@@ -36,16 +36,16 @@ public class CommentaireService {
 		}
 		if (list.isEmpty() ){
 			commentaireRepository.save(commentaires);
-			return "Commentaire ajouté // liste vide ";
+			return "Commentaire ajouté ";
 		}
 		else{
 			for (String mot : list) {
-				if (commentaires.getDescription().contains(mot)) {
-					return "Votre Commentaire contient des mots interdits ";
+				if (commentaires.getDescription().toUpperCase().contains(mot.toUpperCase())) {
+					return "Votre Commentaire contient des mots interdits";
 				}
 			}
 			commentaireRepository.save(commentaires);
-			return "Commentaire ajouté list feha";
+			return "Commentaire ajouté ";
 		}
 	}
 
