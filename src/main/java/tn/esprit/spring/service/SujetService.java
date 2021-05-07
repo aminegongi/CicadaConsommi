@@ -20,6 +20,8 @@ import tn.esprit.spring.repository.SujetRepository;
 @Service
 public class SujetService {
 	@Autowired
+	UserServiceImpl u;
+	@Autowired
 	SujetRepository sujetRepository;
 	@Autowired
 	SujetRechercheService srs;
@@ -35,6 +37,7 @@ public class SujetService {
 	}
 
 	public String save(Sujet sujets) {
+		System.err.println(u.getuserconnected().getPhone_number());
 		JaroWinkler jw = new JaroWinkler();
 
 		for (Sujet sujetE : getAll()) {

@@ -1,5 +1,7 @@
 package tn.esprit.spring.service;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
@@ -48,4 +50,33 @@ public void sendEmailWithAttachment() throws MailException, MessagingException {
 	helper.addAttachment(classPathResource.getFilename(), classPathResource);
 
 	javaMailSender.send(mimeMessage) ;
+}
+public void sendVerificationEmail(User user)
+        throws MessagingException, UnsupportedEncodingException {
+    String toAddress = user.getEmail();
+    String fromAddress = "zeinebbl327@gmail.com";
+    String senderName = "Consommi Tounsi";
+    String subject = "Please verify your registration";
+    String content = "Dear [[name]],<br>"
+            + "Please click the link below to verify your registration:<br>"
+            +"http://[[URL]]" 
+            + "<br>Thank you,<br>"
+            + "Consommi Tounsi.";
+     
+    MimeMessage message = javaMailSender.createMimeMessage();
+    MimeMessageHelper helper = new MimeMessageHelper(message);
+     
+    helper.setFrom(fromAddress, senderName);
+    helper.setTo(toAddress);
+    helper.setSubject(subject);
+     
+    content = content.replace("[[name]]", user.getUsername());
+    String verifyURL = "localhost:8081" + "/api/auth/verify?code=" + user.getVerificationCode();
+     
+    content = content.replace("[[URL]]", verifyURL);
+     
+    helper.setText(content, true);
+     
+    javaMailSender.send(message);
+     
 }}

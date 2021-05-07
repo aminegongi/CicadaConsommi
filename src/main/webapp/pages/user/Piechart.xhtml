@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+   <title>#{helloworld.message}</title>
+</h:head>
+
+<h:body>
+   <p:chart type="pie" model="#{graphController.piemodel}" /> 
+   <p:chart type="bar" model="#{graphController.hbmodel}" />
+   <p:chart type="bubble" model="#{graphController.bcmodel}" />
+   <p:chart type="bar" model="#{graphController.barmodel}" />
+
+   
+
+
+</h:body>
+</html>
