@@ -31,6 +31,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query(value = " select t1.name as name ,t2.user_id,COUNT(t2.user_id) as nb from roles t1 INNER JOIN user_roles t2 ON t1.id = t2.role_id group by t1.id ", nativeQuery = true)
 	public List<Map<String, BigInteger>> getRoleUser();
 	
+	@Query(value = " SELECT state, COUNT(state) as nbstate from reclamation GROUP BY state ", nativeQuery = true)
+	public List<Map<String, BigInteger>> getRec();
+	
 	@Query(value = "SELECT activated from users where username = ?1 ", nativeQuery = true)
 	public boolean Checkactivation(String user);
 	

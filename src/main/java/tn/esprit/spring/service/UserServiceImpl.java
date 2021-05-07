@@ -18,6 +18,7 @@ import tn.esprit.spring.repository.UserRepository;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	UserRepository userRepository;
+	
 	public boolean verify(String verificationCode) {
 	    User user = userRepository.findByVerificationCode(verificationCode);
 	     
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
 		
 		} 
 	
-	public List<User> getAll() {
+	public List<User> getAll() {                       
 		List<User> users = new ArrayList<User>();
 		userRepository.findAll().forEach(user1 -> users.add(user1));
 		return users;
@@ -63,5 +64,5 @@ public class UserServiceImpl implements UserService {
 		return "logout succefully";
 		
 	}
-	
+
 }

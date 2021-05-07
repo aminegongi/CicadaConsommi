@@ -79,17 +79,17 @@ public class GraphController {
 
 			 hbmodel.addSeries(role);
 
-			 hbmodel.setTitle("Stats about Role ");
+			 hbmodel.setTitle("Stats about our Users ");
 			 hbmodel.setLegendPosition("e");
 			 hbmodel.setStacked(true);
 
 			 Axis xAxis = hbmodel.getAxis(AxisType.X);
-			 xAxis.setLabel("number of role per user");
+			 xAxis.setLabel("Number of Users/Role");
 			 xAxis.setMin(0);
 			 xAxis.setMax(10);
 
 			 Axis yAxis = hbmodel.getAxis(AxisType.Y);
-			 yAxis.setLabel("Gender");
+			 yAxis.setLabel("Roles");
 			return hbmodel;
 		}
 
@@ -119,7 +119,7 @@ public class GraphController {
 		public void setBcmodel(BubbleChartModel bcmodel) {
 			this.bcmodel = bcmodel;
 		}
-		//----------------------------------Bar-Chart------------------------------------------------
+		//----------------------------------Bar-Chart-Marque-produit ------------------------------------------------
 		
 		 
 		private BarChartModel barmodel;
@@ -151,35 +151,33 @@ public class GraphController {
 		}
 		
 		
-		//----------------------------------Bar-Chart-Product--------------------------------------------------
-		/*private BarChartModel barmodel;
+		//----------------------------------Bar-Chart-Reclamation--------------------------------------------------
+		private BarChartModel recmodel;
 		
-		public BarChartModel getBarmodel() {
+		public BarChartModel getRecmodel() {
 		
-			 barmodel = new BarChartModel();	
+			recmodel = new BarChartModel();	
 			 BarChartSeries avg = new BarChartSeries();
-			 List<Produit> produit =produitservice.retrieveAllProducts();
-			 
-			 for( int i=0 ; i< produit.size() ; i++){
-	
-					 avg.set(produit.get(i).getMarque_produit(),produit.get(i).getRating());
-					}
-			 avg.setLabel("Boys");	
-			 barmodel.addSeries(avg);
-			 barmodel.setTitle("Bar ");
-			 barmodel.setLegendPosition("ne");
-			 barmodel.setMouseoverHighlight(false);
-			 barmodel.setShowDatatip(false);
-			 barmodel.setShowPointLabels(true);
-			 Axis yAxis = barmodel.getAxis(AxisType.Y);
+			 List<Map<String, BigInteger>> reclamation = userrepository.getRec();
+			 for (Map<String, BigInteger> map : reclamation) {				   
+				       avg.set(String.valueOf(map.get("state")),map.get("nbstate"));
+		    
+				    }
+			 avg.setLabel("State of reclamation");	
+			 recmodel.addSeries(avg);
+			 recmodel.setTitle("Bar ");
+			 recmodel.setLegendPosition("ne");
+			 recmodel.setMouseoverHighlight(false);
+			 recmodel.setShowDatatip(false);
+			 recmodel.setShowPointLabels(true);
+			 Axis yAxis = recmodel.getAxis(AxisType.Y);
 			 yAxis.setMin(0);
-			 yAxis.setMax(100);	
-			return barmodel;
+			 yAxis.setMax(20);	
+			return recmodel;
 		}
 
-		public void setBarmodel(BarChartModel barmodel) {
-			this.barmodel = barmodel;
+		public void setRecmodel(BarChartModel recmodel) {
+			this.recmodel = recmodel;
 		}
-*/
 }
 		
