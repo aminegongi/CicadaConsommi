@@ -25,33 +25,45 @@
               </ul>
               <div class="tab-content">
                 <div id="register-2">
-                  <form action="#">
+                  <h:form >
                     <div class="form-group">
-                      <label for="register-email-2">Your email address *</label>
-                      <input class="form-control" id="register-email-2"
-                      name="register-email" />
+                      <label for="register-email-2">Your firstname *</label> 
+                      <h:inputText class="form-control" value="#{fregisterController.firstname}"></h:inputText>
+                    </div>
+                    <div class="form-group">
+                      <label for="register-email-2">Your lastname *</label> 
+                      <h:inputText class="form-control" value="#{fregisterController.lastname}"></h:inputText>
+                    </div>
+                    <div class="form-group">
+                      <label for="register-email-2">Your phone number *</label> 
+                      <h:inputText class="form-control" value="#{fregisterController.phone_number}"></h:inputText>
+                    </div>
+                    <div class="form-group">
+                      <label for="register-email-2">Your address *</label> 
+                      <h:inputText class="form-control" value="#{fregisterController.address}"></h:inputText>
+                    </div>
+                    <div class="form-group">
+                      <label for="register-email-2">Your username *</label> 
+                      <h:inputText class="form-control" value="#{fregisterController.username}"></h:inputText>
+                    </div>
+                    <div class="form-group">
+                      <label for="register-email-2">Your email address *</label> 
+                      <h:inputText class="form-control" value="#{fregisterController.email}"></h:inputText>
+                    </div>
+                    <div class="form-group">
+                      <label for="register-email-2">Your password *</label> 
+                      <h:inputSecret class="form-control" value="#{fregisterController.password}"></h:inputSecret>
                     </div>
                     <!--  End .form-group -->
-                    <div class="form-group">
-                      <label for="register-password-2">Password *</label>
-                      <input type="password" class="form-control"
-                      id="register-password-2" name="register-password" />
-                    </div>
+                    
                     <!--  End .form-group -->
                     <div class="form-footer">
-                      <button type="submit" class="btn btn-outline-primary-2">
-                      <span>SIGN UP</span> <i
-                      class="icon-long-arrow-right"></i> </button>
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input"
-                        id="register-policy-2" /> <label
-                        class="custom-control-label" for="register-policy-2">I
-                        agree to the <a href="#">privacy policy</a> *</label>
-                      </div>
+                      <h:commandButton action="#{fregisterController.register()}" value="REGISTER" class="btn btn-outline-primary-2"></h:commandButton>
+                     
                       <!--  End .custom-checkbox -->
                     </div>
                     <!--  End .form-footer -->
-                  </form>
+                  </h:form>
                   <div class="form-choice">
                     <p class="text-center">
                       or sign in with

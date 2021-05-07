@@ -39,9 +39,9 @@ public class SignupRequest {
     @Size(min = 6, max = 40)
     private String password;
     
-    
-  
-    public String getVerificationCode() {
+
+
+	public String getVerificationCode() {
 		return verificationCode;
 	}
 

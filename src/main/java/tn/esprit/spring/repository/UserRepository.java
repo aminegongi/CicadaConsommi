@@ -36,7 +36,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	
 	@Query(value = "SELECT activated from users where username = ?1 ", nativeQuery = true)
 	public boolean Checkactivation(String user);
-	
+
 	/*@Query("Select x from Users x where s.id = ?1 ")
 	public List<User> UserParId(Long id);
 	*/

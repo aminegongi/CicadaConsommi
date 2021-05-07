@@ -63,6 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/admin/**").permitAll()
 			.antMatchers("/cicada/**").permitAll()
 			.antMatchers("/client/**").permitAll()
+			.antMatchers("/user/**").permitAll()
 			.antMatchers("/produit/**").permitAll()
 			.antMatchers("/sujet/**").authenticated()
 			.anyRequest().authenticated();
