@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	public User getuserconnected(){
+		System.err.println(UserConnected.iduser);
 		return userRepository.findById(UserConnected.iduser).get();
 	}
 	

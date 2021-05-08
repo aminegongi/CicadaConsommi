@@ -45,10 +45,41 @@
               <div class="col-md-8 col-lg-9">
                 <div class="tab-content">
                   <div class="show active">
-                    <h:form>
-                    	<h:outputText> ADDDD </h:outputText>
-                    	<h:inputText  ></h:inputText>
-                    </h:form>
+                    <h:form >
+                    <div class="form-group">
+                      <label for="register-email-2">Your firstname *</label> 
+                      <h:inputText class="form-control" value="#{fsigninController.profile.firstname}"></h:inputText>
+                    </div>
+                    <div class="form-group">
+                      <label for="register-email-2">Your lastname *</label> 
+                      <h:inputText class="form-control" value="#{fsigninController.profile.lastname}"></h:inputText>
+                    </div>
+                    <div class="form-group">
+                      <label for="register-email-2">Your phone number *</label> 
+                      <h:inputText class="form-control" value="#{fsigninController.profile.phone_number}"></h:inputText>
+                    </div>
+                    <div class="form-group">
+                      <label for="register-email-2">Your address *</label> 
+                      <h:inputText class="form-control" value="#{fsigninController.profile.address}"></h:inputText>
+                    </div>
+                    <div class="form-group">
+                      <label for="register-email-2">Your username *</label> 
+                      <h:inputText class="form-control" value="#{fsigninController.profile.username}"></h:inputText>
+                    </div>
+                    <div class="form-group">
+                      <label for="register-email-2">Your email address *</label> 
+                      <h:inputText class="form-control" value="#{fsigninController.profile.email}"></h:inputText>
+                    </div>
+                    <!--  End .form-group -->
+                    
+                    <!--  End .form-group -->
+                    <div class="form-footer">
+                       <h:commandButton action="#{fsigninController.update()}" value="Modify" class="btn btn-outline-primary-2"></h:commandButton> 
+                     
+                      <!--  End .custom-checkbox -->
+                    </div>
+                    <!--  End .form-footer -->
+                  </h:form>
                   </div>
                   <!--  .End .tab-pane -->
                   

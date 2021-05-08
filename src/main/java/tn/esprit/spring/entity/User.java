@@ -64,6 +64,22 @@ public class User {
 	}
 
 
+	public User(String firstname,String lastname, long phone_number,String address,String verificationCode, boolean activated,String username,String password,Set<Role> roles) {
+		super();
+		this.id = id;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.phone_number = phone_number;
+		this.address = address;
+		this.verificationCode = verificationCode;
+		this.activated = activated;
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.roles = roles;
+	}
+
+
 	public User(String username, String email, String password) {
 		this.username = username;
 		this.email = email;

@@ -1,4 +1,4 @@
-package tn.esprit.spring.FrontController;
+package tn.esprit.spring.BackController;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,10 +26,10 @@ import tn.esprit.spring.security.services.UserDetailsImpl;
 import tn.esprit.spring.service.UserServiceImpl;
 
 @Scope(value = "session")
-@Controller(value = "bsigninController")
-@ELBeanName(value = "bsigninController")
-@Join(path = "/admin/signin", to = "/template/Back/adminsignin.jsf")
-public class UserSigninFrontController {
+@Controller(value = "fsigninController")
+@ELBeanName(value = "fsigninController")
+@Join(path = "/user/signin", to = "/pages/client/userSignIn.jsf")
+public class UserSigninBackController {
 	@Autowired
 	AuthenticationManager authenticationManager;
 
