@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.spring.entity.Produit;
 import tn.esprit.spring.entity.Sujet;
+import tn.esprit.spring.entity.User;
 import tn.esprit.spring.service.SujetService;
 
 @RestController
@@ -82,7 +83,9 @@ public class SujetController {
 	@GetMapping("/rech/{r}")
 	@ResponseBody
 	private List<Sujet> rechercheSujet(@PathVariable("r") String r) {
-		return sujetservice.rechercheSujet(r);
+		User u = new User();
+		u.setId(Long.valueOf(1));
+		return sujetservice.rechercheSujet(r,u);
 	}
 
 	@GetMapping("/sujetUser/{id}")

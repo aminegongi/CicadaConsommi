@@ -90,79 +90,10 @@
             </div>
             <!--  End -->
             <!--  .col-lg-7 -->
-            <div class="sidebar">
-              <div class="widget widget-search">
-                <h3 class="widget-title">
-                  Search
-                </h3>
-                <!--  End .widget-title -->
-                
-                <h:form>
-                  <label for="ws" class="sr-only">Search in blog</label>
-                  <h:inputText class="form-control" value="#{fsujetController.recherche}" pt:placeholder="Search" name="ws" id="ws" /> 
-                  <h:commandLink ajax="true" class="btn" action ="#{fsujetController.search()}" >
-	                  <i class="icon-search"></i> <span class="sr-only">Search</span>
-	                  <f:param name="rechtri" value="1" />
-                  </h:commandLink>	
-                </h:form>
-                
-              </div>
-              <!--  End .widget -->
-              <div class="widget widget-cats">
-                <h3 class="widget-title">
-                  Categories
-                </h3>
-                <!--  End .widget-title -->
-                <ul>
-                  <li>
-                    <a href="#">Lifestyle<span>3</span></a>
-                  </li>
-                  <li>
-                    <a href="#">Shopping<span>3</span></a>
-                  </li>
-                  <li>
-                    <a href="#">Fashion<span>1</span></a>
-                  </li>
-                  <li>
-                    <a href="#">Travel<span>3</span></a>
-                  </li>
-                  <li>
-                    <a href="#">Hobbies<span>2</span></a>
-                  </li>
-                </ul>
-              </div>
-              <!--  End .widget -->
-
-              <div class="widget">
-                <h3 class="widget-title">
-                  Browse Tags
-                </h3>
-                <!--  End .widget-title -->
-                <div class="tagcloud">
-                  <a href="#">fashion</a> <a href="#">style</a>
-                  <a href="#">women</a> <a href="#">photography</a>
-                  <a href="#">travel</a> <a href="#">shopping</a>
-                  <a href="#">hobbies</a>
-                </div>
-                <!--  End .tagcloud -->
-              </div>
-              <!--  End .widget -->
-              <div class="widget widget-text">
-                <h3 class="widget-title">
-                  About Blog
-                </h3>
-                <!--  End .widget-title -->
-                <div class="widget-text-content">
-                  <p>
-                    Vestibulum volutpat, lacus a ultrices sagittis, mi neque
-                    euismod dui, pulvinar nunc sapien ornare nisl.
-                  </p>
-                </div>
-                <!--  End .widget-text-content -->
-              </div>
-              <!--  End .widget -->
-            </div>
-            <!--  End .sidebar -->
+            
+            <ui:include src="/pages/client/sujetSideBar.xhtml"/>
+            
+            
             <!--  End .col-lg-3 -->
           </div>
           <!--  End .row -->

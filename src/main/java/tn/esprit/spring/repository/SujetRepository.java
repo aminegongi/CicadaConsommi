@@ -13,7 +13,6 @@ import org.springframework.data.repository.CrudRepository;
 import tn.esprit.spring.entity.Sujet;
 import tn.esprit.spring.entity.User;
 
-
 public interface SujetRepository extends CrudRepository<Sujet, Integer> {
 
 	// Si sujet age > 7j et 0 rating et 0 commentaire delete
@@ -49,8 +48,22 @@ public interface SujetRepository extends CrudRepository<Sujet, Integer> {
 	@Query("Select s from Sujet s where upper(titre) Like upper(concat('%', ?1,'%')) or upper(description) Like upper(concat('%', ?1,'%')) ")
 	public List<Sujet> rechercheSujet(String ez);
 
-	// get sujet par user 
+	// get sujet par user
 	@Query("Select s from Sujet s where s.sujetUser = ?1 ")
 	public List<Sujet> SujetParUser(User u);
+
+	// get sujet order par commentaire
+	@Query(value = " select sujet.id_sujet , sujet.titre , sujet.date_publication , sujet.description , "
+			+ "sujet.sujet_user_id "
+			+ "from sujet LEFT JOIN commentaire on sujet.id_sujet = commentaire.comm_sujet_id_sujet "
+			+ "group by sujet.id_sujet " + "ORDER by count(commentaire.comm_sujet_id_sujet) DESC ", nativeQuery = true)
+	public List<Sujet> getSujetsParCom();
+	
+	
+	@Query(value = " select sujet.id_sujet , sujet.titre , sujet.date_publication , sujet.description , sujet.sujet_user_id "
+			+ "from sujet LEFT JOIN rating on sujet.id_sujet = rating.rating_sujet_id_sujet "
+			+ "group by sujet.id_sujet " + "ORDER by  sum(rating.nombre)  DESC ", nativeQuery = true)
+	public List<Sujet> getSujetsParRates();
+	
 
 }

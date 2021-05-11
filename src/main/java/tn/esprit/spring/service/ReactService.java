@@ -39,4 +39,9 @@ public class ReactService
 	public void delete(int id) {
 		ReactRepository.deleteById(id);
 	}
+	
+	public String countReactPerComPerType(int idCom , int type) {
+		return ReactRepository.countReactPerComPerType(idCom,type);
+		
+	}
 }  

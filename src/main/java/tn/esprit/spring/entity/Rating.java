@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="Rating")
 public class Rating {
@@ -24,11 +26,19 @@ public class Rating {
 	@Column(name = "nombre")
 	private float nombre;
 	
+	@JsonIgnore
 	@ManyToOne
 	Sujet ratingSujet;
 	
 	@ManyToOne
 	User ratingUser;
+
+	
+	
+	
+	public Sujet getRatingSujet() {
+		return ratingSujet;
+	}
 
 	public Rating() {
 		super();

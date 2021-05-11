@@ -25,7 +25,7 @@
                 </h1>
                 <!--  End .entry-title -->
       			<div class="entry-meta" style="margin-bottom: 32px;">
-	                      By <span class="entry-author"> #{fsujetController.leSujet.sujetUser.username}</span> 
+	                      By<span> </span> <span class="entry-author"> #{fsujetController.leSujet.sujetUser.username}</span> 
 	                      <span class="meta-separator">|</span>
 	                      <h:outputText value="#{fsujetController.leSujet.datePublication}">
 						     <f:convertDateTime pattern="MM/dd/yyyy" type="date" />
@@ -34,13 +34,11 @@
 						  <h:outputText value="#{fsujetController.leSujet.datePublication}">
 						     <f:convertDateTime pattern="HH:mm" type="date" />
 						  </h:outputText>
-	                      <span class="meta-separator">|</span> 
-	                      #{fsujetController.leSujet.sujetComms.size()} Comments
-	                      <span class="meta-separator">|</span> 
-	                      #{fsujetController.leSujet.sujetRating.size()} Rates
 	             </div>
 	             <!--  End .entry-meta -->
+	             
                 <div class="entry-content editor-content">
+                "<b>egegegege</b>"
                   <p style="line-height:2;" >
                     #{fsujetController.leSujet.description}
                   </p>
@@ -51,11 +49,11 @@
                 <div class="col" style="float:right;" >
                 	<h:form id="formRating">
 						<h:panelGrid columns = "2" >
-							Rating (#{fsujetController.leSujet.sujetRating.size()}) | #{fsujetController.calculateAVg(fsujetController.leSujet)}/5  | <span>  </span>
-							<p:rating value="#{fsujetController.leSujetRating}">
-								<p:ajax event="rate" listener="#{fsujetController.ratingamRate}" update="formRating" />
-								<p:ajax event="cancel" listener="#{fsujetController.ratingamCancel}" update="formRating" />
-							</p:rating>
+							<b>Rating (#{fsujetController.leSujet.sujetRating.size()}) </b>|<b> #{fsujetController.calculateAVg(fsujetController.leSujet)}/5  | </b><span>  </span>
+								<p:rating value="#{fsujetController.leSujetRating}">
+									<p:ajax event="rate" listener="#{fsujetController.ratingamRate}" update="formRating" />
+									<p:ajax event="cancel" listener="#{fsujetController.ratingamCancel}" update="formRating" />
+								</p:rating>
 						</h:panelGrid >
 					</h:form>
 				</div>
@@ -104,7 +102,7 @@
           </div>
           <!--  End .related-posts -->
        
-      <h:form id="formcom" >
+      <h:panelGroup  id="formcom" >
           <div class="comments">
             <h3 class="title">
               #{fsujetController.leSujet.sujetComms.size()} Comments
@@ -118,9 +116,10 @@
                       <div class="comment-body">
                         <div class="comment-user">
                           <h4>
-                            <a href="#">#{comm.commUser.username}</a>
+                            <b><a href="#">#{comm.commUser.username}</a></b>
                           </h4>
                           <span class="comment-date">#{fsujetController.timeAgo(comm.dateCommentaire)}</span>
+                          	
                         </div>
                         <!--  End .comment-user -->
                         <div class="entry-content editor-content">
@@ -128,6 +127,12 @@
                             #{comm.description}
                           </p>
                         </div>
+                        
+                        	<h:form id="formReact">
+	                          	<b:commandButton iconAwesome="heart" value="Like (#{fsujetController.nbLikePerComDistinct(comm)})"
+	                          	ajax="true" size="xs" update="formReact"
+	              				look="danger" action="#{fsujetController.like(comm)}"/>
+              				</h:form>
                       </div>
                     </div>
                   </li>
@@ -147,6 +152,7 @@
               <!--  End .title -->
             </div>
             <!--  End .heading -->
+            <h:form>
               <label for="reply-message" class="sr-only">Comment</label>
               <h:inputTextarea value="#{fsujetController.commentairesujet}"
 				pt:placeholder="Commentaire" rows="7" class="form-control" required="true">
@@ -154,10 +160,15 @@
 			  <span style="color:red;" ><em> #{fsujetController.sujet_ComOut}</em> </span><br/>
               <b:commandButton class="btn btn-outline-primary-2" iconAwesome="paper-plane" value="POST" ajax="true" 
               	look="secondary" action="#{fsujetController.addCommentaire}" update="@(#formcom)" />	
+            </h:form>
               
               
           </div>
-      </h:form>
+      </h:panelGroup >
+      
+      
+      
+      
           <!--  End .reply -->
         </div>
         <!--  End .container -->

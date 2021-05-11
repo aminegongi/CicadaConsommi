@@ -1,0 +1,391 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/template/template.xhtml">
+
+
+	<ui:param name="page_name" value="CT-Chat" />
+	<ui:param name="page_title" value="Chat"></ui:param>
+	<ui:param name="page_title_sub" value=""></ui:param>
+	<ui:define name="content">
+
+		<style>
+.container {
+	max-width: 1170px;
+	margin: auto;
+}
+
+img {
+	max-width: 100%;
+}
+
+.inbox_people {
+	background: #f8f8f8 none repeat scroll 0 0;
+	float: left;
+	overflow: hidden;
+	width: 40%;
+	border-right: 1px solid #c4c4c4;
+}
+
+.inbox_msg {
+	border: 1px solid #c4c4c4;
+	clear: both;
+	overflow: hidden;
+}
+
+.top_spac {
+	margin: 20px 0 0;
+}
+
+.recent_heading {
+	float: left;
+	width: 40%;
+}
+
+.srch_bar {
+	display: inline-block;
+	text-align: right;
+	width: 60%;
+}
+
+.headind_srch {
+	padding: 10px 29px 10px 20px;
+	overflow: hidden;
+	border-bottom: 1px solid #c4c4c4;
+}
+
+.recent_heading h4 {
+	color: #05728f;
+	font-size: 21px;
+	margin: auto;
+}
+
+.srch_bar input {
+	border: 1px solid #cdcdcd;
+	border-width: 0 0 1px 0;
+	width: 80%;
+	padding: 2px 0 4px 6px;
+	background: none;
+}
+
+.srch_bar .input-group-addon button {
+	background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+	border: medium none;
+	padding: 0;
+	color: #707070;
+	font-size: 18px;
+}
+
+.srch_bar .input-group-addon {
+	margin: 0 0 0 -27px;
+}
+
+.chat_ib h5 {
+	font-size: 15px;
+	color: #464646;
+	margin: 0 0 8px 0;
+}
+
+.chat_ib h5 span {
+	font-size: 13px;
+	float: right;
+}
+
+.chat_ib p {
+	font-size: 14px;
+	color: #989898;
+	margin: auto
+}
+
+.chat_img {
+	float: left;
+	width: 11%;
+}
+
+.chat_ib {
+	float: left;
+	padding: 0 0 0 15px;
+	width: 88%;
+}
+
+.chat_people {
+	overflow: hidden;
+	clear: both;
+}
+
+.chat_list {
+	border-bottom: 1px solid #c4c4c4;
+	margin: 0;
+	padding: 18px 16px 10px;
+}
+
+.inbox_chat {
+	height: 550px;
+	overflow-y: scroll;
+}
+
+.active_chat {
+	background: #ebebeb;
+}
+
+.incoming_msg_img {
+	display: inline-block;
+	width: 6%;
+}
+
+.received_msg {
+	display: inline-block;
+	padding: 0 0 0 10px;
+	vertical-align: top;
+	width: 92%;
+}
+
+.received_withd_msg p {
+	background: #ebebeb none repeat scroll 0 0;
+	border-radius: 3px;
+	color: #646464;
+	font-size: 14px;
+	margin: 0;
+	padding: 5px 10px 5px 12px;
+	width: 100%;
+}
+
+.time_date {
+	color: #747474;
+	display: block;
+	font-size: 12px;
+	margin: 8px 0 0;
+}
+
+.received_withd_msg {
+	width: 57%;
+}
+
+.mesgs {
+	float: left;
+	padding: 30px 15px 0 25px;
+	width: 60%;
+}
+
+.sent_msg p {
+	background: #05728f none repeat scroll 0 0;
+	border-radius: 3px;
+	font-size: 14px;
+	margin: 0;
+	color: #fff;
+	padding: 5px 10px 5px 12px;
+	width: 100%;
+}
+
+.outgoing_msg {
+	overflow: hidden;
+	margin: 26px 0 26px;
+}
+
+.sent_msg {
+	float: right;
+	width: 46%;
+}
+
+.input_msg_write input {
+	background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+	border: medium none;
+	color: #4c4c4c;
+	font-size: 15px;
+	min-height: 48px;
+	width: 100%;
+}
+
+.type_msg {
+	border-top: 1px solid #c4c4c4;
+	position: relative;
+}
+
+.msg_send_btn {
+	background: #05728f none repeat scroll 0 0;
+	border: medium none;
+	border-radius: 50%;
+	color: #fff;
+	cursor: pointer;
+	font-size: 17px;
+	height: 33px;
+	position: absolute;
+	right: 0;
+	top: 11px;
+	width: 33px;
+}
+
+.messaging {
+	padding: 0 0 50px 0;
+}
+
+.msg_history {
+	height: 516px;
+	overflow-y: auto;
+}
+</style>
+
+		<div class="page-content">
+			<div class="dashboard">
+				<div class="container">
+					<div class="row" style="margin-right: -300px;">
+						<ul class="nav nav-dashboard flex-column mb-3 mb-md-0">
+
+							<li class="nav-item"><a class="nav-link"
+								href="/pages/client/userProfile.jsf"> Profile </a></li>
+							<li class="nav-item"><a class="nav-link "
+								href="/pages/client/userReclamation.jsf"> Claim </a></li>
+
+							<li class="nav-item"><a class="nav-link"
+								id="tab-address-link" href="#tab-address">Adresses</a></li>
+								
+							<li class="nav-item"><a class="nav-link active"
+								href="/pages/client/chat.jsf"> Chat </a></li>
+								
+							<li class="nav-item"><a class="nav-link" href="#">Sign
+									Out</a></li>
+						</ul>
+						<!--  End .col-lg-3 -->
+						<div class="col-md-8 col-lg-9">
+							<div class="tab-content">
+								<div class="show active" style="padding-left: 6%;">
+
+								<h:form>
+								  <p:poll interval="1" update="paneformainboxchat laconv" />  
+								</h:form>
+								
+									<h3 class=" text-center">Messaging</h3>
+									<div class="messaging">
+
+										<div class="inbox_msg">
+
+											<div class="inbox_people">
+
+												<div class="headind_srch">
+
+													<div class="recent_heading">
+
+														<h4>Chat</h4>
+													</div>
+
+												</div>
+												
+												<h:panelGroup id="paneformainboxchat" >
+												<div class="inbox_chat">
+
+												<ui:repeat var="userChat" value="#{fchatController.getlistconv()}">
+													<div class="chat_list">
+														<div class="chat_people">
+															<div class="chat_img">
+																<img
+																	src="https://ptetutorials.com/images/user-profile.png"
+																	alt="sunil" />
+															</div>
+															<div class="chat_ib">
+																#{chat_list.senderUser.id}
+																<h5>
+																	<h:form>
+																		<h:commandLink ajax="true" action="#{fchatController.setConvWith(userChat)}" value="#{userChat.senderUser.username}"> 
+																			<f:ajax execute="@form" render="paneformainboxchat laconv" />
+																		</h:commandLink>
+																	</h:form>
+																	
+																</h5>
+
+																<p>#{fn:substring(userChat.description, 0,20)}</p>
+															</div>
+														</div>
+													</div>
+												</ui:repeat>
+													
+
+													
+												</div>
+												</h:panelGroup>
+											</div>
+
+											<div class="mesgs">
+
+												<div class="msg_history">
+													<h:panelGroup id ="laconv">
+													<ui:repeat var="conv" value="#{fchatController.getConvsWith()}">
+													
+													
+													<h:panelGroup rendered="#{conv.senderUser.id eq fchatController.con.id}" >
+													<div class="incoming_msg">
+														<div class="received_msg">
+															<div class="received_withd_msg">
+																<p>#{conv.description}</p>
+																<span class="time_date"> 11:01 AM | June 9</span>
+															</div>
+														</div>
+													</div>
+													</h:panelGroup>
+													
+													<h:panelGroup rendered="#{conv.senderUser.id ne fchatController.con.id}" >
+															<div class="outgoing_msg">
+																<div class="sent_msg">
+																	<p>#{conv.description}</p>
+																	<span class="time_date"> 11:01 AM | June 9</span>
+																</div>
+															</div>
+													</h:panelGroup>
+													
+													</ui:repeat>
+													</h:panelGroup>
+												</div>
+
+												<div class="type_msg">
+
+													<div class="input_msg_write">
+													
+													<h:panelGrid columns="2" cellpadding = "10" cellspacing = "1" > 
+													<h:form id="formsendchat">
+														<h:inputText value="#{fchatController.message}"
+															pt:placeholder="Your Message" required="true">
+														</h:inputText>
+														
+														
+								              				<b:commandButton class="btn btn-outline-primary-2" iconAwesome="paper-plane" value="Send" ajax="true" 
+              												look="secondary" action="#{fchatController.send()}" update="paneformainboxchat laconv formsendchat" />
+							              				</h:form>
+							              			</h:panelGrid>
+													
+													</div>
+												</div>
+												
+											</div>
+										</div>
+
+									</div>
+
+								</div>
+								<!--  .End .tab-pane -->
+
+							</div>
+						</div>
+						<!--  End .col-lg-9 -->
+					</div>
+					<!--  End .row -->
+				</div>
+				<!--  End .container -->
+			</div>
+			<!--  End .dashboard -->
+		</div>
+		<!--  End .page-content -->
+
+
+	</ui:define>
+</ui:composition>
+
+
+
+
+
+
+

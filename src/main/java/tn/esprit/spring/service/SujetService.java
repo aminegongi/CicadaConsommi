@@ -20,8 +20,6 @@ import tn.esprit.spring.repository.SujetRepository;
 @Service
 public class SujetService {
 	@Autowired
-	UserServiceImpl u;
-	@Autowired
 	SujetRepository sujetRepository;
 	@Autowired
 	SujetRechercheService srs;
@@ -37,7 +35,6 @@ public class SujetService {
 	}
 
 	public String save(Sujet sujets) {
-		System.err.println(u.getuserconnected().getPhone_number());
 		JaroWinkler jw = new JaroWinkler();
 
 		for (Sujet sujetE : getAll()) {
@@ -70,9 +67,7 @@ public class SujetService {
 		return sujetRepository.getSumRatSujets();
 	}
 
-	public List<Sujet> rechercheSujet(String rech) {
-		User u = new User();
-		u.setId(Long.valueOf(1));
+	public List<Sujet> rechercheSujet(String rech , User u) {
 		List<Sujet> listRech = sujetRepository.rechercheSujet(rech);
 		if (!listRech.isEmpty())
 			srs.save(new SujetRecherche(rech, u));
@@ -90,13 +85,31 @@ public class SujetService {
 		List<Sujet> sg = getAll() ;
 		List<Sujet> sgp = new ArrayList<>();
 		
-		for (String rs : rsu){
+		/*for (String rs : rsu){
 			for (Sujet sujet : sg) {
 				if( sujet.getTitre().toUpperCase().contains(rs.toUpperCase()) ){
 					sgp.add(sujet);
 				}
 			}
+		}*/
+		
+		for (int i = 0; i < rsu.size(); i++) {
+			for (int j = 0; j < sg.size(); j++) {
+				if( sg.get(j).getTitre().toUpperCase().contains(rsu.get(i).toUpperCase()) ){
+					sgp.add(sg.get(j));
+					sg.remove(j);
+				}
+			}
 		}
+		
 		return sgp;
+	}
+	
+	public List<Sujet> getSujetParCom() {
+		return sujetRepository.getSujetsParCom();
+	}
+	
+	public List<Sujet> getSujetParRating() {
+		return sujetRepository.getSujetsParRates();
 	}
 }

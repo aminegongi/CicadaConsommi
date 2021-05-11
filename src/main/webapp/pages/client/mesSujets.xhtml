@@ -72,9 +72,10 @@
 										pt:placeholder="Titre" class="form-control" required="true">
 									</h:inputText>
 									<br />
-									<h:inputTextarea value="#{fsujetController.sujet_description}"
-										pt:placeholder="Description" class="form-control" rows="7" required="true">
-									</h:inputTextarea>
+								
+									
+									 <p:textEditor value="#{fsujetController.sujet_description}" widgetVar="editor1" height="300"  />
+									
 									<hr />
 									<h:panelGrid columns="2" >
 										<h:commandButton ajax="true" value="Ajouter" class="btn btn-success"

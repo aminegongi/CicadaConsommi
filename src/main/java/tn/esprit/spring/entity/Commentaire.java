@@ -26,7 +26,7 @@ public class Commentaire {
 	@Column(name="id_comm")
 	private int id;
 	
-	@Column(name = "description")
+	@Column(name = "description" , columnDefinition = "TEXT")
 	private String description;
 	
 	@Column(name = "dateCommentaire", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")

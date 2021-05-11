@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	
+	
+	 <div class="sidebar">
+              <div class="widget widget-search">
+                <h3 class="widget-title">
+                  Search
+                </h3>
+                <!--  End .widget-title -->
+                
+                <h:form>
+                  <label for="ws" class="sr-only">Search in blog</label>
+                  <h:inputText class="form-control" value="#{fsujetController.recherche}" pt:placeholder="Search" name="ws" id="ws" /> 
+                  
+                  <h:commandLink ajax="true" class="btn" action ="#{fsujetController.search()}" >
+	                  <i class="icon-search"></i> <span class="sr-only">Search</span>
+	                  <f:param name="rechtri" value="1" />
+                  </h:commandLink>	
+                </h:form>
+                
+              </div>
+              <!--  End .widget -->
+              <div class="widget widget-cats">
+                <h3 class="widget-title">
+                  Sort 
+                </h3>
+                <!--  End .widget-title -->
+	                <h:form id="myForm">
+	                	<div class="row" >
+	                	<div class="col-md-12" > 
+						<h:selectOneMenu class="form-control" value="#{fsujetController.sortby}">
+				   			<f:selectItem class="form-control" itemValue="choice" itemLabel = "Choice" /> 
+						   	<f:selectItem class="form-control" itemValue="comments" itemLabel = "By Comments" /> 
+						   	<f:selectItem class="form-control" itemValue="rates" itemLabel = "By Sum of Rates" /> 
+						   	<f:selectItem class="form-control" itemValue="relevance" itemLabel = "By Relevance" /> 
+						</h:selectOneMenu>
+						</div>
+						<div class="col-md-12" > 
+						<h:commandButton ajax="true" class="btn btn-outline-primary-2" value="Sort" action ="#{fsujetController.sort()}" ></h:commandButton>
+						</div>
+				       </div> 
+				    </h:form>
+	                
+	                
+              </div>
+              <!--  End .widget -->
+
+              <div class="widget">
+                <h3 class="widget-title">
+                  Random Post
+                </h3>
+                <!--  End .widget-title -->
+                Houni najmou Spell Checker 3ala les mots mta3 el recherche o n5arjou random"
+                <div>
+                </div>
+                <!--  End .tagcloud -->
+              </div>
+              <!--  End .widget -->
+
+              <!--  End .widget -->
+            </div>
+            <!--  End .sidebar -->
+            <!--  End .col-lg-3 -->
+	    
+	    
+	    
+</ui:composition>

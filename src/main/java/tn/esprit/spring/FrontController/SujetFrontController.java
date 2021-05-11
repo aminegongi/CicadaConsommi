@@ -20,28 +20,39 @@ import org.springframework.stereotype.Controller;
 
 import tn.esprit.spring.entity.Commentaire;
 import tn.esprit.spring.entity.Rating;
+import tn.esprit.spring.entity.React;
 import tn.esprit.spring.entity.Sujet;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.service.CommentaireService;
 import tn.esprit.spring.service.RatingService;
+import tn.esprit.spring.service.ReactService;
 import tn.esprit.spring.service.SujetService;
+import tn.esprit.spring.service.UserService;
+import tn.esprit.spring.service.UserServiceImpl;
 
 @Scope(value = "session")
 @Controller(value = "fsujetController")
 @ELBeanName(value = "fsujetController")
 @Join(path = "/client/sujet", to = "/pages/client/sujet.jsf")
+
 public class SujetFrontController {
 	
 	@Autowired
 	SujetService sujetService;
 	
 	@Autowired
+	UserServiceImpl userService;
+	
+	@Autowired
 	RatingService ratingService;
+	
+	@Autowired
+	ReactService reactService;;
 	
 	@Autowired
 	CommentaireService commService;
 	
-	User Con = new User();
+	private User Con = new User();
 	
 	private String sujet_titre;
 	private Integer sujet_id_up;
@@ -62,7 +73,7 @@ public class SujetFrontController {
 	
 	//---------Sort
 	private List<String> sortsby;
-	private String sortby;
+	private String sortby = "choice";
 	
 	//--------- SujetDetails
 	private Sujet leSujet;
@@ -194,8 +205,9 @@ public class SujetFrontController {
 	
 	//ajout d'un Sujet 
 	public void addSujet(){
-		System.err.println("HHHEE");
-		String out = sujetService.save(new Sujet(sujet_titre, sujet_description, Con));
+		Con.setId(Long.valueOf(1));
+		Sujet s = new Sujet(sujet_titre, sujet_description, Con);
+		String out = sujetService.save(s);
 		this.setSujet_AMOut(out);
 		this.setSujet_titre(null);
 		this.setSujet_description(null);
@@ -204,7 +216,6 @@ public class SujetFrontController {
 	
 	//delete
 	public void deleteSujet(int id){
-		System.err.println("SUPP");
 		sujetService.delete(id);
 	}
 	
@@ -218,7 +229,6 @@ public class SujetFrontController {
 	
 	//modification
 	public void update(){
-		System.err.println("Mod");
 		sujetService.update(new Sujet(sujet_id_up, sujet_titre, sujet_description,Con));
 		this.setSujet_titre(null);
 		this.setSujet_description(null);
@@ -231,7 +241,6 @@ public class SujetFrontController {
 		FacesContext context = FacesContext.getCurrentInstance();
 	    Map requestParams = context.getExternalContext().getRequestParameterMap();
 	    sujetId = (String) requestParams.get("id");
-		System.err.println(sujetId);
 		///this.setLeSujet(s);
 		return "/pages/client/sujetDetails.xhtml?faces-redirect=true";
 	}
@@ -267,7 +276,7 @@ public class SujetFrontController {
 	public void ratingamRate(){
 		int rateIdUp = -1;
 		for (Rating rr : ratingService.getAll()) {
-			if(rr.getRatingUser().getId() == Con.getId()){
+			if(rr.getRatingUser().getId() == Con.getId() && rr.getRatingSujet().getId() == this.getLeSujet().getId()){
 				rateIdUp = rr.getId();
 				break;
 			}
@@ -275,12 +284,13 @@ public class SujetFrontController {
 		if(rateIdUp == -1)
 			ratingService.save(new Rating(Float.valueOf(this.getLeSujetRating()), this.getLeSujet(), Con));
 		else
-			ratingService.save(new Rating(rateIdUp, Float.valueOf(this.getLeSujetRating()), this.getLeSujet(), Con));
+			ratingService.update(new Rating(rateIdUp, Float.valueOf(this.getLeSujetRating()), this.getLeSujet(), Con));
 	}
+	
 	public void ratingamCancel(){
 		int rateIdUp = -1;
 		for (Rating rr : ratingService.getAll()) {
-			if(rr.getRatingUser().getId() == Con.getId()){
+			if(rr.getRatingUser().getId() == Con.getId() && rr.getRatingSujet().getId() == this.getLeSujet().getId()){
 				rateIdUp = rr.getId();
 				break;
 			}
@@ -288,7 +298,7 @@ public class SujetFrontController {
 		if(rateIdUp == -1)
 			ratingService.save(new Rating(Float.valueOf(0), this.getLeSujet(), Con));
 		else
-			ratingService.save(new Rating(rateIdUp, Float.valueOf(0), this.getLeSujet(), Con));
+			ratingService.update(new Rating(rateIdUp, Float.valueOf(0), this.getLeSujet(), Con));
 	}
 
 	public String calculateAVg(Sujet s){
@@ -315,7 +325,6 @@ public class SujetFrontController {
 	}
 	
 	public void addCommentaire(){
-		System.err.println("west el add Commentaire");
 		Commentaire c = new Commentaire(commentairesujet, this.getLeSujet(), Con);		
 		this.setSujet_ComOut(commService.save(c));
 		this.setCommentairesujet(null);	
@@ -330,12 +339,39 @@ public class SujetFrontController {
 	
 	//----------------------- Recherche
 	public String search(){
-		System.err.println("----------- Recherche ------------");
-		listSujetRechTri = sujetService.rechercheSujet(recherche) ;
+		listSujetRechTri = sujetService.rechercheSujet(recherche,Con) ;
+		return "/pages/client/sujets.xhtml?faces-redirect=true";
+	}
+	
+	public String sort(){
+		listSujetRechTri = null ;
+		if(sortby.equals("choice"))
+			return null;
+		else if(sortby.equals("comments"))
+			listSujetRechTri = sujetService.getSujetParCom();
+		else if(sortby.equals("rates"))
+			listSujetRechTri = sujetService.getSujetParRating();
+		else if(sortby.equals("relevance"))
+			listSujetRechTri = sujetService.rechPertinenceUser(Con.getId().intValue());
 		return "/pages/client/sujets.xhtml?faces-redirect=true";
 	}
 	
 	
+	
+	//----React
+	public String like(Commentaire c){
+		System.err.print("west like ");
+		React r = new React();
+		r.setReactComm(c);
+		r.setReactUser(Con);
+		r.setType(1);
+		reactService.save(r);
+		return "true";
+	}
+	
+	public String nbLikePerComDistinct( Commentaire c){
+		return reactService.countReactPerComPerType(c.getId(), 1);
+	}
 	
 	
 }
