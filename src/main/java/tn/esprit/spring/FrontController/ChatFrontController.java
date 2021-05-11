@@ -34,6 +34,8 @@ public class ChatFrontController {
 	
 	
 	
+	
+	
 	public User getAutre() {
 		return autre;
 	}
@@ -67,7 +69,7 @@ public class ChatFrontController {
 	public List<Chat> getlistconv(){
 		return  chatService.getAllConversationUserconnected(Con.getId().intValue());
 	}
-
+	
 	public void setConvWith(Chat c){
 		this.setAutre(c.getSenderUser());
 		Long id_autre = this.getAutre().getId();
@@ -85,6 +87,14 @@ public class ChatFrontController {
 	public void send(){
 		chatService.add( new Chat(this.getAutre(), this.getCon(), this.getMessage()));
 		this.setMessage(null);
+	}
+	
+	
+	//-----------------------------------
+	
+	public String chatwith(User with){
+		
+		return null;
 	}
 	
 }
