@@ -26,9 +26,9 @@ import tn.esprit.spring.security.services.UserDetailsImpl;
 import tn.esprit.spring.service.UserServiceImpl;
 
 @Scope(value = "session")
-@Controller(value = "fsigninController")
-@ELBeanName(value = "fsigninController")
-@Join(path = "/user/signin", to = "/pages/client/userSignIn.jsf")
+@Controller(value = "bsigninController")
+@ELBeanName(value = "bsigninController")
+@Join(path = "/user/back/signin", to = "/template/Back/adminsignin.jsf")
 public class UserSigninBackController {
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -47,6 +47,7 @@ public class UserSigninBackController {
 
 	@Autowired
 	UserServiceImpl userserviceI;
+	private Long id;
 	private String firstname;
 	private String lastname;
 	private long phone_number;
@@ -61,13 +62,32 @@ public class UserSigninBackController {
 	private List<User> allusers; 
 	
 	
+	
+	public List<User> getAllusers() {
+		allusers= userserviceI.getAll();
+		return allusers;
+	}
+
+	public void setAllusers(List<User> allusers) {
+		this.allusers = allusers;
+	}
+
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public User getProfile() {
 		if(profile==null){
-		profile=userserviceI.getuserconnected();
+		profile=UserConnected.userconnected;
 		}
 		return profile;
 	}
-
+	
 	public void setProfile(User profile) {
 		this.profile = profile;
 	}
@@ -136,7 +156,8 @@ public class UserSigninBackController {
 		this.out = out;
 	}
 
-	public void signin() {
+	public String signin() {
+
 		if (userserviceI.chackact(this.getUsername())) {
 			try {
 				Authentication authentication = authenticationManager
@@ -149,9 +170,8 @@ public class UserSigninBackController {
 				List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 						.collect(Collectors.toList());
 				UserConnected.iduser = userDetails.getId();
+				UserConnected.userconnected=userserviceI.findById(userDetails.getId());
 				System.err.println(UserConnected.iduser);
-				System.err.println(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(),
-						userDetails.getEmail(), roles));
 				this.setOut("user signed in");
 			} catch (BadCredentialsException bb) {
 				this.setOut("no valid credentials");
@@ -159,11 +179,23 @@ public class UserSigninBackController {
 		} else {
 			this.setOut("user not activated");
 		}
+		
+		System.err.println("User logged in successfully!");
+		return "/template/Back/Back.xhtml?faces-redirect=true";
+		
 	}
 	public void update(){
 		System.err.println(profile.getFirstname());
 		userserviceI.UpdateProfile(profile);
+		UserConnected.userconnected=profile;
 		
+	}
+	public String logout(){
+		userserviceI.Logout();
+		return "/template/Back/adminsignin.xhtml?faces-redirect=true";
+	}
+	public void deleteuser(User u){
+		userserviceI.delete(u);
 	}
 
 }

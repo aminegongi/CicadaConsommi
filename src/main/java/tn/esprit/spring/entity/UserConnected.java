@@ -8,5 +8,6 @@ import javax.persistence.*;
 public  class UserConnected {
 	
 	public static Long iduser;
+	public static User userconnected;
 
 }

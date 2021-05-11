@@ -1,5 +1,6 @@
 package tn.esprit.spring.controller;
 import java.math.BigInteger;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.primefaces.model.chart.BarChartSeries;
 import org.primefaces.model.chart.BubbleChartModel;
 import org.primefaces.model.chart.BubbleChartSeries;
 import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.DonutChartModel;
 import org.primefaces.model.chart.HorizontalBarChartModel;
 import org.primefaces.model.chart.PieChartModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +51,6 @@ public class GraphController {
 		
 		public PieChartModel getPiemodel() {
 			List<Sujet> gg = sujetservice.getAll();
-			//int tot = gg.get().getSujetComms().size()size();
 			Piemodel = new PieChartModel();
 			for( int i=0 ; i< gg.size() ; i++){
 				Piemodel.set(gg.get(i).getTitre(),gg.get(i).getSujetComms().size());
@@ -97,28 +98,7 @@ public class GraphController {
 			this.hbmodel = hbmodel;
 		}
 		//-----------------------------------------------------------------------------------------
-		private BubbleChartModel bcmodel;
-
-		public BubbleChartModel getBcmodel() {
-			List<Produit> produit =produitservice.retrieveAllProducts();
-			bcmodel = new BubbleChartModel();
-			for( int i=0 ; i< produit.size() ; i++){
-
-				bcmodel.add(new BubbleChartSeries(produit.get(i).getMarque_produit(),produit.get(i).getRating(),50,15));
-				
-				}
-			 bcmodel.setTitle("Bubble Chart");
-			 bcmodel.getAxis(AxisType.X).setLabel("Price");
-			 Axis yAxis = bcmodel.getAxis(AxisType.Y);
-			 yAxis.setMin(0);
-			 yAxis.setMax(250);
-			 yAxis.setLabel("Marque Produit");
-			return bcmodel;
-		}
-
-		public void setBcmodel(BubbleChartModel bcmodel) {
-			this.bcmodel = bcmodel;
-		}
+		
 		//----------------------------------Bar-Chart-Marque-produit ------------------------------------------------
 		
 		 
@@ -152,7 +132,7 @@ public class GraphController {
 		
 		
 		//----------------------------------Bar-Chart-Reclamation--------------------------------------------------
-		private BarChartModel recmodel;
+		/*private BarChartModel recmodel;
 		
 		public BarChartModel getRecmodel() {
 		
@@ -178,6 +158,31 @@ public class GraphController {
 
 		public void setRecmodel(BarChartModel recmodel) {
 			this.recmodel = recmodel;
+		}*/
+		
+		//----------------------------- Donut chart ------------------------------------------------------------
+		private DonutChartModel dmodel;
+		public DonutChartModel getDmodel() {
+			
+			dmodel = new DonutChartModel();
+			Map<String, Number> circle1 = new LinkedHashMap<String, Number>();
+			List<Map<String, BigInteger>> reclamation = userrepository.getRec();
+			 for (Map<String, BigInteger> map : reclamation) {				   
+				       circle1.put(String.valueOf(map.get("state")),map.get("nbstate"));
+		    
+				    }
+			 dmodel.addCircle(circle1);
+
+		
+			 dmodel.setTitle("Donut Chart");
+			 dmodel.setLegendPosition("w");
+			return dmodel;
 		}
+
+		public void setDmodel(DonutChartModel dmodel) {
+			this.dmodel = dmodel;
+		}
+
+		
 }
 		

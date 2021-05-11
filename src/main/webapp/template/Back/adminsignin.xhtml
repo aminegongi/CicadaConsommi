@@ -6,7 +6,7 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>Sign In Template for BootsFaces</title>
+        <title>Admin Sign-in</title>
         <meta name="author" content="Riccardo Massera"></meta>
         <style type="text/css">
             .form-signin {
@@ -14,24 +14,24 @@
                 max-width: 330px;
                 padding: 15px;
             }
+         
         </style>
     </h:head>
-    <h:body style="padding-top: 60px; background-color: #add;">
+    <h:body style="color:#FFFFFF; background: url(/assets/images/backgrounds/bg.jpg);background-size:100%" >
         <b:container>
             <h:form styleClass="form-signin" prependId="false">
-                <h2 class="form-signin-heading">Please sign in</h2>
-                <b:inputText id="email" placeholder="Username" >
+                <h2 class="form-signin-heading" style="text-align: center">SIGN IN</h2>
+                <b:inputText placeholder="Username" value="#{bsigninController.username}" >
                     <f:facet name="prepend">
                         <b:icon name="user" />
                     </f:facet>
                 </b:inputText>
-                <b:inputText id="password" placeholder="Password" type="password">
+                <b:inputSecret placeholder="Password" value="#{bsigninController.password}" >
                     <f:facet name="prepend">
                         <b:iconAwesome name="key" />
                     </f:facet>
-                </b:inputText>
-                <b:selectBooleanCheckbox value="true" caption="remember me"/>
-                <b:commandButton look="primary btn-block" value="Sign In" icon="log-in" size="lg"/>
+                </b:inputSecret>
+                <b:commandButton action="#{bsigninController.signin()}" look="primary btn-block" value="Sign In" icon="log-in" size="lg"/>
             </h:form>
         </b:container>
     </h:body>

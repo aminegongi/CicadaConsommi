@@ -32,8 +32,7 @@
 				<b:listLinks>
 					<b:navLink header="Dasboard Links" />
 					<b:navLink href="/template/Back/Dashboard.jsf" value="Dashboard" />
-					<b:navLink href="/template/Back/Back.jsf" value="Users"
-						active="true" />
+					<b:navLink href="/template/Back/Back.jsf" value="Users" />
 					<b:navLink href="#" value="Reclamation" />
 					<b:navLink href="#" value="Delivery" />
 				</b:listLinks>
@@ -53,54 +52,45 @@
 			<b:column col-sm="9" offset-sm="3" col-md="10" offset="2"
 				styleClass="main">
 				<hr />
-				<h1>Table of Users</h1>
+				<h1>My Profile</h1>
 				<hr />
 				<b:row styleClass="table-responsive">
-					<b:dataTable styleClass="table table-striped"
-						value="#{bsigninController.allusers}" var="Users" rows="15">
-						<b:dataTableColumn>
-							<f:facet name="header">
-								<h:outputText value="#" />
-							</f:facet>
-							<h:outputText value="#{Users.id}" />
-						</b:dataTableColumn>
-						<b:dataTableColumn>
-							<f:facet name="header">
-								<h:outputText value="Firstname" />
-							</f:facet>
-							<h:outputText value="#{Users.firstname}" />
-						</b:dataTableColumn>
-						<b:dataTableColumn>
-							<f:facet name="header">
-								<h:outputText value="Lastname" />
-							</f:facet>
-							<h:outputText value="#{Users.lastname}" />
-						</b:dataTableColumn>
-						<b:dataTableColumn>
-							<f:facet name="header">
-								<h:outputText value="Address" />
-							</f:facet>
-							<h:outputText value="#{Users.address}" />
-						</b:dataTableColumn>
-						<b:dataTableColumn>
-							<f:facet name="header">
-								<h:outputText value="Phone Number" />
-							</f:facet>
-							<h:outputText value="#{Users.phone_number}" />
-						</b:dataTableColumn>
-						<b:dataTableColumn>
-							<f:facet name="header">
-								<h:outputText value="Username" />
-							</f:facet>
-							<h:outputText value="#{Users.username}" />
-						</b:dataTableColumn>
-						<b:dataTableColumn>
-							<f:facet name="header">
-								<h:outputText value="Email" />
-							</f:facet>
-							<h:outputText value="#{Users.email}" />
-						</b:dataTableColumn>
-					</b:dataTable>
+							<h:form >
+                    <div class="form-group">
+                      <label for="register-email-2">Your firstname *</label> 
+                      <h:inputText class="form-control" value="#{bsigninController.profile.firstname}"></h:inputText>
+                    </div>
+                    <div class="form-group">
+                      <label for="register-email-2">Your lastname *</label> 
+                      <h:inputText class="form-control" value="#{bsigninController.profile.lastname}"></h:inputText>
+                    </div>
+                    <div class="form-group">
+                      <label for="register-email-2">Your phone number *</label> 
+                      <h:inputText class="form-control" value="#{bsigninController.profile.phone_number}"></h:inputText>
+                    </div>
+                    <div class="form-group">
+                      <label for="register-email-2">Your address *</label> 
+                      <h:inputText class="form-control" value="#{bsigninController.profile.address}"></h:inputText>
+                    </div>
+                    <div class="form-group">
+                      <label for="register-email-2">Your username *</label> 
+                      <h:inputText class="form-control" value="#{bsigninController.profile.username}"></h:inputText>
+                    </div>
+                    <div class="form-group">
+                      <label for="register-email-2">Your email address *</label> 
+                      <h:inputText class="form-control" value="#{bsigninController.profile.email}"></h:inputText>
+                    </div>
+                    <!--  End .form-group -->
+                    
+                    <!--  End .form-group -->
+                    <div class="form-footer">
+                       <h:commandButton action="#{bsigninController.update()}" value="Modify" class="btn btn-outline-primary-2"></h:commandButton> 
+                       <h:commandButton action="#{bsigninController.logout()}" value="LOGOUT" class="btn btn-outline-primary-2"></h:commandButton> 
+                     
+                      <!--  End .custom-checkbox -->
+                    </div>
+                    <!--  End .form-footer -->
+                  </h:form>
 				</b:row>
 			</b:column>
 		</b:row>

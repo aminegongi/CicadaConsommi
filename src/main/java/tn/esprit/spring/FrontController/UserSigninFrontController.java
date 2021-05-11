@@ -26,9 +26,9 @@ import tn.esprit.spring.security.services.UserDetailsImpl;
 import tn.esprit.spring.service.UserServiceImpl;
 
 @Scope(value = "session")
-@Controller(value = "bsigninController")
-@ELBeanName(value = "bsigninController")
-@Join(path = "/admin/signin", to = "/template/Back/adminsignin.jsf")
+@Controller(value = "fsigninController")
+@ELBeanName(value = "fsigninController")
+@Join(path = "/user/signin", to = "/pages/client/userSignIn.jsf")
 public class UserSigninFrontController {
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -63,7 +63,7 @@ public class UserSigninFrontController {
 	
 	public User getProfile() {
 		if(profile==null){
-		profile=userserviceI.getuserconnected();
+		profile=UserConnected.userconnected;
 		}
 		return profile;
 	}
@@ -136,7 +136,7 @@ public class UserSigninFrontController {
 		this.out = out;
 	}
 
-	public void signin() {
+	public String signin() {
 		if (userserviceI.chackact(this.getUsername())) {
 			try {
 				Authentication authentication = authenticationManager
@@ -149,6 +149,7 @@ public class UserSigninFrontController {
 				List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 						.collect(Collectors.toList());
 				UserConnected.iduser = userDetails.getId();
+				UserConnected.userconnected=userserviceI.findById(userDetails.getId());
 				System.err.println(UserConnected.iduser);
 				System.err.println(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(),
 						userDetails.getEmail(), roles));
@@ -159,11 +160,17 @@ public class UserSigninFrontController {
 		} else {
 			this.setOut("user not activated");
 		}
+		 return "/pages/client/sujet.xhtml?faces-redirect=true";
 	}
 	public void update(){
 		System.err.println(profile.getFirstname());
 		userserviceI.UpdateProfile(profile);
+		UserConnected.userconnected=profile;
 		
+	}
+	public String logout(){
+		userserviceI.Logout();
+		return "/pages/client/userSignIn.xhtml?faces-redirect=true";
 	}
 
 }

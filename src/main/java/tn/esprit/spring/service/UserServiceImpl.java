@@ -46,9 +46,14 @@ public class UserServiceImpl implements UserService {
 		return users;
 	}
 	
+	
 	public User getuserconnected(){
 		System.err.println(UserConnected.iduser);
 		return userRepository.findById(UserConnected.iduser).get();
+	}
+	
+	public User findById(Long id){
+		return userRepository.findById(id).get();
 	}
 	
 	public boolean chackact(String user){
@@ -62,8 +67,13 @@ public class UserServiceImpl implements UserService {
 	}
 	public String Logout(){
 		UserConnected.iduser=(long) -1;
+		UserConnected.userconnected=null;
 		return "logout succefully";
 		
 	}
+	public void delete(User u) {
+		userRepository.delete(u);
+	}
+
 
 }
