@@ -21,17 +21,21 @@
         <b:container>
             <h:form styleClass="form-signin" prependId="false">
                 <h2 class="form-signin-heading" style="text-align: center">SIGN IN</h2>
-                <b:inputText placeholder="Username" value="#{bsigninController.username}" >
+                <b:inputText placeholder="Username" id="username" value="#{bsigninController.username}" required="true" requiredMessage="The field is empty" validatorMessage="Username is not valid (only characters a-z A-Z 0-9)" >
+                <f:validateRegex pattern="[a-zA-Z0-9]+"/>                   
                     <f:facet name="prepend">
                         <b:icon name="user" />
                     </f:facet>
+                    <h:message for="username" errorStyle="color:red; display:block"/>
                 </b:inputText>
-                <b:inputSecret placeholder="Password" value="#{bsigninController.password}" >
+                <b:inputSecret placeholder="Password" value="#{bsigninController.password}" required="true" requiredMessage="The field is empty">
                     <f:facet name="prepend">
                         <b:iconAwesome name="key" />
                     </f:facet>
                 </b:inputSecret>
+                 <h:outputText value="#{bsigninController.out}"></h:outputText>               
                 <b:commandButton action="#{bsigninController.signin()}" look="primary btn-block" value="Sign In" icon="log-in" size="lg"/>
+                 <a href="/template/Back/verifymail.jsf"  class="forgot-link">Forgot Your Password?</a>
             </h:form>
         </b:container>
     </h:body>

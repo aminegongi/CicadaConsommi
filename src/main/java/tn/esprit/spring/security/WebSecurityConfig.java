@@ -59,13 +59,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.authorizeRequests().antMatchers("/**").permitAll()
 			.antMatchers("/api/auth/**").permitAll()
-			.antMatchers("/api/test/**").permitAll()
-			.antMatchers("/admin/**").permitAll()
+			.antMatchers("/api/test/**").authenticated()
+			.antMatchers("/sujet/**").permitAll()
 			.antMatchers("/cicada/**").permitAll()
 			.antMatchers("/client/**").permitAll()
 			.antMatchers("/user/**").permitAll()
 			.antMatchers("/produit/**").permitAll()
-			.antMatchers("/sujet/**").authenticated()
+			.antMatchers("/admin/**").permitAll()
 			.anyRequest().authenticated();
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

@@ -79,4 +79,69 @@ public void sendVerificationEmail(User user)
      
     javaMailSender.send(message);
      
-}}
+}
+public void sendresetpwd(User user)
+        throws MessagingException, UnsupportedEncodingException {
+	String link="http://localhost:8081/pages/client/resetpwd.jsf?token="+user.getVerificationCode();
+    String toAddress = user.getEmail();
+    String fromAddress = "zeinebbl327@gmail.com";
+    String senderName = "Consommi Tounsi";
+    String subject = "Here's the link to reset your password";
+    String content = "<p>Hello,</p>"
+            + "<p>You have requested to reset your password.</p>"
+            + "<p>Click the link below to change your password:</p>"
+            + "<p><a href=\"" + link + "\">Change my password</a></p>"
+            + "<br>"
+            + "<p>Ignore this email if you do remember your password, "
+            + "or you have not made the request.</p>";
+     
+    MimeMessage message = javaMailSender.createMimeMessage();
+    MimeMessageHelper helper = new MimeMessageHelper(message);
+     
+    helper.setFrom(fromAddress, senderName);
+    helper.setTo(toAddress);
+    helper.setSubject(subject);
+     
+    content = content.replace("[[name]]", user.getUsername());
+    String verifyURL = "localhost:8081" + "/api/auth/verify?code=" + user.getVerificationCode();
+     
+    content = content.replace("[[URL]]", verifyURL);
+     
+    helper.setText(content, true);
+     
+    javaMailSender.send(message);
+     
+}
+public void sendresetpwdb(User user)
+        throws MessagingException, UnsupportedEncodingException {
+	String link="http://localhost:8081/template/Back/resetpwd.jsf?token="+user.getVerificationCode();
+    String toAddress = user.getEmail();
+    String fromAddress = "zeinebbl327@gmail.com";
+    String senderName = "Consommi Tounsi";
+    String subject = "Here's the link to reset your password";
+    String content = "<p>Hello,</p>"
+            + "<p>You have requested to reset your password.</p>"
+            + "<p>Click the link below to change your password:</p>"
+            + "<p><a href=\"" + link + "\">Change my password</a></p>"
+            + "<br>"
+            + "<p>Ignore this email if you do remember your password, "
+            + "or you have not made the request.</p>";
+     
+    MimeMessage message = javaMailSender.createMimeMessage();
+    MimeMessageHelper helper = new MimeMessageHelper(message);
+     
+    helper.setFrom(fromAddress, senderName);
+    helper.setTo(toAddress);
+    helper.setSubject(subject);
+     
+    content = content.replace("[[name]]", user.getUsername());
+    String verifyURL = "localhost:8081" + "/api/auth/verify?code=" + user.getVerificationCode();
+     
+    content = content.replace("[[URL]]", verifyURL);
+     
+    helper.setText(content, true);
+     
+    javaMailSender.send(message);
+     
+}
+}

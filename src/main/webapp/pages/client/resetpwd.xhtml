@@ -10,8 +10,8 @@
 
 
 	<ui:param name="page_name" value="Ct-Login" />
-	<ui:param name="page_title" value="Sign In / Register"></ui:param>
-	<ui:param name="page_title_sub" value="Sign In"></ui:param>
+	<ui:param name="page_title" value="Reset password"></ui:param>
+	<ui:param name="page_title_sub" value=""></ui:param>
 	<ui:define name="content">
 	
 	<div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17" style="background-image: url('/assets/images/backgrounds/login-bg.jpg')">
@@ -20,49 +20,34 @@
             <div class="form-tab">
               <ul class="nav nav-pills nav-fill">
                 <li class="nav-item">
-                  <a class="nav-link active" id="signin-tab-2" >Sign In</a>
+                  <a class="nav-link active" id="signin-tab-2" >Reset Password</a>
                 </li>
               </ul>
               <div class="tab-content">
                 <div id="signin-2">
                   <h:form>
                      <div class="form-group">
-                      <label for="register-email-2">Your username *</label> 
-                      <h:inputText class="form-control" value="#{fsigninController.username}"></h:inputText>
+                      <label for="register-email-2">Your new password *</label> 
+                      <h:inputSecret class="form-control" id="password" value="#{fsigninController.password}" required="true" requiredMessage="The field is empty"></h:inputSecret>
                      </div>
                     <!--  End .form-group -->
                       <div class="form-group">
-                      <label for="register-email-2">Your password *</label> 
-                      <h:inputSecret class="form-control" value="#{fsigninController.password}"></h:inputSecret>
+                      <label for="register-email-2">Confirm your password *</label> 
+                      <h:inputSecret class="form-control" oninput="checkPasswordMatch(this);" value="#{fsigninController.npassword}" required="true" requiredMessage="The field is empty"></h:inputSecret>
                     </div>
-                    <!--  End .form-group -->
-                    <h:outputText value="#{fsigninController.out}"></h:outputText>
+                    <!--  End .form-group -->   
+                     <h:outputText value="#{fsigninController.outreset}"></h:outputText>
+          
                     <div class="form-footer">
-                       <h:commandButton action="#{fsigninController.signin()}" value="SIGN IN" class="btn btn-outline-primary-2"></h:commandButton>
+                      
+                       <h:commandButton action="#{fsigninController.reset()}" value="CONFIRM" class="btn btn-outline-primary-2"></h:commandButton>
+                       
+                     
                       <!--  End .custom-checkbox -->
-                      <a href="/pages/client/email.jsf" class="forgot-link">Forgot Your Password?</a>
                     </div>
                     <!--  End .form-footer -->
                   </h:form>
-                  <div class="form-choice">
-                    <p class="text-center">
-                      or sign in with
-                    </p>
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <a href="#" class="btn btn-login btn-g"> <i
-                        class="icon-google"></i> Login With Google </a>
-                      </div>
-                      <!--  End .col-6 -->
-                      <div class="col-sm-6">
-                        <a href="#" class="btn btn-login btn-f"> <i
-                        class="icon-facebook-f"></i> Login With Facebook
-                        </a>
-                      </div>
-                      <!--  End .col-6 -->
-                    </div>
-                    <!--  End .row -->
-                  </div>
+           
                   <!--  End .form-choice -->
                 </div>
                 <!--  .End .tab-pane -->
@@ -78,7 +63,6 @@
       </div>
       <!--  End .login-page section-bg -->
       <!--  End .main -->	
-	
 	
 	</ui:define>
 </ui:composition>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import net.bytebuddy.utility.RandomString;
 import tn.esprit.spring.entity.Sujet;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.entity.UserConnected;
@@ -74,6 +75,15 @@ public class UserServiceImpl implements UserService {
 	public void delete(User u) {
 		userRepository.delete(u);
 	}
-
+	public User findbyemail(String mail){
+		return userRepository.findByEmail(mail);
+				
+	}
+	public int resetpwd(String pwd, String vc){
+		
+		return userRepository.updatepwd(pwd, vc);
+		
+	}
+	
 
 }
