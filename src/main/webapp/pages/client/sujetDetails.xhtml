@@ -38,11 +38,7 @@
 	             <!--  End .entry-meta -->
 	             
                 <div class="entry-content editor-content">
-                "<b>egegegege</b>"
-                  <p style="line-height:2;" >
-                    #{fsujetController.leSujet.description}
-                  </p>
-                  
+                  <h:outputText value="#{fsujetController.leSujet.description}" escape="false" />
                 </div>
                 <!--  End .entry-content -->
                 <div class="entry-footer row no-gutters">
@@ -50,10 +46,12 @@
                 	<h:form id="formRating">
 						<h:panelGrid columns = "2" >
 							<b>Rating (#{fsujetController.leSujet.sujetRating.size()}) </b>|<b> #{fsujetController.calculateAVg(fsujetController.leSujet)}/5  | </b><span>  </span>
+							<h:panelGroup rendered="#{fsujetController.userLoggedIn}" >  
 								<p:rating value="#{fsujetController.leSujetRating}">
 									<p:ajax event="rate" listener="#{fsujetController.ratingamRate}" update="formRating" />
 									<p:ajax event="cancel" listener="#{fsujetController.ratingamCancel}" update="formRating" />
 								</p:rating>
+							</h:panelGroup>
 						</h:panelGrid >
 					</h:form>
 				</div>
@@ -127,12 +125,20 @@
                             #{comm.description}
                           </p>
                         </div>
-                        
+                        <h:panelGroup rendered="#{fsujetController.userLoggedIn}" >  
                         	<h:form id="formReact">
 	                          	<b:commandButton iconAwesome="heart" value="Like (#{fsujetController.nbLikePerComDistinct(comm)})"
 	                          	ajax="true" size="xs" update="formReact"
 	              				look="danger" action="#{fsujetController.like(comm)}"/>
               				</h:form>
+              			</h:panelGroup>
+              			<h:panelGroup rendered="#{not fsujetController.userLoggedIn}" >  
+                        	<h:form>
+	                          	<b:commandButton disabled="true" iconAwesome="heart" value="Like (#{fsujetController.nbLikePerComDistinct(comm)})"
+	                          	size="xs" 
+	              				look="danger" />
+              				</h:form>
+              			</h:panelGroup>
                       </div>
                     </div>
                   </li>
@@ -158,8 +164,10 @@
 				pt:placeholder="Commentaire" rows="7" class="form-control" required="true">
 			  </h:inputTextarea>
 			  <span style="color:red;" ><em> #{fsujetController.sujet_ComOut}</em> </span><br/>
-              <b:commandButton class="btn btn-outline-primary-2" iconAwesome="paper-plane" value="POST" ajax="true" 
-              	look="secondary" action="#{fsujetController.addCommentaire}" update="@(#formcom)" />	
+			  <h:panelGroup rendered="#{fsujetController.userLoggedIn}" >  
+	              <b:commandButton class="btn btn-outline-primary-2" iconAwesome="paper-plane" value="POST" ajax="true" 
+	              	look="secondary" action="#{fsujetController.addCommentaire}" update="@(#formcom)" />	
+              </h:panelGroup>	
             </h:form>
               
               

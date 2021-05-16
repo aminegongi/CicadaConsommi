@@ -18,6 +18,11 @@
           <div class="row" style="flex-wrap:nowrap;">
             <div class="col-lg-8">
             
+<h:form enctype="multipart/form-data">
+    <h:inputFile value="#{fsujetController.uploadedFile}">
+    </h:inputFile>
+    <h:commandButton action="#{fsujetController.upload}" ></h:commandButton>
+</h:form>
             
             <ui:repeat value="#{fsujetController.listSujets}" var="sujets">
 	            <!-- min houni ka3ba card blog -->

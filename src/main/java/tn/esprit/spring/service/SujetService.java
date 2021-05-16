@@ -73,6 +73,11 @@ public class SujetService {
 			srs.save(new SujetRecherche(rech, u));
 		return listRech;
 	}
+	
+	public List<Sujet> rechercheSujetSansUser(String rech) {
+		List<Sujet> listRech = sujetRepository.rechercheSujet(rech);
+		return listRech;
+	}
 
 	public List<Sujet> sujetParUser(Long id) {
 		User u = new User();

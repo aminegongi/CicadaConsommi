@@ -13,7 +13,7 @@
 	<ui:param name="page_title" value="Forum"></ui:param>
 	<ui:param name="page_title_sub" value="Mes Sujets"></ui:param>
 	<ui:define name="content">
-
+	
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8">
@@ -29,71 +29,86 @@
 				</div>
 			</div>
 			<br />
-			<div class="row">
-				<div class="col-md-12">
-				<div class="card my-12">
-						<h5 class="card-header">Affichage les Sujets</h5>
-						<div class="card-body">
-						<h:form  id="tableSujet" >
-						  <b:dataTable var="sujets" value="#{fsujetController.listMesSujets}" >
-						    <b:dataTableColumn value="#{sujets.id}" label="#" />
-						    <b:dataTableColumn value="#{sujets.titre}" label="Titre" />
-						    <b:dataTableColumn value="#{fn:substring(sujets.description, 0,250)}" label="Description" />
-						    <b:dataTableColumn value="#{sujets.datePublication}" label="Date Publication" />
-						    <h:column>
-						    <f:facet name="header">
-								<h:outputText value=" " />
-							</f:facet>
-						    <h:panelGrid columns="2" styleClass="ui-panelgrid-blank">
-								<b:commandButton style="width:30%" iconAwesome="trash" ajax="true" onclick="return confirm('Voulez vous vraiment supprimer #{sujets.titre} ?');" 
-									look="danger" actionListener="#{fsujetController.deleteSujet(sujets.id)}" 
-									immediate="true" update="@(#tableSujet)"/>
-								
-								<b:commandButton iconAwesome="edit" ajax="true" look="info" actionListener="#{fsujetController.remplirChamps(sujets)}" immediate="true" update="@(#formam)"/>
-		
-						    </h:panelGrid >
-						    </h:column>
-						  </b:dataTable>
-						</h:form>
-					</div>
-					</div>
-				</div>
-				</div>
-				<br/>
+			<h:panelGroup rendered="#{fsujetController.listMesSujets eq null }" >  
+			<br/>
+			<h2> Please Sign In  </h2>
+			<br/>
+			<h:link class="btn btn-outline-primary-2"
+			outcome="/pages/client/userSignIn.jsf" value="GO TO SIGNIN">
+			</h:link>
+			<br/>
+			<br/>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{fsujetController.listMesSujets ne null }" >  
 				<div class="row">
-				<div class="col-md-12">
-					<!--  Ajout Sujet -->
+					<div class="col-md-12">
 					<div class="card my-12">
-						<h5 class="card-header">Ajouter / Modifier un Sujet</h5>
-						<div class="card-body">
-							<div class="input">
-								<h:form id="formam">
-									<h:inputText value="#{fsujetController.sujet_titre}"
-										pt:placeholder="Titre" class="form-control" required="true">
-									</h:inputText>
-									<br />
-								
+							<h5 class="card-header">Affichage les Sujets</h5>
+							<div class="card-body">
+							<h:form  id="tableSujet" >
+							  <b:dataTable var="sujets" value="#{fsujetController.listMesSujets}" >
+							    <b:dataTableColumn value="#{sujets.id}" label="#" />
+							    <b:dataTableColumn value="#{sujets.titre}" label="Titre" />
+							    <b:dataTableColumn value="#{fn:substring(sujets.description, 0,250)}" label="Description" />
+							    <b:dataTableColumn value="#{sujets.datePublication}" label="Date Publication" />
+							    <h:column>
+							    <f:facet name="header">
+									<h:outputText value=" " />
+								</f:facet>
+							    <h:panelGrid columns="2" styleClass="ui-panelgrid-blank">
+									<b:commandButton style="width:30%" iconAwesome="trash" ajax="true" onclick="return confirm('Voulez vous vraiment supprimer #{sujets.titre} ?');" 
+										look="danger" actionListener="#{fsujetController.deleteSujet(sujets.id)}" 
+										immediate="true" update="@(#tableSujet)"/>
 									
-									 <p:textEditor value="#{fsujetController.sujet_description}" widgetVar="editor1" height="300"  />
+									<b:commandButton iconAwesome="edit" ajax="true" look="info" actionListener="#{fsujetController.remplirChamps(sujets)}" immediate="true" update="@(#formam)"/>
+			
+							    </h:panelGrid >
+							    </h:column>
+							  </b:dataTable>
+							</h:form>
+						</div>
+						</div>
+					</div>
+					</div>
+				
+				<br/>
+					<div class="row">
+					<div class="col-md-12">
+						<!--  Ajout Sujet -->
+						<div class="card my-12">
+							<h5 class="card-header">Ajouter / Modifier un Sujet</h5>
+							<div class="card-body">
+								<div class="input">
+									<h:form enctype="multipart/form-data" id="formam">
+										<h:inputText value="#{fsujetController.sujet_titre}"
+											pt:placeholder="Titre" class="form-control" required="true">
+										</h:inputText>
+										<label> Image du Sujet </label>
+    									<h:inputFile class="form-control" value="#{fsujetController.uploadedFile}"></h:inputFile>
+										<br />
 									
-									<hr />
-									<h:panelGrid columns="2" >
-										<h:commandButton ajax="true" value="Ajouter" class="btn btn-success"
-											action="#{fsujetController.addSujet()}" />
 										
-										<h:commandButton ajax="true" value="Modifier" class="btn btn-warning"
-											action="#{fsujetController.update()}" />	
-									</h:panelGrid>
-									<h:outputText>
-										#{fsujetController.sujet_AMOut}
-									</h:outputText>
-								</h:form>
-								
+										 <p:textEditor value="#{fsujetController.sujet_description}" widgetVar="editor1" height="300"  />
+										
+										<hr />
+										<h:panelGrid columns="2" >
+											<h:commandButton ajax="true" value="Ajouter" class="btn btn-success"
+												action="#{fsujetController.addSujet()}" />
+											
+											<h:commandButton ajax="true" value="Modifier" class="btn btn-warning"
+												action="#{fsujetController.update()}" />	
+										</h:panelGrid>
+										<h:outputText>
+											#{fsujetController.sujet_AMOut}
+										</h:outputText>
+									</h:form>
+									
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+				</h:panelGroup>
 		</div>
 
 

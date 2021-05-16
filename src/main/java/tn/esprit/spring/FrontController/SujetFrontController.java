@@ -1,8 +1,16 @@
 package tn.esprit.spring.FrontController;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -10,19 +18,27 @@ import java.util.Map;
 
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.http.Part;
 
 import org.ocpsoft.prettytime.PrettyTime;
 import org.ocpsoft.rewrite.annotation.Join;
 import org.ocpsoft.rewrite.el.ELBeanName;
+import org.primefaces.model.file.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
+import net.bytebuddy.utility.RandomString;
 import tn.esprit.spring.entity.Commentaire;
 import tn.esprit.spring.entity.Rating;
 import tn.esprit.spring.entity.React;
 import tn.esprit.spring.entity.Sujet;
 import tn.esprit.spring.entity.User;
+import tn.esprit.spring.entity.UserConnected;
 import tn.esprit.spring.service.CommentaireService;
 import tn.esprit.spring.service.RatingService;
 import tn.esprit.spring.service.ReactService;
@@ -47,7 +63,7 @@ public class SujetFrontController {
 	RatingService ratingService;
 	
 	@Autowired
-	ReactService reactService;;
+	ReactService reactService;
 	
 	@Autowired
 	CommentaireService commService;
@@ -83,12 +99,25 @@ public class SujetFrontController {
 	private String commentairesujet;
 	
 	
+	private boolean userLoggedIn ;
+	
 	
 	
 	
 	
 	//------Getters & Setters 
 	
+	public boolean isUserLoggedIn() {
+		if( Con == null ){
+			return false;
+		}
+		return true ;
+	}
+
+	public void setUserLoggedIn(boolean userLoggedIn) {
+		this.userLoggedIn = userLoggedIn;
+	}
+
 	public List<String> getSortsby() {
 		sortsby.add("hello");
 		sortsby.add("bonjour");
@@ -182,7 +211,8 @@ public class SujetFrontController {
 	
 	// Affichage Sujets
 	public List<Sujet> getListSujets() {
-		Con.setId(Long.valueOf(1));
+		//Con = UserConnected.userconnected;
+		//Con.setId(Long.valueOf(1));
 		listSujets = sujetService.getAll();
 		return listSujets;
 	}
@@ -192,9 +222,20 @@ public class SujetFrontController {
 	}
 
 	
-	//Afichage Mes Sujets
+	//Affichage Mes Sujets
 	public List<Sujet> getListMesSujets() {
-		Con.setId(Long.valueOf(1));
+		String s = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
+		System.err.println(s);
+		//Con.setId(Long.valueOf(1));
+		Con = UserConnected.userconnected;
+		if(Con == null){
+			System.err.println("Con null");
+			return null;
+			//RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/forwarded");
+			//dispatcher.forward(req, resp);
+		}
+			
+		System.err.println("--------------Sujet userConn Con-------  --"+ Con.getFirstname() );
 		listMesSujets = sujetService.sujetParUser(Con.getId());
 		return listMesSujets;
 	}
@@ -205,8 +246,10 @@ public class SujetFrontController {
 	
 	//ajout d'un Sujet 
 	public void addSujet(){
-		Con.setId(Long.valueOf(1));
+		//Con.setId(Long.valueOf(1));
+		Con = UserConnected.userconnected;
 		Sujet s = new Sujet(sujet_titre, sujet_description, Con);
+		upload();
 		String out = sujetService.save(s);
 		this.setSujet_AMOut(out);
 		this.setSujet_titre(null);
@@ -257,6 +300,7 @@ public class SujetFrontController {
 	// Le Sujet Info
 	
 	public Sujet getLeSujet() {
+		Con = UserConnected.userconnected;
 		leSujet = sujetService.getById(Integer.valueOf(sujetId));
 		return leSujet;
 	}
@@ -309,7 +353,7 @@ public class SujetFrontController {
 			sum += r.getNombre();
 		}
 		sum = sum / s.getSujetRating().size();
-		return String.valueOf(sum);
+		return String.format("%.1f", sum) ;
 	}
 
 	
@@ -339,11 +383,16 @@ public class SujetFrontController {
 	
 	//----------------------- Recherche
 	public String search(){
-		listSujetRechTri = sujetService.rechercheSujet(recherche,Con) ;
+		Con = UserConnected.userconnected;
+		if(this.isUserLoggedIn())
+			listSujetRechTri = sujetService.rechercheSujet(recherche,Con) ;
+		else
+			listSujetRechTri = sujetService.rechercheSujetSansUser(recherche);
 		return "/pages/client/sujets.xhtml?faces-redirect=true";
 	}
 	
 	public String sort(){
+		Con = UserConnected.userconnected;
 		listSujetRechTri = null ;
 		if(sortby.equals("choice"))
 			return null;
@@ -351,8 +400,12 @@ public class SujetFrontController {
 			listSujetRechTri = sujetService.getSujetParCom();
 		else if(sortby.equals("rates"))
 			listSujetRechTri = sujetService.getSujetParRating();
-		else if(sortby.equals("relevance"))
+		else if(sortby.equals("relevance")){
+			if( Con == null )
+				return "/client/sujet";
 			listSujetRechTri = sujetService.rechPertinenceUser(Con.getId().intValue());
+		}
+			
 		return "/pages/client/sujets.xhtml?faces-redirect=true";
 	}
 	
@@ -373,5 +426,51 @@ public class SujetFrontController {
 		return reactService.countReactPerComPerType(c.getId(), 1);
 	}
 	
+
+	
+	private Part uploadedFile;
+	
+	private File savedFile;
+
+	String pathImg = "D:\\Spring\\Work\\0Git\\CicadaConsommi\\src\\main\\webapp\\assets\\ForumImg" ;
+	
+	public Part getUploadedFile() {
+		return uploadedFile;
+	}
+
+	public void setUploadedFile(Part uploadedFile) {
+		this.uploadedFile = uploadedFile;
+	}
+
+	public void upload() {
+		System.err.println("west upload");
+	    //String fileName = Paths.get(uploadedFile.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+	    String fileName=  RandomString.make(8) +"_uploaded_"+ java.util.Calendar.getInstance().getTime().getDay() + "_" +java.util.Calendar.getInstance().getTime().getMonth() +".png" ;
+	    File uploads = new File(pathImg);
+	    /*File dir = new File("D:\\Spring\\Work\\0Git\\CicadaConsommi\\src\\main\\resources");
+	    File n = null;
+	    try {
+			n = File.createTempFile("tmp", ".tmp", dir);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}*/
+	    
+	    savedFile = new File(uploads,fileName);
+	    System.err.println("path saveFile "+ savedFile.getAbsolutePath());
+	    System.err.println("sub uploadfile name "+ uploadedFile.getSubmittedFileName());
+	    InputStream input;
+		try {
+			input = uploadedFile.getInputStream();
+			System.err.println(input.toString());
+			Files.copy(input, savedFile.toPath());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	        
+	        
+
+	}
 	
 }

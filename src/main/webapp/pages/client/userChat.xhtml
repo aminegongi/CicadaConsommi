@@ -230,6 +230,17 @@ img {
 }
 </style>
 
+<h:panelGroup rendered="#{fchatController.con eq null}" >  
+			<br/>
+			<h2> Please Sign In  </h2>
+			<br/>
+			<h:link class="btn btn-outline-primary-2"
+			outcome="/pages/client/userSignIn.jsf" value="GO TO SIGNIN">
+			</h:link>
+			<br/>
+			<br/>
+</h:panelGroup>
+<h:panelGroup rendered="#{fchatController.con ne null}" >  
 		<div class="page-content">
 			<div class="dashboard">
 				<div class="container">
@@ -259,7 +270,7 @@ img {
 								  <p:poll interval="1" update="paneformainboxchat laconv" />  
 								</h:form>
 								
-									<h3 class=" text-center">Messaging</h3>
+									<h3 class=" text-center">#{fchatController.con.username}'s Inbox</h3>
 									<div class="messaging">
 
 										<div class="inbox_msg">
@@ -321,7 +332,15 @@ img {
 														<div class="received_msg">
 															<div class="received_withd_msg">
 																<p>#{conv.description}</p>
-																<span class="time_date"> 11:01 AM | June 9</span>
+																<span class="time_date"> 
+																	<h:outputText value="#{conv.dateEnvoi}">
+																		<f:convertDateTime pattern="MMMM d" type="date" />
+																	</h:outputText>
+																	 | 
+																	<h:outputText value="#{conv.dateEnvoi}">
+																		<f:convertDateTime pattern="HH:mm" type="date" />
+																	</h:outputText> 
+																</span>
 															</div>
 														</div>
 													</div>
@@ -331,7 +350,15 @@ img {
 															<div class="outgoing_msg">
 																<div class="sent_msg">
 																	<p>#{conv.description}</p>
-																	<span class="time_date"> 11:01 AM | June 9</span>
+																	<span class="time_date"> 
+																		<h:outputText value="#{conv.dateEnvoi}">
+																			<f:convertDateTime pattern="MMMM d" type="date" />
+																		</h:outputText>
+																		 | 
+																		<h:outputText value="#{conv.dateEnvoi}">
+																			<f:convertDateTime pattern="HH:mm" type="date" />
+																		</h:outputText> 
+																	</span>
 																</div>
 															</div>
 													</h:panelGroup>
@@ -378,7 +405,7 @@ img {
 			<!--  End .dashboard -->
 		</div>
 		<!--  End .page-content -->
-
+</h:panelGroup>
 
 	</ui:define>
 </ui:composition>
