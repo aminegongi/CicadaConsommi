@@ -39,6 +39,13 @@ public class NotifServiceImpl implements NotifService {
 		return u;
 
 	}
+	
+	@Override
+	public Notification retrieveNotif(String id) {
+		// TODO Auto-generated method stub
+		
+		return NotificationRepository.findById(Long.parseLong(id)).get(); 
+	}
 
 	@Override
 	public void deleteNotification(String id) {
