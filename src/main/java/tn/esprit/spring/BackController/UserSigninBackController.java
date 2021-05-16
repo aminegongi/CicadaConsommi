@@ -1,7 +1,12 @@
 package tn.esprit.spring.BackController;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.faces.context.FacesContext;
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.ocpsoft.rewrite.annotation.Join;
 import org.ocpsoft.rewrite.el.ELBeanName;
@@ -16,6 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 
+import net.bytebuddy.utility.RandomString;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.entity.UserConnected;
 import tn.esprit.spring.payload.response.JwtResponse;
@@ -23,12 +29,13 @@ import tn.esprit.spring.repository.RoleRepository;
 import tn.esprit.spring.repository.UserRepository;
 import tn.esprit.spring.security.jwt.JwtUtils;
 import tn.esprit.spring.security.services.UserDetailsImpl;
+import tn.esprit.spring.service.MailService;
 import tn.esprit.spring.service.UserServiceImpl;
 
 @Scope(value = "session")
 @Controller(value = "bsigninController")
 @ELBeanName(value = "bsigninController")
-@Join(path = "/user/back/signin", to = "/template/Back/adminsignin.jsf")
+@Join(path = "/admin/signin", to = "/template/Back/adminsignin.jsf")
 public class UserSigninBackController {
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -46,6 +53,9 @@ public class UserSigninBackController {
 	JwtUtils jwtUtils;
 
 	@Autowired
+	MailService mail;
+
+	@Autowired
 	UserServiceImpl userserviceI;
 	private Long id;
 	private String firstname;
@@ -55,7 +65,10 @@ public class UserSigninBackController {
 	private String email;
 	private String username;
 	private String password;
+	private String npassword;
 	private String out;
+	private String outmail;
+	private String outreset;
 
 	private User profile;
 	
@@ -73,6 +86,30 @@ public class UserSigninBackController {
 	}
 
 	
+	public String getNpassword() {
+		return npassword;
+	}
+
+	public void setNpassword(String npassword) {
+		this.npassword = npassword;
+	}
+
+	public String getOutmail() {
+		return outmail;
+	}
+
+	public void setOutmail(String outmail) {
+		this.outmail = outmail;
+	}
+
+	public String getOutreset() {
+		return outreset;
+	}
+
+	public void setOutreset(String outreset) {
+		this.outreset = outreset;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -197,5 +234,53 @@ public class UserSigninBackController {
 	public void deleteuser(User u){
 		userserviceI.delete(u);
 	}
+	public void verifymail() {
+		System.err.println(this.getEmail());
+		User u = userserviceI.findbyemail(this.getEmail());
+		if (u == null) {
+			this.setOutmail("enter existing mail");
+			System.err.println("not good");
+		} else {
+			String randomCode = RandomString.make(64);
+			this.setOutmail("Check you mail");
+			u.setVerificationCode(randomCode);
+			userserviceI.UpdateProfile(u);
+			try {
+				mail.sendresetpwdb(u);
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		
+
+	}
+
+	public String reset() {
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		String token = request.getParameter("token");
+		//System.err.println("hedha -> "+token);
+		if(this.getPassword().equals(this.getNpassword())){
+		String pwd =encoder.encode(this.getPassword());
+		int i=userserviceI.resetpwd(pwd, token);
+		System.err.println(i);
+		if(i>0){
+			return "/template/Back/adminsignin.xhtml?faces-redirect=true";
+		}
+		else{
+			this.setOutreset("No valid token !");
+			return null;
+		}
+		}
+		else {
+			this.setOutreset("Miss matching Password!");
+			return null;
+		}
+	}
+		
 
 }

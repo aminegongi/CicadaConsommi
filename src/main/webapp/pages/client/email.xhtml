@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE html
+   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<!--  molla/coming-soon.html 22 Nov 2019 10:04:05 GMT -->
+<head>
+<meta content="" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<title>Molla - Bootstrap eCommerce Template</title>
+<meta name="keywords" content="HTML5 Template" />
+<meta name="description" content="Molla - Bootstrap eCommerce Template" />
+<meta name="author" content="p-themes" />
+<!--  Favicon -->
+<link rel="apple-touch-icon"
+	href="/assets/images/icons/apple-touch-icon.png" />
+<link rel="icon" type="image/png"
+	href="/assets/images/icons/favicon-32x32.png" />
+<link rel="icon" type="image/png"
+	href="/assets/images/icons/favicon-16x16.png" />
+<link rel="manifest" href="/assets/images/icons/site.html" />
+<link rel="mask-icon" href="/assets/images/icons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/assets/images/icons/favicon.ico" />
+<meta name="apple-mobile-web-app-title" content="Molla" />
+<meta name="application-name" content="Molla" />
+<meta name="msapplication-TileColor" content="#cc9966" />
+<meta name="msapplication-config"
+	content="/assets/images/icons/browserconfig.xml" />
+<meta name="theme-color" content="#ffffff" />
+<!--  Plugins CSS File -->
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/assets/css/plugins/jquery.countdown.css" />
+<!--  Main CSS File -->
+<link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+<body>
+	<div class="soon">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9 col-lg-8">
+					<div class="soon-content text-center">
+						<div class="soon-content-wrapper">
+							<img src="/assets/images/logo-icon.png" width="200px" alt="Logo"
+								class="soon-logo mx-auto" />
+							<h1 class="soon-title">Enter your email ! !</h1>
+							<!--  End .soon-title -->
+							<div class="coming-countdown countdown-separator"></div>
+							<!--  End .coming-countdown -->
+							<hr class="mt-2 mb-3 mt-md-3" />
+							<p>Please enter your Email to reset your password.</p>
+							<h:form>
+								<div class="input-group mb-5">
+									<div class="input-group-append">
+										<h:inputText class="form-control"
+											value="#{fsigninController.email}" id="email" required="true"
+											requiredMessage="The field is empty"
+											validatorMessage="The email is not valid"></h:inputText>
+										<f:validateRegex
+											pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+										<h:message for="email" errorStyle="color:red; display:block" />
+										<h:outputText value="#{fsigninController.outmail}"></h:outputText>
+										<h:commandButton action="#{fsigninController.verifymail()}"
+											value="SUBMIT" class="btn btn-outline-primary-2"></h:commandButton>
+									</div>
+								</div>
+							</h:form>
+
+							<!--  End .soial-icons -->
+						</div>
+						<!--  End .soon-content-wrapper -->
+					</div>
+					<!--  End .soon-content -->
+				</div>
+				<!--  End .col-md-9 col-lg-8 -->
+			</div>
+			<!--  End .row -->
+		</div>
+		<!--  End .container -->
+
+		<!--  End .soon-bg bg-image -->
+	</div>
+	<!--  End .soon -->
+	<!--  Plugins JS File -->
+	<script src="/assets/js/jquery.min.js" type="text/javascript"
+		xml:space="preserve"></script>
+	<script src="/assets/js/bootstrap.bundle.min.js" type="text/javascript"
+		xml:space="preserve"></script>
+	<script src="/assets/js/jquery.plugin.min.js" type="text/javascript"
+		xml:space="preserve"></script>
+	<script src="/assets/js/jquery.countdown.min.js" type="text/javascript"
+		xml:space="preserve"></script>
+	<!--  Main JS File -->
+	<script src="/assets/js/main.js" type="text/javascript"
+		xml:space="preserve"></script>
+</body>
+<!--  molla/coming-soon.html 22 Nov 2019 10:04:05 GMT -->
+</html>

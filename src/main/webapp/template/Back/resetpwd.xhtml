@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Admin Reset Password</title>
+        <meta name="author" content="Riccardo Massera"></meta>
+        <style type="text/css">
+            .form-signin {
+                margin: 0 auto;
+                max-width: 330px;
+                padding: 15px;
+            }
+         
+        </style>
+    </h:head>
+    <h:body style="color:#FFFFFF; background: url(/assets/images/backgrounds/bg.jpg);background-size:100%" >
+        <b:container>
+            <h:form styleClass="form-signin" prependId="false">
+                <h2 class="form-signin-heading" style="text-align: center">RESET PASSWORD</h2>
+                 <b:inputSecret placeholder="Password" value="#{bsigninController.password}" required="true" requiredMessage="The field is empty" >
+                    <f:facet name="prepend">
+                        <b:iconAwesome name="key" />
+                    </f:facet>
+                </b:inputSecret>
+                <b:inputSecret placeholder="Confirm Password" value="#{bsigninController.npassword}" required="true" requiredMessage="The field is empty" >
+                    <f:facet name="prepend">
+                        <b:iconAwesome name="key" />
+                    </f:facet>
+                </b:inputSecret>
+                 <h:outputText value="#{bsigninController.outreset}"></h:outputText>
+                <b:commandButton action="#{bsigninController.reset()}" look="primary btn-block" value="CONFIRM" icon="log-in" size="lg"/>
+            </h:form>
+        </b:container>
+    </h:body>
+</html>

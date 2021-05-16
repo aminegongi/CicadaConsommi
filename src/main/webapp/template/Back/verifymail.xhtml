@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Admin Sign-in</title>
+	<meta name="author" content="Riccardo Massera"></meta>
+	<style type="text/css">
+.form-signin {
+	margin: 0 auto;
+	max-width: 330px;
+	padding: 15px;
+}
+</style>
+</h:head>
+<h:body
+	style="color:#FFFFFF; background: url(/assets/images/backgrounds/bg.jpg);background-size:100%">
+	<b:container>
+		<h:form styleClass="form-signin" prependId="false">
+			<h2 class="form-signin-heading" style="text-align: center">VERIFY EMAIL</h2>
+			<b:inputText placeholder="E-mail" value="#{bsigninController.email}">
+				<f:facet name="prepend">
+					<b:icon name="envelope" />
+				</f:facet>
+			</b:inputText>
+			<h:outputText value="#{bsigninController.outmail}"></h:outputText>
+			<b:commandButton action="#{bsigninController.verifymail()}"
+				look="primary btn-block" value="SUBMIT" />
+		</h:form>
+	</b:container>
+</h:body>
+</html>

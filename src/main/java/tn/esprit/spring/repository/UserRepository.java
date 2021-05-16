@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -36,7 +39,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	
 	@Query(value = "SELECT activated from users where username = ?1 ", nativeQuery = true)
 	public boolean Checkactivation(String user);
-
+	
+	 @Query("SELECT c FROM User c WHERE c.email = ?1")
+	public User findByEmail(String email); 
+	 @Modifying
+	 @Transactional
+	 @Query("UPDATE User u SET u.password= ?1,u.verificationCode=NULL where u.verificationCode= ?2")
+	public int updatepwd(String pwd,String vc);
 	/*@Query("Select x from Users x where s.id = ?1 ")
 	public List<User> UserParId(Long id);
 	*/
