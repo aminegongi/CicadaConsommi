@@ -52,6 +52,8 @@
 			</b:column>
 			<b:column col-sm="9" offset-sm="3" col-md="10" offset="2"
 				styleClass="main">
+					<center>
+					
 				<hr />
 				<h1>Rayon</h1>
 				<hr />
@@ -59,97 +61,156 @@
 
 				<h:panelGroup columns="2">
 					<h:form>
-						<h:dataTable value="#{rayonController.rayons}" var="rayon"
-							border="1">
+					<b:row styleClass="table-responsive">
+						<b:dataTable styleClass="table table-striped" value="#{rayonController.rayons}" var="rayon" rows="15">
 
-							<h:column>
+							<b:column>
 								<f:facet name="header">
 									<h:outputText value="Id Rayon" />
 								</f:facet>
 								<h:outputText value="#{rayon.id}" />
-							</h:column>
-							<h:column>
+							</b:column>
+							<b:column>
 								<f:facet name="header">
 									<h:outputText value="Type" />
 								</f:facet>
 								<h:outputText value="#{rayon.type}" />
-							</h:column>
-							<h:column>
+							</b:column>
+							<b:column>
 								<f:facet name="header">
 									<h:outputText value="Action" />
 								</f:facet>
 								<h:commandButton
+									class="btn btn-danger"
 									action="#{rayonController.deleteRayon(rayon.id)}"
 									value="Delete" />
-							</h:column>
-							<h:column>
+							</b:column>
+							<b:column>
 								<f:facet name="header">
 									<h:outputText value="Action" />
 								</f:facet>
-								<h:commandButton action="#{rayonController.displayRayon(rayon)}"
+								<h:commandButton class="btn btn-primary" action="#{rayonController.displayRayon(rayon)}"
 									value="Show" />
-							</h:column>
-						</h:dataTable>
+							</b:column>
+						</b:dataTable>
+						</b:row>
 					</h:form>
+						
 				</h:panelGroup>
-
-				<h:panelGroup columns="2">
+				
+			
+				<h:panelGroup columns="2"  style="width: 30%;margin: 0 auto;" layout="block">
 					<h:form>
-						<h:outputText value="Rayon's Type"></h:outputText>
-						<h:inputText value="#{rayonController.type}"></h:inputText>
+						<b:selectOneMenu value="#{rayonController.ry.type}"  label="Rayon's Type" >
+							 <f:facet name="prepend">
+         						 <b:iconAwesome name="barcode" />
+       						 </f:facet>
+       						 	 <f:selectItem itemLabel="Show All" itemValue="" />
+     						     <f:selectItems value="#{rayonController.getAllRayons()}" var="r" itemValue="#{r.type}" itemLabel="#{r.type}" />
+     						     <f:facet name="append">
+        						   <b:iconAwesome name="list" />
+        						 </f:facet>
+    					    </b:selectOneMenu>
+						
 						<h:commandButton
-							action="#{rayonController.getRayonBytype(rayonController.type)}"
+							class="btn btn-warning"
+							action="#{rayonController.getRayonBytype(rayonController.ry.type)}"
 							value="Show by Type" />
 
 					</h:form>
 				</h:panelGroup>
-
-
+</center>
 				<br />
-				<h:panelGroup columns="2">
+
+				<center>
+
+<hr />
+
+				<h1>Related Products</h1>
+				<hr />
+				<br />
+				<h:panelGroup columns="2" style="width: 50%;margin: 0 auto;" layout="block">
 					<h:form>
-						<h:outputText value="Find Related Categories By Rayon's Id"></h:outputText>
-						<h:inputText value="#{rayonController.ry.id}"></h:inputText>
+						
+						<b:selectOneMenu value="#{rayonController.ry.id}" required="true" label="Find Related Categories" >
+							 <f:facet name="prepend">
+         						 <b:iconAwesome name="barcode" />
+       						 </f:facet>
+     						     <f:selectItems value="#{rayonController.getAllRayons()}" var="r" itemValue="#{r.id}" itemLabel="#{r.id} - #{r.type}" />
+     						     <f:facet name="append">
+        						   <b:iconAwesome name="list" />
+        						 </f:facet>
+    					     </b:selectOneMenu>
 						<h:commandButton
+							class="btn btn-info"
 							action="#{rayonController.showCategories(rayonController.ry.id)}"
 							value="Show Related Categories" />
 					</h:form>
 				</h:panelGroup>
-				<h:panelGroup columns="2">
+				</center>
+				
+				<center>
+				
+				
+				<h:panelGroup columns="2" style="width: 50%;margin: 0 auto;" layout="block">
 					<h:form>
-						<h:dataTable value="#{rayonController.categories}" var="category"
-							border="1">
-							<h:column>
+					<b:row styleClass="table-responsive">
+						<b:dataTable styleClass="table table-striped" value="#{rayonController.categories}" var="category" rows="15">
+							<b:column>
 								<f:facet name="header">
 									<h:outputText value="Id category" />
 								</f:facet>
 								<h:outputText value="#{category.id}" />
-							</h:column>
-							<h:column>
+							</b:column>
+							<b:column>
 								<f:facet name="header">
 									<h:outputText value="Name" />
 								</f:facet>
 								<h:outputText value="#{category.name}" />
-							</h:column>
+							</b:column>
 
-						</h:dataTable>
+						</b:dataTable>
+					</b:row>
 					</h:form>
 				</h:panelGroup>
+				</center>
+								<br />
+				
+					<center>
+				<hr />
+				<h1>Add Or Update Rayon</h1>
+				<hr />
+			
 				<br />
-				<h:panelGroup columns="2">
+			
+				<h:panelGroup columns="2" style="width: 50%;margin: 0 auto;" layout="block">
 					<h:form>
 						<table>
 							<tr>
-								<td><h:outputText value="Id Rayon"></h:outputText></td>
-								<td><h:inputText value="#{rayonController.ry.id}"></h:inputText></td>
+							<b:selectOneMenu value="#{rayonController.ry.id}" label="Id Rayon" >
+							 <f:facet name="prepend">
+         						 <b:iconAwesome name="barcode" />
+       						 </f:facet>
+       						  	 <f:selectItem itemLabel="Add New Rayon" itemValue="" />
+     						     <f:selectItems value="#{rayonController.getAllRayons()}" var="r" itemValue="#{r.id}" itemLabel="#{r.id}" />
+     						     <f:facet name="prepend">
+        						   <b:iconAwesome name="list" />
+        						 </f:facet>
+    					     </b:selectOneMenu>
+    					     
 							</tr>
 							<tr>
-								<td><h:outputText value="Type"></h:outputText></td>
-								<td><h:inputText value="#{rayonController.ry.type}"></h:inputText></td>
+							
+								<b:inputText  required="true" label="Type" value="#{rayonController.ry.type}">
+									<f:facet name="append">
+      								<b:icon value="tag" />
+    								</f:facet>
+ 								</b:inputText>
+								
 							</tr>
 
 							<tr>
-								<td colspan="2"><h:commandButton value="Add / Update Rayon"
+								<td colspan="2"><h:commandButton class="btn btn-success" value="Add / Update Rayon"
 										action="#{rayonController.addRayon()}" /></td>
 							</tr>
 
@@ -157,6 +218,7 @@
 						</table>
 					</h:form>
 				</h:panelGroup>
+				</center>
 
 
 

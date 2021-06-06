@@ -53,12 +53,24 @@
 			<b:column col-sm="9" offset-sm="3" col-md="10" offset="2"
 				styleClass="main">
 				<hr />
-				<h1>Stock</h1>
+				<center><h1>Stocks List</h1></center>
 				<hr />
 
-				<h:panelGroup columns="2">
-
-
+														 <!-- Show Stocks -->
+														 <center>
+				<h:panelGroup columns="2" style="margin: 0 auto;" layout="block">
+					<h:form>
+						<h:commandButton  class="btn btn-warning" action="#{stockController.getAllStocks()}"
+							value="Show by Id Stock" />
+						<h:commandButton  class="btn btn-warning" action="#{stockController.triByAmount()}"
+							value="Show by Amount" />
+						<h:commandButton  class="btn btn-warning" action="#{stockController.triByQtee()}"
+							value="Show by Stock In" />
+						<h:commandButton  class="btn btn-warning" action="#{stockController.triByQtes()}"
+							value="Show by Stock out" />
+							
+					</h:form>
+					<br/>
 					<h:form>
 					<b:row styleClass="table-responsive">
 				
@@ -100,96 +112,153 @@
 								</f:facet>
 								<h:commandButton
 									action="#{stockController.deleteStock(stock.id)}"
-									value="Delete" />
+									value="Delete" class="btn btn-danger" />
 							</b:dataTableColumn>
 							<b:dataTableColumn>
 								<f:facet name="header">
 									<h:outputText value="Action" />
 								</f:facet>
 								<h:commandButton action="#{stockController.displayStock(stock)}"
-									value="Show" />
+									value="Show" class="btn btn-primary" />
 							</b:dataTableColumn>
 						</b:dataTable>
 					</b:row>
 					</h:form>
 
-
 				</h:panelGroup>
+				</center>
 
-				<h:panelGroup columns="2">
-					<h:form>
-						<h:commandButton  class="btn btn-secondary" action="#{stockController.getAllStocks()}"
-							value="Show by Id Stock" />
-						<h:commandButton  class="btn btn-secondary" action="#{stockController.triByAmount()}"
-							value="Show by Amount" />
-						<h:commandButton  class="btn btn-secondary" action="#{stockController.triByQtee()}"
-							value="Show by Stock In" />
-						<h:commandButton  class="btn btn-secondary" action="#{stockController.triByQtes()}"
-							value="Show by Stock out" />
-							
-					</h:form>
-				</h:panelGroup>
+				
 				<br />
 
-
-				<h:panelGroup columns="2">
+                                                           <!-- Increase / Decrease -->
+                 <hr />
+				<center><h1>Manipulate Stocks Amount</h1></center>
+				<hr />
+				
+                <center>                                    
+				<h:panelGroup columns="2" style="width: 30%;margin: 0 auto;" layout="block">
+				<tr><td>
 					<h:form>
 						<tr>
-							<td><h:outputText value="id"></h:outputText></td>
-							<td><h:inputText value="#{stockController.st.id}"></h:inputText></td>
-							<td><h:inputText value="#{qte}"></h:inputText></td>
+							<b:selectOneMenu value="#{stockController.st.id}" required="true" label="Increase">
+							 <f:facet name="prepend">
+         						 <b:iconAwesome name="barcode" />
+       						 </f:facet>
+     						     <f:selectItems value="#{stockController.getAllStocks()}" var="s" itemValue="#{s.id}" itemLabel="#{s.id}" />
+     						     <f:facet name="append">
+        						   <b:iconAwesome name="list" />
+        						 </f:facet>
+    					     </b:selectOneMenu>
+							<b:inputText placeholder="Amount"   value="#{qte}" required="true" type="number" min="1">
+									<f:facet name="prepend">
+      								<b:icon value="arrow-up" />
+    								</f:facet>
+ 								</b:inputText>
 						</tr>
 						<tr>
-							<td colspan="2"><h:commandButton class="btn btn-info" value="Increase Stock"
+							<td colspan="2">
+							
+							<h:commandButton class="btn btn-info" value="Increase Stock" 
 									action="#{stockController.increaseStock(qte,stockController.st.id)}" />
+									
 							</td>
 						</tr>
 					</h:form>
-				</h:panelGroup>
-
-				<h:panelGroup columns="2">
+					</td>
+					<td>
+					<br/>
 					<h:form>
 						<tr>
-							<td><h:outputText value="id"></h:outputText></td>
-							<td><h:inputText value="#{stockController.st.id}"></h:inputText></td>
-							<td><h:inputText value="#{qte}"></h:inputText></td>
+							<b:selectOneMenu value="#{stockController.st.id}" required="true" label="Decrease">
+							 <f:facet name="prepend">
+         						 <b:iconAwesome name="barcode" />
+       						 </f:facet>
+     						     <f:selectItems value="#{stockController.getAllStocks()}" var="s" itemValue="#{s.id}" itemLabel="#{s.id}" />
+     						     <f:facet name="append">
+        						   <b:iconAwesome name="list" />
+        						 </f:facet>
+    					     </b:selectOneMenu>
+							<b:inputText placeholder="Amount"   value="#{qte}" required="true" type="number" min="1">
+									<f:facet name="prepend">
+      								<b:icon value="arrow-down" />
+    								</f:facet>
+ 								</b:inputText>
+ 								<b:message for="@previous" />
 						</tr>
 						<tr>
-							<td colspan="2"><h:commandButton class="btn btn-info" value="Decrease Stock"
+							<td colspan="2">
+							<h:commandButton class="btn btn-info" value="Decrease Stock"
 									action="#{stockController.decreaseStock(qte,stockController.st.id)}" />
+									
 							</td>
 						</tr>
 						<tr>
 							<td><h:outputText value="#{stockController.result}"></h:outputText></td>
 						</tr>
 					</h:form>
+					</td></tr>
 				</h:panelGroup>
+				</center>
 				<br />
-				<h:panelGroup columns="2">
+				<br />
+				
+														
+														<!-- ADD or UPDATE a SROCK -->
+														<hr />
+				<center><h1>Add Or Update a Stock</h1></center>
+				<hr />
+						<center>								
+				<h:panelGroup columns="2" style="width: 50%;margin: 0 auto;" layout="block">
 					<h:form>
 						<table>
 							<tr>
-								<td><h:outputText value="id"></h:outputText></td>
-								<td><h:inputText value="#{stockController.st.id}"></h:inputText></td>
+							<b:selectOneMenu value="#{stockController.st.id}"  label="ID">
+							 <f:facet name="prepend">
+         						 <b:iconAwesome name="barcode" />
+       						 </f:facet>
+       						     <f:selectItem itemLabel="Add New Stock" itemValue="" />
+     						     <f:selectItems value="#{stockController.getAllStocks()}" var="s" itemValue="#{s.id}" itemLabel="#{s.id}" />
+     						     <f:facet name="append">
+        						   <b:iconAwesome name="list" />
+        						 </f:facet>
+    					     </b:selectOneMenu>
 							</tr>
 							<tr>
-								<td><h:outputText value="Amout"></h:outputText></td>
-								<td><h:inputText value="#{stockController.st.amount}"></h:inputText></td>
+								<b:inputText value="#{stockController.st.amount}"  type="number" required="true" label="Amount">
+									<f:facet name="prepend">
+      								<b:icon value="stats" />
+    								</f:facet>
+ 								</b:inputText>
+								
 							</tr>
 							<tr>
-								<td><h:outputText value="Stock in"></h:outputText></td>
-								<td><h:inputText value="#{stockController.st.qtee}"></h:inputText></td>
+								<b:inputText required="true" type="number"  label="Stock In"  value="#{stockController.st.qtee}">
+									<f:facet name="prepend">
+      								<b:icon value="cloud-upload" />
+    								</f:facet>
+ 								</b:inputText>
+								
 							</tr>
 							<tr>
-								<td><h:outputText value="Stock Out"></h:outputText></td>
-								<td><h:inputText value="#{stockController.st.qtes}"></h:inputText></td>
+								<b:inputText  required="true" label="Stock Out" type="number" value="#{stockController.st.qtes}">
+									<f:facet name="prepend">
+      								<b:icon value="cloud-download" />
+    								</f:facet>
+ 								</b:inputText>
+								
 							</tr>
 							<tr>
-								<td><h:outputText value="Produit"></h:outputText></td>
-								<td><h:inputText value="#{stockController.id_produit}"></h:inputText></td>
+								<b:inputText placeholder="ProduitId" required="true" label="Produit"  type="number" value="#{stockController.id_produit}">
+									<f:facet name="prepend">
+      								<b:icon value="grain" />
+    								</f:facet>
+ 								</b:inputText>
+							
 							</tr>
+							
 							<tr>
-								<td colspan="2"><h:commandButton class="btn btn-info" value="add / Update Stock"
+								<td colspan="2"><h:commandButton class="btn btn-success"  value="Add / Update Stock"
 										action="#{stockController.addStock()}" /></td>
 								<td><h:outputText value="#{stockController.result2}"
 										color="red"></h:outputText></td>
@@ -198,6 +267,7 @@
 						</table>
 					</h:form>
 				</h:panelGroup>
+				</center>
 
 			</b:column>
 		</b:row>

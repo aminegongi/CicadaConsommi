@@ -52,122 +52,160 @@
 			</b:column>
 			<b:column col-sm="9" offset-sm="3" col-md="10" offset="2"
 				styleClass="main">
+				<center>
 				<hr />
-				<h1>Category</h1>
+				<h1>Show Categories</h1>
 				<hr />
 
 
-				<h:panelGroup columns="2">
+				<h:panelGroup columns="2" >
 					<h:form>
-						<h:dataTable value="#{categoryController.categories}"
-							var="category" border="1">
-							<h:column>
+					<b:row styleClass="table-responsive">
+						<b:dataTable styleClass="table table-striped" value="#{categoryController.categories}" var="category" rows="15">
+					
+							<b:column>
 								<f:facet name="header">
 									<h:outputText value="Id category" />
 								</f:facet>
 								<h:outputText value="#{category.id}" />
-							</h:column>
-							<h:column>
+							</b:column>
+							<b:column>
 								<f:facet name="header">
 									<h:outputText value="Name" />
 								</f:facet>
 								<h:outputText value="#{category.name}" />
-							</h:column>
-							<h:column>
+							</b:column>
+							<b:column>
 								<f:facet name="header">
 									<h:outputText value="Name" />
 								</f:facet>
 								<h:outputText value="#{category.rayon.id}" />
-							</h:column>
-							<h:column>
+							</b:column>
+							<b:column>
 								<f:facet name="header">
 									<h:outputText value="Action" />
 								</f:facet>
 								<h:commandButton
+								class="btn btn-danger"
 									action="#{categoryController.removeCategory(category.id)}"
 									value="delete" />
-							</h:column>
-							<h:column>
+							</b:column>
+							<b:column>
 								<f:facet name="header">
 									<h:outputText value="Action" />
 								</f:facet>
 								<h:commandButton
+								class="btn btn-primary"
 									action="#{categoryController.displayCategory(category)}"
 									value="Show" />
-							</h:column>
-						</h:dataTable>
+							</b:column>
+						</b:dataTable>
+						</b:row>
 					</h:form>
 				</h:panelGroup>
 
 				<h:panelGroup columns="2">
 					<h:form>
 						<h:commandButton action="#{categoryController.getAllCategories()}"
-							value="Show All" />
+							class="btn btn-info" value="Show All" />
 					</h:form>
 				</h:panelGroup>
+				
 				<br />
-				<h:panelGroup columns="2">
+				<hr />
+				<h1>Manipulate Categories</h1>
+				<hr />
+					<h:panelGroup columns="2" style="width: 30%;margin: 0 auto;" layout="block">
 					<h:form>
+							<b:selectOneMenu value="#{categoryController.ct.name}" label="Name Category" >
+							 <f:facet name="prepend">
+         						 <b:iconAwesome name="barcode" />
+       						 </f:facet>
+     						     <f:selectItems value="#{categoryController.getAllCategories()}" var="c" itemValue="#{c.name}" itemLabel="#{c.name} " />
+     						     <f:facet name="prepend">
+        						   <b:iconAwesome name="list" />
+        						 </f:facet>
+    					     </b:selectOneMenu>
 
-						<h:inputText value="#{name}"></h:inputText>
-
-						<h:commandButton action="#{categoryController.findCategory(name)}"
-							value="Show By Name" />
+						<h:commandButton action="#{categoryController.findCategory(categoryController.ct.name)}"
+							class="btn btn-warning" value="Show By Name" />
 					</h:form>
-				</h:panelGroup>
 				<br />
-				<h:panelGroup columns="2">
+			
 					<h:form>
-						<h:inputText value="#{id}"></h:inputText>
+					
+					<b:selectOneMenu value="#{id}" label="Id Rayon" >
+							 <f:facet name="prepend">
+         						 <b:iconAwesome name="inbox" />
+       						 </f:facet>
+     						     <f:selectItems value="#{rayonController.getAllRayons()}" var="r" itemValue="#{r.id}" itemLabel="#{r.id} -- #{r.type}" />
+     						     <f:facet name="prepend">
+        						   <b:iconAwesome name="list" />
+        						 </f:facet>
+    					     </b:selectOneMenu>
+ 								
 						<h:commandButton action="#{categoryController.groupedByRayon(id)}"
-							value="Show by Rayon" />
+							class="btn btn-warning" value="Show by Rayon" />
 
 					</h:form>
 				</h:panelGroup>
+				
 				<br />
+</center>
 
 				<br />
-				<h:panelGroup columns="2">
+				<center>
+				<hr />
+				<h1>Add or Update Category</h1>
+				<hr />
+				<h:panelGroup columns="2" style="width: 50%;margin: 0 auto;" layout="block">
 					<h:form>
-						<table>
+						<table style="width: 30%;margin: 0 auto;" layout="block">
 							<tr>
-								<td><h:outputText value="Id Category"></h:outputText></td>
-								<td><h:inputText value="#{categoryController.ct.id}"></h:inputText></td>
+							<b:selectOneMenu value="#{categoryController.ct.id}" label="Id Category" >
+							 <f:facet name="prepend">
+         						 <b:iconAwesome name="barcode" />
+       						 </f:facet>
+       						  	 <f:selectItem itemLabel="Add New Category" itemValue="" />
+     						     <f:selectItems value="#{categoryController.getAllCategories()}" var="c" itemValue="#{c.id}" itemLabel="#{c.id} -- #{c.name} " />
+     						     <f:facet name="prepend">
+        						   <b:iconAwesome name="list" />
+        						 </f:facet>
+    					     </b:selectOneMenu>
 							</tr>
 							<tr>
-								<td><h:outputText value="Name"></h:outputText></td>
-								<td><h:inputText value="#{categoryController.ct.name}"></h:inputText></td>
+							<b:inputText  required="true" label="Name" value="#{categoryController.ct.name}">
+									<f:facet name="prepend">
+      								<b:icon value="text-width" />
+    								</f:facet>
+ 								</b:inputText>
+								
 							</tr>
 							<tr>
-								<td><h:outputText value="Rayon Id"></h:outputText></td>
+							<b:selectOneMenu value="#{categoryController.rayonId}" label="Id Rayon" >
+							 <f:facet name="prepend">
+         						 <b:iconAwesome name="inbox" />
+       						 </f:facet>
+     						     <f:selectItems value="#{rayonController.getAllRayons()}" var="r" itemValue="#{r.id}" itemLabel="#{r.id} -- #{r.type}" />
+     						     <f:facet name="prepend">
+        						   <b:iconAwesome name="list" />
+        						 </f:facet>
+    					     </b:selectOneMenu>
+							</tr>
 
-								<td><h:inputText value="#{categoryController.rayonId}"></h:inputText></td>
-							</tr>
-
-							<!--<tr><td><h:outputText value="Actif / Inactif"></h:outputText></td>
-<td><h:selectBooleanCheckbox
-value="#{employeController.employee.actif}"></h:selectBooleanCheckbox></td></tr>
-<tr>
-<td><h:outputText value="Role"></h:outputText></td
-<td><h:selectOneMenu value="#{categoryController.ct.rayon.id}">
-<f:selectItem itemLabel="Choisir le Role" value="" />
-<c:forEach items="#{categoryController.categories}" var="category" varStatus="loop">
-    <f:selectItem itemValue="#{category.id}" itemLabel="#{category.id}" />
-</c:forEach>
-</h:selectOneMenu></td>
-</tr>>-->
 							<tr>
 								<td colspan="2"><h:commandButton
+								class="btn btn-success"
 										value="Add / Update Category"
 										action="#{categoryController.addCategory()}" /></td>
-							</tr>
+							
 							<td><h:outputText value="#{categoryController.result}"></h:outputText></td>
-
+</tr>
 						</table>
 					</h:form>
 				</h:panelGroup>
 
-
+</center>
 
 			</b:column>
 		</b:row>
