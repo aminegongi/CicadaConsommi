@@ -1,0 +1,259 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Dashboard Template for BootsFaces</title>
+	<meta name="author" content="Riccardo Massera"></meta>
+
+</h:head>
+<h:body style="padding-top: 60px">
+	<h:outputScript library="holder" name="holder.js" />
+	<!--script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.5.2/holder.min.js"></script-->
+	<b:navBar brand="Project name" brandHref="#" inverse="true" fixed="top"
+		fluid="true">
+
+		<b:navbarLinks pull="right">
+			<b:navLink value="Profile" href="/template/Back/Profile.jsf"></b:navLink>
+		</b:navbarLinks>
+		<h:form styleClass="navbar-form navbar-right">
+			<div class="form-group">
+				<b:inputText placeholder="Search..." fieldSize="sm" />
+			</div>
+		</h:form>
+	</b:navBar>
+	<b:container fluid="true">
+		<b:row>
+			<b:column col-sm="3" col-md="2" styleClass="sidebar">
+				<b:listLinks>
+					<b:navLink header="Dasboard Links" />
+					<b:navLink href="/template/Back/Dashboard.jsf" value="Dashboard"
+						active="true" />
+					<b:navLink href="/template/Back/Back.jsf" value="Users" />
+					<b:navLink href="#" value="Reclamation" />
+					<b:navLink href="#" value="Delivery" />
+				</b:listLinks>
+				<b:listLinks>
+					<b:navLink value="Product" />
+					<b:navLink value="Nav item again" />
+					<b:navLink value="One more nav" />
+					<b:navLink value="Another nav item" />
+					<b:navLink value="More navigation" />
+				</b:listLinks>
+				<b:listLinks>
+					<b:navLink value="Nav item again" />
+					<b:navLink value="One more nav" />
+					<b:navLink value="Another nav item" />
+				</b:listLinks>
+			</b:column>
+			<b:column col-sm="9" offset-sm="3" col-md="10" offset="2"
+				styleClass="main">
+				<hr />
+				<h1>Category</h1>
+				<hr />
+
+
+				<h:panelGroup columns="2">
+					<h:form>
+						<h:dataTable value="#{categoryController.categories}"
+							var="category" border="1">
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Id category" />
+								</f:facet>
+								<h:outputText value="#{category.id}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Name" />
+								</f:facet>
+								<h:outputText value="#{category.name}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Name" />
+								</f:facet>
+								<h:outputText value="#{category.rayon.id}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Action" />
+								</f:facet>
+								<h:commandButton
+									action="#{categoryController.removeCategory(category.id)}"
+									value="delete" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Action" />
+								</f:facet>
+								<h:commandButton
+									action="#{categoryController.displayCategory(category)}"
+									value="Show" />
+							</h:column>
+						</h:dataTable>
+					</h:form>
+				</h:panelGroup>
+
+				<h:panelGroup columns="2">
+					<h:form>
+						<h:commandButton action="#{categoryController.getAllCategories()}"
+							value="Show All" />
+					</h:form>
+				</h:panelGroup>
+				<br />
+				<h:panelGroup columns="2">
+					<h:form>
+
+						<h:inputText value="#{name}"></h:inputText>
+
+						<h:commandButton action="#{categoryController.findCategory(name)}"
+							value="Show By Name" />
+					</h:form>
+				</h:panelGroup>
+				<br />
+				<h:panelGroup columns="2">
+					<h:form>
+						<h:inputText value="#{id}"></h:inputText>
+						<h:commandButton action="#{categoryController.groupedByRayon(id)}"
+							value="Show by Rayon" />
+
+					</h:form>
+				</h:panelGroup>
+				<br />
+
+				<br />
+				<h:panelGroup columns="2">
+					<h:form>
+						<table>
+							<tr>
+								<td><h:outputText value="Id Category"></h:outputText></td>
+								<td><h:inputText value="#{categoryController.ct.id}"></h:inputText></td>
+							</tr>
+							<tr>
+								<td><h:outputText value="Name"></h:outputText></td>
+								<td><h:inputText value="#{categoryController.ct.name}"></h:inputText></td>
+							</tr>
+							<tr>
+								<td><h:outputText value="Rayon Id"></h:outputText></td>
+
+								<td><h:inputText value="#{categoryController.rayonId}"></h:inputText></td>
+							</tr>
+
+							<!--<tr><td><h:outputText value="Actif / Inactif"></h:outputText></td>
+<td><h:selectBooleanCheckbox
+value="#{employeController.employee.actif}"></h:selectBooleanCheckbox></td></tr>
+<tr>
+<td><h:outputText value="Role"></h:outputText></td
+<td><h:selectOneMenu value="#{categoryController.ct.rayon.id}">
+<f:selectItem itemLabel="Choisir le Role" value="" />
+<c:forEach items="#{categoryController.categories}" var="category" varStatus="loop">
+    <f:selectItem itemValue="#{category.id}" itemLabel="#{category.id}" />
+</c:forEach>
+</h:selectOneMenu></td>
+</tr>>-->
+							<tr>
+								<td colspan="2"><h:commandButton
+										value="Add / Update Category"
+										action="#{categoryController.addCategory()}" /></td>
+							</tr>
+							<td><h:outputText value="#{categoryController.result}"></h:outputText></td>
+
+						</table>
+					</h:form>
+				</h:panelGroup>
+
+
+
+			</b:column>
+		</b:row>
+	</b:container>
+	<style type="text/css">
+.sub-header {
+	border-bottom: 1px solid #eee;
+	padding-bottom: 10px;
+}
+
+.navbar-fixed-top {
+	border: 0 none;
+}
+
+.sidebar {
+	display: none;
+}
+
+@media ( min-width : 768px) {
+	.sidebar {
+		background-color: #f5f5f5;
+		border-right: 1px solid #eee;
+		bottom: 0;
+		display: block;
+		left: 0;
+		overflow-x: hidden;
+		overflow-y: auto;
+		padding: 20px;
+		position: fixed;
+		top: 51px;
+		z-index: 1000;
+	}
+}
+
+.nav-list {
+	margin-bottom: 20px;
+	margin-left: -20px;
+	margin-right: -21px;
+}
+
+.nav-list>li>a {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.nav-list>.active>a, .nav-sidebar>.active>a:hover, .nav-sidebar>.active>a:focus
+	{
+	background-color: #428bca;
+	color: #fff;
+}
+
+.main {
+	padding: 20px;
+}
+
+@media ( min-width : 768px) {
+	.main {
+		padding-left: 40px;
+		padding-right: 40px;
+	}
+}
+
+.main .page-header {
+	margin-top: 0;
+}
+
+.placeholders {
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+.placeholders h4 {
+	margin-bottom: 0;
+}
+
+.placeholder {
+	margin-bottom: 20px;
+}
+
+.placeholder img {
+	border-radius: 50%;
+	display: inline-block;
+}
+</style>
+</h:body>
+</html>
+
+
+

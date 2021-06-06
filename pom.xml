@@ -72,11 +72,7 @@
 		<!-- Bootfaces Bootstrap -->
 		
 		<!-- https://mvnrepository.com/artifact/org.primefaces.themes/all-themes -->
-		<dependency>
-		    <groupId>org.primefaces.themes</groupId>
-		    <artifactId>all-themes</artifactId>
-		    <version>1.0.10</version>
-		</dependency>
+
 		
 				
 		
