@@ -17,7 +17,7 @@
 <meta content="" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<title>Molla - Bootstrap eCommerce Template</title>
+<title>Reset Password-CT</title>
 <meta name="keywords" content="HTML5 Template" />
 <meta name="description" content="Molla - Bootstrap eCommerce Template" />
 <meta name="author" content="p-themes" />
@@ -59,18 +59,17 @@
 							<hr class="mt-2 mb-3 mt-md-3" />
 							<p>Please enter your Email to reset your password.</p>
 							<h:form>
+								<h:outputText value="#{fsigninController.outmail}"></h:outputText>
 								<div class="input-group mb-5">
 									<div class="input-group-append">
 										<h:inputText class="form-control"
-											value="#{fsigninController.email}" id="email" required="true"
-											requiredMessage="The field is empty"
-											validatorMessage="The email is not valid"></h:inputText>
-										<f:validateRegex
-											pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
-										<h:message for="email" errorStyle="color:red; display:block" />
-										<h:outputText value="#{fsigninController.outmail}"></h:outputText>
-										<h:commandButton action="#{fsigninController.verifymail()}"
-											value="SUBMIT" class="btn btn-outline-primary-2"></h:commandButton>
+											value="#{fsigninController.email}" id="email" required="true"></h:inputText>
+										
+										<h:commandButton action="#{fsigninController.verifymail()}" style="height:40px;width:40px"
+											value="SUBMIT" class="btn btn-outline-primary-2"></h:commandButton> <br>
+											</br> 
+											<br></br>
+											
 									</div>
 								</div>
 							</h:form>
