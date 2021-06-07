@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import net.bytebuddy.utility.RandomString;
 import tn.esprit.spring.entity.User;
@@ -206,10 +208,18 @@ public class UserSigninBackController {
 				UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 				List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 						.collect(Collectors.toList());
-				UserConnected.iduser = userDetails.getId();
-				UserConnected.userconnected=userserviceI.findById(userDetails.getId());
-				System.err.println(UserConnected.iduser);
-				this.setOut("user signed in");
+				if( roles.get(0) != "ROLE_ADMIN" ){
+					this.setOut("You are not ADMIN !");
+				}
+				else{
+					UserConnected.iduser = userDetails.getId();
+					UserConnected.userconnected=userserviceI.findById(userDetails.getId());
+					System.err.println(UserConnected.iduser);
+					this.setOut("user signed in");
+					System.err.println("User logged in successfully!");
+					return "/template/Back/Back.xhtml?faces-redirect=true";
+				}
+
 			} catch (BadCredentialsException bb) {
 				this.setOut("no valid credentials");
 			}
@@ -217,8 +227,8 @@ public class UserSigninBackController {
 			this.setOut("user not activated");
 		}
 		
-		System.err.println("User logged in successfully!");
-		return "/template/Back/Back.xhtml?faces-redirect=true";
+		
+		return null;
 		
 	}
 	public void update(){
@@ -228,6 +238,7 @@ public class UserSigninBackController {
 		
 	}
 	public String logout(){
+		profile = null;
 		userserviceI.Logout();
 		return "/template/Back/adminsignin.xhtml?faces-redirect=true";
 	}
@@ -281,6 +292,10 @@ public class UserSigninBackController {
 			return null;
 		}
 	}
-		
+	/*
+	public void submit() {
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}*/
 
 }

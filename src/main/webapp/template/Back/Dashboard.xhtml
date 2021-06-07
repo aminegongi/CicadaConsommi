@@ -14,7 +14,7 @@
     <h:body style="padding-top: 60px">
         <h:outputScript library="holder" name="holder.js" />
         <!--script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.5.2/holder.min.js"></script-->
-        <b:navBar brand="Project name" brandHref="#" inverse="true" fixed="top" fluid="true">
+        <b:navBar brand="Consommi-Tounsi" brandHref="#" inverse="true" fixed="top" fluid="true">
             
             <b:navbarLinks pull="right">
                 <b:navLink value="Profile" href="/template/Back/Profile.jsf"></b:navLink>
@@ -27,27 +27,30 @@
         </b:navBar>
         <b:container fluid="true">
             <b:row>
-                <b:column col-sm="3" col-md="2" styleClass="sidebar">
-                    <b:listLinks>
-                        <b:navLink header="Dasboard Links" />
-                        <b:navLink href="/template/Back/Dashboard.jsf" value="Dashboard" active="true"/>
-                        <b:navLink href="/template/Back/Back.jsf" value="Users"  />
-                        <b:navLink href="#" value="Reclamation" />
-                        <b:navLink href="#" value="Delivery" />
-                    </b:listLinks>
-                    <b:listLinks>
-                        <b:navLink value="Product" />
-                        <b:navLink value="Nav item again" />
-                        <b:navLink value="One more nav" />
-                        <b:navLink value="Another nav item" />
-                        <b:navLink value="More navigation" />
-                    </b:listLinks>
-                    <b:listLinks>
-                        <b:navLink value="Nav item again" />
-                        <b:navLink value="One more nav" />
-                        <b:navLink value="Another nav item" />
-                    </b:listLinks>
-                </b:column>
+               <b:column col-sm="3" col-md="2" styleClass="sidebar">
+				<b:listLinks>
+					<b:navLink header="Dasboard Links" />
+					<b:navLink href="/template/Back/Dashboard.jsf" value="Dashboard" active="true"  />
+					<b:navLink href="/template/Back/Back.jsf" value="Users" />
+					<b:navLink href="/template/Back/livreurslisteback.jsf" value="Delivery Person" />
+					<b:navLink href="/template/Back/livraisonlisteback.jsf" value="Delivery" />
+					<b:navLink href="/template/Back/ReclamationAdmin.jsf" value="Claims" />
+					<b:navLink href="/template/Back/NotificationAdmin.jsf" value="Notification" />
+					<b:navLink href="/template/Back/DecisionList.jsf" value="Decision" />
+				</b:listLinks>
+				<b:listLinks>
+					<b:navLink value="Product" />
+					<b:navLink value="Nav item again" />
+					<b:navLink value="One more nav" />
+					<b:navLink value="Another nav item" />
+					<b:navLink value="More navigation" />
+				</b:listLinks>
+				<b:listLinks>
+					<b:navLink value="Nav item again" />
+					<b:navLink value="One more nav" />
+					<b:navLink value="Another nav item" />
+				</b:listLinks>
+			</b:column>
                 <b:column col-sm="9" offset-sm="3" col-md="10" offset="2" styleClass="main">
                     <hr/>
                     <h1>Dashboard</h1>

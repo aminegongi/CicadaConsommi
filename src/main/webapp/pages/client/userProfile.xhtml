@@ -38,7 +38,7 @@
                   href="#tab-account">Account Details</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/pages/client/userSignIn.jsf">Sign Out</a>
+                  <a class="nav-link" href="/pages/client/userSignIn.jsf">Sign Out</a>  
                 </li>
               </ul>
               <!--  End .col-lg-3 -->
@@ -75,6 +75,8 @@
                     <!--  End .form-group -->
                     <div class="form-footer">
                        <h:commandButton action="#{fsigninController.update()}" value="Modify" class="btn btn-outline-primary-2"></h:commandButton> 
+                       <br></br>
+                       <h:commandButton action="#{fsigninController.logout()}" value="Sign out" class="btn btn-outline-primary-2"></h:commandButton> 
                      
                       <!--  End .custom-checkbox -->
                     </div>

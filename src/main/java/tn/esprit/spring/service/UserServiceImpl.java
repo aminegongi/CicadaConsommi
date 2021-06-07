@@ -69,6 +69,7 @@ public class UserServiceImpl implements UserService {
 	public String Logout(){
 		UserConnected.iduser=(long) -1;
 		UserConnected.userconnected=null;
+		System.err.println("west logout serice");
 		return "logout succefully";
 		
 	}
