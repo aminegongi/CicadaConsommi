@@ -191,6 +191,7 @@ public class UserSigninFrontController {
 				UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 				List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 						.collect(Collectors.toList());
+				
 				UserConnected.iduser = userDetails.getId();
 				UserConnected.userconnected = userserviceI.findById(userDetails.getId());
 				System.err.println(UserConnected.iduser);
@@ -215,6 +216,7 @@ public class UserSigninFrontController {
 	}
 
 	public String logout() {
+		profile = null;
 		userserviceI.Logout();
 		return "/pages/client/userSignIn.xhtml?faces-redirect=true";
 	}
