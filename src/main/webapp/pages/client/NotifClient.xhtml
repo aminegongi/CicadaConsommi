@@ -44,13 +44,16 @@
                                       
 							<h:form>
 								<h:dataTable
-									value="#{NotificationFrontController.notifications}"
+									value="#{NotificationFrontController.showNotification()}"
 									var="Notification" border="0">
 									<div class="dropdown-cart-products">
 										<div class="product">
 											<div class="product-cart-details">
 												<h4 class="product-title"></h4>
 												<h:column>
+												<b:row>
+														<h:graphicImage value="#{Notification.icone}" />
+													
 													<b:row>
 														<a href="#"> <h:outputText
 																value="#{Notification.description}" /></a>

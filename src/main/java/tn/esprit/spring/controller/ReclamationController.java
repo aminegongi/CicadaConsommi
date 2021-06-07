@@ -87,12 +87,12 @@ public class ReclamationController {
 		//return u.get("u"); 
 		
 	}
-	@PutMapping("/updateadmindecision/{reclamationid}")
+	/*@PutMapping("/updateadmindecision/{reclamationid}")
 	@ResponseBody
 	private String updateadmindecision (@PathVariable("reclamationid") String id , @RequestBody Map<String,String>  u) {
-		return ReclamationService.updateadminDecision(u.get("u"), id);
-		//return u.get("u"); 
+		return ReclamationService.updateadminDecision(u.get("u"), id);*/
+		//return u.get("u"); */
 		
-	}
+	
 	
 }  

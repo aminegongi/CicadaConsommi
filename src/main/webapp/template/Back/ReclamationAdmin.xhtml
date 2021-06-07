@@ -29,11 +29,21 @@
 		<b:row>
 			<b:column col-sm="3" col-md="2" styleClass="sidebar">
 				<b:listLinks>
+<<<<<<< Updated upstream
 					<b:navLink header="Dasboard Links" />
 <<<<<<< HEAD:src/main/webapp/template/Back/ReclamationAdmin.xhtml
 					<b:navLink href="/template/Back/Dashboard.jsf" value="Dashboard" active="true"/>
                         <b:navLink href="/template/Back/Back.jsf" value="Users"  />
 				<b:navLink href="/template/Back/ReclamationAdmin.jsf" value="Claims" />
+=======
+				<b:navLink header="Dasboard Links" />
+					<b:navLink href="/template/Back/Dashboard.jsf" value="Dashboard" />
+					
+						<b:navLink href="/template/Back/Back.jsf" value="Users"  />
+					<b:navLink href="/template/Back/livreurslisteback.jsf" value="Delivery Person" />
+					<b:navLink href="/template/Back/livraisonlisteback.jsf" value="Delivery" />
+				    <b:navLink href="/template/Back/ReclamationAdmin.jsf" value="Claims" />
+>>>>>>> Stashed changes
 					<b:navLink href="/template/Back/NotificationAdmin.jsf" value="Notifications" />
 					<b:navLink href="/template/Back/DecisionList.jsf" value="Decisions" />
 
@@ -75,15 +85,15 @@
 
 							<b:dataTableColumn value="#{Reclamation.id_reclamation}"
 								label="#" />
-						
+						    <b:dataTableColumn value="#{Reclamation.reclamationUser.username}" label="User" />
 
 							<b:dataTableColumn value="#{Reclamation.titre}" label="Title" />
 
 							<b:dataTableColumn value="#{Reclamation.description}"
 								label="Description" />
 
-							<b:dataTableColumn value="#{Reclamation.image}" >
-												 <h:graphicImage value="/assets/imageclaim/#{Reclamation.image}"  />
+							<b:dataTableColumn  label="Image" >
+												  <h:graphicImage value="/assets/recImg/#{Reclamation.image}" width="200px" height="200px" />
 										         </b:dataTableColumn>
 
 							<b:dataTableColumn value="#{Reclamation.datePublication}"

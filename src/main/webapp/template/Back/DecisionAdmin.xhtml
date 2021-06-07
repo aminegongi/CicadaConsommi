@@ -30,8 +30,11 @@
 			<b:column col-sm="3" col-md="2" styleClass="sidebar">
 				<b:listLinks>
 					<b:navLink header="Dasboard Links" />
-					<b:navLink href="/template/Back/Dashboard.jsf" value="Dashboard" active="true"/>
-                        <b:navLink href="/template/Back/Back.jsf" value="Users"  />
+					<b:navLink href="/template/Back/Dashboard.jsf" value="Dashboard" />
+					<b:navLink href="/template/Back/Back.jsf" value="Users"
+						active="true" />
+					<b:navLink href="/template/Back/livreurslisteback.jsf" value="Delivery Person" />
+					<b:navLink href="/template/Back/livraisonlisteback.jsf" value="Delivery" />
 					<b:navLink href="/template/Back/ReclamationAdmin.jsf" value="Claims" />
 					<b:navLink href="/template/Back/NotificationAdmin.jsf" value="Notifications" />
 					<b:navLink href="/template/Back/DecisionList.jsf" value="Decisions" />
@@ -68,21 +71,27 @@
 									<td><h:inputText
 											value="#{DecisionAdminFrontController.description}"></h:inputText></td>
 								</tr>
+								
 								<tr>
+								
 									<td><h:outputText value="Montant Bon Achat"></h:outputText></td>
 									<td><h:inputText id="M2" required="true"
-										requiredMessage=" Montant_Bon_Achat Obligatoire ;"
+										requiredMessage=" Montant Bon Achat Obligatoire ;"
 											value="#{DecisionAdminFrontController.montant_Bon_Achat}"></h:inputText></td>
+											
 								</tr>
+								
 								
 
 								<tr>
+								
 									<td><h:outputText value="date validité BA"></h:outputText></td>
 									<td>
 											 <p:calendar  pattern="dd/MM/yyyy" mask="true" id="date" required="true"
 										requiredMessage=" Date Validité BA Obligatoire ;"
 											value="#{DecisionAdminFrontController.date_validité_BA}" showOn="button"/>
 										</td>
+										
 								</tr>
 								
 

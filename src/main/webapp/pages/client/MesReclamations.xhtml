@@ -1,0 +1,171 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/template/template.xhtml">
+
+
+	<ui:param name="page_name" value="CT-My Account" />
+	<ui:param name="page_title" value="My Account"></ui:param>
+	<ui:param name="page_title_sub" value=" My Claims "></ui:param>
+	<ui:define name="content">
+
+		<div class="page-content">
+			<div class="dashboard">
+				<div class="container">
+					<div class="row">
+						<ul class="nav nav-dashboard flex-column mb-3 mb-md-0">
+
+							<li class="nav-item"><a class="nav-link"
+								href="/pages/client/userProfile.jsf"> Profile </a></li>
+							<li class="nav-item"><a class="nav-link active"
+								href="/pages/client/Reclamation.jsf">  Claim </a></li>
+
+							<li class="nav-item"><a class="nav-link"
+								id="tab-address-link" href="/pages/client/MesReclamations.jsf">My Claims</a></li>
+							<li class="nav-item"><a class="nav-link"
+								id="tab-account-link" href="#tab-account">Account Details</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">Sign
+									Out</a></li>
+						</ul>
+						<!--  End .col-lg-3 -->
+						<div class="col-md-8 col-lg-9">
+							<div class="tab-content">
+								<div class="show active">
+
+									<h5 class="card-header">List </h5>
+									<br />
+									<h:form>
+										<b:dataTable
+											value="#{ReclamationFrontController.reclamations}"
+											var="Reclamation" border="1">
+											
+												<b:dataTableColumn value="#{Reclamation.id_reclamation}" label="#" />
+										
+												<b:dataTableColumn value="#{Reclamation.titre}"  label="Title" />
+										
+												<b:dataTableColumn value="#{Reclamation.description}"  label="Description" />
+										
+												<b:dataTableColumn label=" Image ">
+												 <h:graphicImage value="/assets/recImg/#{Reclamation.image}" width="300px" height="300px" />
+										         </b:dataTableColumn>
+												<b:dataTableColumn value="#{Reclamation.datePublication}"  label=" Date "/>
+										
+												<b:dataTableColumn value="#{Reclamation.state}"  label= "State"/>
+										
+												<b:dataTableColumn value="#{Reclamation.type}"  label= "Type" />
+											
+
+											<h:column>
+												<f:facet name="header">
+													<h:outputText value="" />
+												</f:facet>
+                                                
+                                               
+												<b:commandButton  iconAwesome="trash" ajax="true" onclick="return confirm('Voulez vous vraiment supprimer #{reclamations.titre} ?');" 
+									              look="danger" immediate="true"
+													actionListener="#{ReclamationFrontController.removeReclamation(Reclamation.id_reclamation)}"
+													 />
+													  </h:column> 
+													   <h:column> 
+													   <f:facet name="header">
+													<h:outputText value="" />
+												</f:facet>
+												<b:commandButton iconAwesome="edit" ajax="true" look="info" actionListener="#{ReclamationFrontController.displayReclamation(Reclamation)}"
+													/>
+												</h:column> 
+												<h:column>	
+												<f:facet name="header">
+													<h:outputText value="" />
+												</f:facet>
+												
+												<b:commandButton ajax="true" class="btn btn-success"
+														 action="#{DecisionClientFrontController.movetobyid(Reclamation.id_reclamation)}"
+														value=" Voir Decision " /><br />
+														
+														
+												<br />
+											</h:column> 
+
+										</b:dataTable>
+									</h:form>
+
+									<h:form>
+										<h5 class="card-header">Update Claim</h5>
+
+
+												<tr>
+											<td><h:outputText value="Title"></h:outputText></td>
+											<td><h:inputText  pt:placeholder="Titre" class="form-control" id="T3" required="true"
+										requiredMessage=" Title Obligatoire"
+													value="#{ReclamationFrontController.titre}"></h:inputText></td>
+														</tr>
+								   <h:message for= "T3"  style="color: #CD3030"/>
+								   
+								<tr>
+										</tr>
+ <br></br> <br></br>
+										<tr>
+											<td><h:outputLabel for="image" value="Upload image : " /></td>
+											<td><p:inputText id="image" type="file"
+													value="#{ReclamationFrontController.image}"></p:inputText></td>
+													
+										</tr>
+									 <br></br> <br></br>
+												<tr>
+											<td><h:outputText value="Type"></h:outputText></td>
+											<td><h:selectOneMenu id="Type1" required="true"
+										requiredMessage=" Type Obligatoire"
+													value="#{ReclamationFrontController.type}">
+													<f:selectItem itemLabel="Choose Type " itemValue="#{null}" />
+													<f:selectItems value="#{ReclamationFrontController.RTypes}" />
+												</h:selectOneMenu></td>
+													</tr>
+								   <h:message for= "Type1"  style="color: #CD3030"/>
+								         <br></br>
+								          <br></br>
+										<tr>
+											<td><h:outputText value="Description"></h:outputText></td>
+											<td><h:inputTextarea pt:placeholder="Description"
+													class="form-control" required="true"
+													value="#{ReclamationFrontController.description}"></h:inputTextarea></td>
+										</tr>
+										 <br></br> <br></br>
+										<h:panelGrid columns="2">
+
+											<h:commandButton value="Edit claim " ajax="true"
+												class="btn btn-warning" onclick="return confirm('Voulez vous vraiment modifier#{Reclamation.titre}  ?');"
+												action="#{ReclamationFrontController.updateReclamation()}" />
+										</h:panelGrid>
+
+
+									</h:form>
+								</div>
+								<!--  .End .tab-pane -->
+
+							</div>
+						</div>
+						<!--  End .col-lg-9 -->
+					</div>
+					<!--  End .row -->
+				</div>
+				<!--  End .container -->
+			</div>
+			<!--  End .dashboard -->
+		</div>
+		<!--  End .page-content -->
+
+
+	</ui:define>
+</ui:composition>
+
+
+
+
+
+
+

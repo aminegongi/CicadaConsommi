@@ -30,9 +30,11 @@
 			<b:column col-sm="3" col-md="2" styleClass="sidebar">
 				<b:listLinks>
 					<b:navLink header="Dasboard Links" />
-					<b:navLink href="/template/Back/Dashboard.jsf" value="Dashboard"
+					<b:navLink href="/template/Back/Dashboard.jsf" value="Dashboard" />
+					<b:navLink href="/template/Back/Back.jsf" value="Users"
 						active="true" />
-					<b:navLink href="/template/Back/Back.jsf" value="Users" />
+					<b:navLink href="/template/Back/livreurslisteback.jsf" value="Delivery Person" />
+					<b:navLink href="/template/Back/livraisonlisteback.jsf" value="Delivery" />
 					<b:navLink href="/template/Back/ReclamationAdmin.jsf"
 						value="Claims" />
 					<b:navLink href="/template/Back/NotificationAdmin.jsf"
@@ -82,8 +84,11 @@
 										requiredMessage="Date Exchange Obligatoire"
 										value="#{DecisionAdminFrontController.delai_ECHANGE}" showOn="button"/>
 										</td>
+										
 									
 							</tr>
+						
+						
 
 
 

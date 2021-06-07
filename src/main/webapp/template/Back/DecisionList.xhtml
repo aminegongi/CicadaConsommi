@@ -30,8 +30,11 @@
 			<b:column col-sm="3" col-md="2" styleClass="sidebar">
 				<b:listLinks>
 					<b:navLink header="Dasboard Links" />
-					<b:navLink href="/template/Back/Dashboard.jsf" value="Dashboard" active="true"/>
-                        <b:navLink href="/template/Back/Back.jsf" value="Users"  />
+					<b:navLink href="/template/Back/Dashboard.jsf" value="Dashboard" />
+					<b:navLink href="/template/Back/Back.jsf" value="Users"
+						active="true" />
+					<b:navLink href="/template/Back/livreurslisteback.jsf" value="Delivery Person" />
+					<b:navLink href="/template/Back/livraisonlisteback.jsf" value="Delivery" />
 					<b:navLink href="/template/Back/ReclamationAdmin.jsf" value="Claims" />
 					<b:navLink href="/template/Back/NotificationAdmin.jsf" value="Notifications" />
 					<b:navLink href="/template/Back/DecisionList.jsf" value="Decisions" />
@@ -63,7 +66,7 @@
 
 							<b:dataTableColumn value="#{Decision.id_Decision}" label="#" />
 							<b:dataTableColumn value="#{Decision.decision.titre}"
-								label="Titre Réclamation" />
+								label="Title Claim" />
 
 							<b:dataTableColumn value="#{Decision.type}" label="Type" />
 
@@ -73,16 +76,16 @@
 
 
 							<b:dataTableColumn value="#{Decision.montant_Bon_Achat}"
-								label=" Montant_Bon_Achat " />
+								label=" Montant BON ACHAT " />
 
 							<b:dataTableColumn value="#{Decision.date_validité_BA}"
-								label="Date_validité_BA" />
+								label="Date validité BA" />
 							<b:dataTableColumn value="#{Decision.montant_REPARATION}"
-								label="Montant_REPARATION" />
+								label="Montant REPARATION" />
 							<b:dataTableColumn value="#{Decision.date_limite_REPARATION}"
-								label="Date_limite_REPARATION" />
+								label="Date limite REPARATION" />
 							<b:dataTableColumn value="#{Decision.delai_ECHANGE}"
-								label="Delai_ECHANGE" />
+								label="Delai ECHANGE" />
 
 
 

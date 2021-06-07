@@ -27,13 +27,31 @@ public MailService(JavaMailSender javaMailSender) {
 
 public void sendEmail(String From , String To , String Subject , String Text) throws MailException {
 	 
-	SimpleMailMessage mail = new SimpleMailMessage();
+	/*SimpleMailMessage mail = new SimpleMailMessage();
 	mail.setFrom(From ); //"zeinebbl327@gmail.com"
 	mail.setTo(To);
 	mail.setSubject(Subject) ;
 	mail.setText (Text);
+	javaMailSender.send(mail) ;*/
 	
-	javaMailSender.send(mail) ; 
+	MimeMessage message = javaMailSender.createMimeMessage();
+    MimeMessageHelper helper = new MimeMessageHelper(message);
+     
+    try {
+	helper.setFrom(From, "Consommi Tounsi");
+    helper.setTo(To);
+    helper.setSubject(Subject);
+    
+    helper.setText(Text, true);
+     
+    javaMailSender.send(message);
+    } catch (UnsupportedEncodingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (MessagingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 }
 
 public void sendEmailWithAttachment() throws MailException, MessagingException {

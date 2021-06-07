@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entity.NState;
 import tn.esprit.spring.entity.Notification;
+import tn.esprit.spring.entity.RState;
 import tn.esprit.spring.entity.Reclamation;
 import tn.esprit.spring.repository.NotificationRepository;
 
@@ -100,4 +101,21 @@ public class NotifServiceImpl implements NotifService {
 		return " All notification seen ";
 	}
 	// if user inactive (more then 3 days) send notification " WE MISS U " 	
+	
+	@Override
+	public Long addOrUpdateNotification(Notification Notification) {
+		Notification.setState(NState.Not_Seen);
+		NotificationRepository.save(Notification);
+		
+		return Notification.getId_Notification();
+		}
+
+
+	@Override
+	public Notification addNotificationlien(Notification u) {
+	    u.setState(NState.Not_Seen);
+		NotificationRepository.save(u);
+		return u;
+		
+	}
 }
