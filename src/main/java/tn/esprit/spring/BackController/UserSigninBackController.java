@@ -292,10 +292,6 @@ public class UserSigninBackController {
 			return null;
 		}
 	}
-	/*
-	public void submit() {
-		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}*/
+
 
 }
