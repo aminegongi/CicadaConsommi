@@ -3,9 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:b="http://bootsfaces.net/ui"  xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<title>Dashboard Template for BootsFaces</title>
 	<meta name="author" content="Riccardo Massera"></meta>
@@ -14,11 +13,11 @@
 <h:body style="padding-top: 60px">
 	<h:outputScript library="holder" name="holder.js" />
 	<!--script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.5.2/holder.min.js"></script-->
-	<b:navBar brand="Consommi-Tounsi" brandHref="#" inverse="true" fixed="top"
+	<b:navBar brand="Project name" brandHref="#" inverse="true" fixed="top"
 		fluid="true">
 
 		<b:navbarLinks pull="right">
-			<b:navLink value="Profile" href="/template/Back/Profile.jsf"></b:navLink>
+			<b:navLink value="Profile" href="#"></b:navLink>
 		</b:navbarLinks>
 		<h:form styleClass="navbar-form navbar-right">
 			<div class="form-group">
@@ -37,8 +36,11 @@
 					<b:navLink href="/template/Back/livreurslisteback.jsf" value="Delivery Person" />
 					<b:navLink href="/template/Back/livraisonlisteback.jsf" value="Delivery" />
 					<b:navLink href="/template/Back/ReclamationAdmin.jsf" value="Claims" />
-					<b:navLink href="/template/Back/NotificationAdmin.jsf" value="Notification" />
-					<b:navLink href="/template/Back/DecisionList.jsf" value="Decision" />
+					<b:navLink href="/template/Back/NotificationAdmin.jsf" value="Notifications" />
+					<b:navLink href="/template/Back/DecisionList.jsf" value="Decisions" />
+					
+
+					<b:navLink href="#" value="Delivery" />
 				</b:listLinks>
 				<b:listLinks>
 					<b:navLink value="Product" />
@@ -55,55 +57,74 @@
 			</b:column>
 			<b:column col-sm="9" offset-sm="3" col-md="10" offset="2"
 				styleClass="main">
+				<h1>Add Decision</h1>
 				<hr />
-				<h1>Table of Users</h1>
-				<hr />
+
 				<b:row styleClass="table-responsive">
-					<b:dataTable styleClass="table table-striped"
-						value="#{bsigninController.allusers}" var="Users" rows="15">
-						<b:dataTableColumn>
-							<f:facet name="header">
-								<h:outputText value="#" />
-							</f:facet>
-							<h:outputText value="#{Users.id}" />
-						</b:dataTableColumn>
-						<b:dataTableColumn>
-							<f:facet name="header">
-								<h:outputText value="Firstname" />
-							</f:facet>
-							<h:outputText value="#{Users.firstname}" />
-						</b:dataTableColumn>
-						<b:dataTableColumn>
-							<f:facet name="header">
-								<h:outputText value="Lastname" />
-							</f:facet>
-							<h:outputText value="#{Users.lastname}" />
-						</b:dataTableColumn>
-						<b:dataTableColumn>
-							<f:facet name="header">
-								<h:outputText value="Address" />
-							</f:facet>
-							<h:outputText value="#{Users.address}" />
-						</b:dataTableColumn>
-						<b:dataTableColumn>
-							<f:facet name="header">
-								<h:outputText value="Phone Number" />
-							</f:facet>
-							<h:outputText value="#{Users.phone_number}" />
-						</b:dataTableColumn>
-						<b:dataTableColumn>
-							<f:facet name="header">
-								<h:outputText value="Username" />
-							</f:facet>
-							<h:outputText value="#{Users.username}" />
-						</b:dataTableColumn>
-						<b:dataTableColumn>
-							<f:facet name="header">
-								<h:outputText value="Email" />
-							</f:facet>
-							<h:outputText value="#{Users.email}" />
-						</b:dataTableColumn>
-					</b:dataTable>
+					<h:form>
+						
+							<table>
+								
+
+								<tr>
+									<td><h:outputText value="Description"></h:outputText></td>
+									<td><h:inputText
+											value="#{DecisionAdminFrontController.description}"></h:inputText></td>
+								</tr>
+								
+								<tr>
+								
+									<td><h:outputText value="Montant Bon Achat"></h:outputText></td>
+									<td><h:inputText id="M2" required="true"
+										requiredMessage=" Montant Bon Achat Obligatoire ;"
+											value="#{DecisionAdminFrontController.montant_Bon_Achat}"></h:inputText></td>
+											
+								</tr>
+								
+								
+
+								<tr>
+								
+									<td><h:outputText value="date validité BA"></h:outputText></td>
+									<td>
+											 <p:calendar  pattern="dd/MM/yyyy" mask="true" id="date" required="true"
+										requiredMessage=" Date Validité BA Obligatoire ;"
+											value="#{DecisionAdminFrontController.date_validité_BA}" showOn="button"/>
+										</td>
+										
+								</tr>
+								
+
+
+
+
+								<tr>
+									<td colspan="2"><h:commandButton value="Add  Decision " class="btn btn-success" 
+									onclick="return confirm('Voulez vous vraiment Ajouter Decision   ?');"
+											action="#{DecisionAdminFrontController.addDecision()}" /></td>
+
+
+								</tr>
+								   <h:message for= "date"  style="color: #CD3030"/>
+								   
+								<tr>
+									</tr>
+								   <h:message for= "M2"  style="color: #CD3030"/>
+								   
+								<tr>
+								
+								</tr>
+							</table>
+
+
+
+
+
+
+							
+
+
+						</h:form>
 				</b:row>
 			</b:column>
 		</b:row>

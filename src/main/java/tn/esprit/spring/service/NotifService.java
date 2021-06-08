@@ -21,5 +21,7 @@ public interface NotifService {
 	String RappelNotification ( ) ;
 	int CountNotificationNot_Seen (int id ) ;
 	String allNotifSeen();
-	
+	Long addOrUpdateNotification(Notification Notification);
+	Notification retrieveNotif(String id);
+	Notification addNotificationlien(Notification u);
 }

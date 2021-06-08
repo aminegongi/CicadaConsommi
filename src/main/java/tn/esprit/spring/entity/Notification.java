@@ -2,6 +2,7 @@ package tn.esprit.spring.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +28,17 @@ public class Notification implements Serializable {
 	private String Icone;
 	@Column(name = "description")
 	private String Description;
-	 @Enumerated(EnumType.STRING)
+	@Column(name = "lien")
+	private String lien ;
+	 public String getLien() {
+		return lien;
+	}
+	public void setLien(String lien) {
+		this.lien = lien;
+	}
+
+
+	@Enumerated(EnumType.STRING)
 	 @Column(name = " State ", nullable = false )
 	   private NState State;
 	public NState getState() {
@@ -81,6 +92,55 @@ public class Notification implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	public Notification(String icone, String description, User notifUser) {
+		super();
+		Icone = icone;
+		Description = description;
+		NotifUser = notifUser;
+		State = NState.Not_Seen;
+	}
+	
+	public Notification(User u, String description, String icone, NState state) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.NotifUser=u ;
+		this.Description= description;
+		this.Icone =icone ;
+		this.State=State ; 
+	}
+	public Notification(Long notificationIdToBeUpdated, User u, String description, String icone, NState state) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.NotifUser=u ;
+		this.Description= description;
+		this.Icone =icone ;
+		this.State=State ;
+		this.NotifUser =u ;
+	}
+	public Notification(User u, User UC, String description, String icone, NState state) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.NotifUser=u ;
+		this.Description= description;
+		this.Icone =icone ;
+		this.State=State ; 
+		this.NotifUser= UC;
+		
+	}
+	public Notification(String icone, String description, String lien, NState state, User notifUser) {
+		super();
+		Icone = icone;
+		Description = description;
+		this.lien = lien;
+		State = state;
+		NotifUser = notifUser;
+	}
+
+	
+	
+
+	
+	
 	
 	
 	

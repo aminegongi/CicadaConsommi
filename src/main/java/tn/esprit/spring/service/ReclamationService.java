@@ -13,6 +13,7 @@ public interface ReclamationService {
 	Reclamation retrieveReclamation(String id);
 	List<Reclamation> search(String keyword);
 	String updateadminEtat (RState u ,String id );
-	String updateadminDecision (String string ,String id );
+	//String updateadminDecision (String string ,String id );
+	Long addOrUpdateReclamation(Reclamation Reclamation);
 	
 }

@@ -25,10 +25,7 @@ public interface ReclamationRepository extends CrudRepository<Reclamation , Long
 	@Query("update Reclamation r set r.State = :Etat where r.id_reclamation = :id")
 	void updateStateById(@Param("Etat") RState Etat, @Param("id") Long id) ;
 	
-	@Modifying
-	@Transactional
-	@Query("update Reclamation r set r.Decision = :Decision where r.id_reclamation = :id and r.State ='Etat_Traité'")
-	void updateDecisionById(@Param("Decision") String Decision, @Param("id") Long id) ;
+	
 	
 
 

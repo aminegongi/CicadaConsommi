@@ -48,7 +48,9 @@ public class NotificationController {
 	@PostMapping("/add")  
 	@ResponseBody
 	private Notification saveNotification(@RequestBody Notification Notifications)   
-	{  
+	{   
+		
+		
 		NotificationService.addNotification(Notifications);  
 		return Notifications ;  
 			}  

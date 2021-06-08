@@ -11,6 +11,7 @@ import tn.esprit.spring.entity.NState;
 import tn.esprit.spring.entity.Notification;
 import tn.esprit.spring.entity.RState;
 import tn.esprit.spring.entity.Reclamation;
+import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.ReclamationRepository;
 
 @Service
@@ -18,7 +19,8 @@ public class ReclamationServiceImpl implements ReclamationService {
 	@Autowired
 	ReclamationRepository ReclamationRepository ;
 	@Autowired
-	MailService mail;
+	MailService mail  ;
+	@Autowired
 	NotifService notif ; 
 	
 	
@@ -34,8 +36,12 @@ public class ReclamationServiceImpl implements ReclamationService {
 	@Override
 	public Reclamation addReclamation(Reclamation u) {
 		// TODO Auto-generated method stub
+		u.setState(RState.Etat_NoN_Traité);
 		ReclamationRepository.save(u) ;
-		//Reclamation r = retrieveReclamation( Long.toString(u.getId_reclamation())) ;
+		Reclamation r = retrieveReclamation(Long.toString(u.getId_reclamation())) ;
+		Notification n = new Notification("add.png", "New Claim", u.getReclamationUser());
+		notif.addNotification(n);
+		
 		
 	
 		// mail.sendEmail("zeinebbl327@gmail.com ","zeinebbl327@gmail.com","New claim a9ra hedhi "+ u.getId_reclamation()  , "New claim By "+ r.getReclamationUser().getUsername() +"Mail :" +r.getReclamationUser().getEmail());
@@ -82,8 +88,9 @@ public class ReclamationServiceImpl implements ReclamationService {
 	}
 	// update decision by admin + update Etat + sent Mail //
 
-	@Override
+	/*@Override
 	public String updateadminDecision(String u, String id) {
+	/*
 		// !!!!!!!!!! if User.role =admin !!!!!!!!!! //
 		updateadminEtat(RState.Etat_Traité, id);
 		ReclamationRepository.updateDecisionById(u, Long.parseLong(id));
@@ -94,13 +101,25 @@ public class ReclamationServiceImpl implements ReclamationService {
 		//ki howa yekteb decision tebadel etat Traité et yetab3eth mail lil client 
 		
 		
-		return " Decision prise  + Etat traité + mail envoyé " ;
-	 }
+		return " Decision prise  + Etat traité + mail envoyé "  ;
+		*/
+		/*return null;
+	 }*/
 
 	@Override
 	public List<Reclamation> retrieveAllReclamationsByIdUser(String id) {
 		// TODO Auto-generated method stub
 		return ReclamationRepository.findReclamationByUserId(Long.parseLong(id));
-	}	
+	}
+
+	@Override
+	public Long addOrUpdateReclamation(Reclamation Reclamation) {
+		Reclamation.setState(RState.Etat_NoN_Traité);
+		ReclamationRepository.save(Reclamation);
+		
+		return Reclamation.getId_reclamation();
+		}
+		
+	
 
 }

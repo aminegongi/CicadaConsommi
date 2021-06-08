@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -24,7 +25,7 @@ public class Reclamation implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_reclamation")
-	private long id_reclamation;
+	private Long id_reclamation;
 	@Column(name = "titre")
 	private String Titre;
 	@Column(name = "Image")
@@ -33,8 +34,8 @@ public class Reclamation implements Serializable {
 	private String Description;
 	@Column(name = "datePublication", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date DatePublication;
-	@Column(name = " Decision ")
-	private String Decision ;
+	/*@Column(name = " Decision ")
+	private String Decision ;*/
 	 @Enumerated(EnumType.STRING)
 	 @Column(name = " State ", nullable = false )
 	   private RState State;
@@ -44,9 +45,22 @@ public class Reclamation implements Serializable {
 	
 	@ManyToOne 
 	User reclamationUser;
+	
+	
+	@OneToOne (mappedBy="decision")
+	private Decision Reclamationdecision  ;
 
 	
 
+
+
+	public Decision getReclamationdecision() {
+		return Reclamationdecision;
+	}
+
+	public void setReclamationdecision(Decision reclamationdecision) {
+		Reclamationdecision = reclamationdecision;
+	}
 
 	public RState getState() {
 		return State;
@@ -64,7 +78,7 @@ public class Reclamation implements Serializable {
 		Type = type;
 	}
 
-	public long getId_reclamation() {
+	public Long  getId_reclamation() {
 		return id_reclamation;
 	}
 
@@ -78,6 +92,34 @@ public class Reclamation implements Serializable {
 	}
 
 
+
+	public Reclamation(String titre2, String image2, String description2, RState state2,
+			RType type2) {
+		// TODO Auto-generated constructor stub
+	}
+
+	
+	public Reclamation (Long  id , User u, String Titre, String Description, String image, RState state, RType type) {
+			super();
+			this.id_reclamation = id;
+			this.Titre = Titre;
+			this.Description = Description;
+			this.Image = image;
+			this.State = state;
+			this.Type = type;
+			this.reclamationUser = u ;
+			
+			}
+	public Reclamation ( User u, String Titre, String Description, String image, RState state, RType type) {
+			super();
+			
+			this.Titre = Titre;
+			this.Description = Description ;
+			this.Image = image;
+			this.State = state;
+			this.Type = type;
+			this.reclamationUser = u ;
+	}
 
 	public String getTitre() {
 		return Titre;
@@ -112,13 +154,13 @@ public class Reclamation implements Serializable {
 	}
 
 
-	public String getDecision() {
+	/*public String getDecision() {
 		return Decision;
 	}
 
 	public void setDecision(String decision) {
 		Decision = decision;
-	}
+	}*/
 
 	public User getReclamationUser() {
 		return reclamationUser;
