@@ -63,7 +63,6 @@ public String addCategory()
 		ct.setRayon(r);
 		categoryService.addCategory(ct);
 		 categories =categoryService.retrieveAllCategories();
-		 clear();
 		 return result=" Category has been added successfully";
 		}
 	catch(Exception e) {
@@ -73,13 +72,6 @@ public String addCategory()
 	
 		
  
-}
-
-public void clear()
-{
-	ct.setId(0);
-   	ct.setName("");
-   	this.setRayonId(0);
 }
 
 public void displayCategory(Category c)

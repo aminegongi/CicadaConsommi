@@ -1,5 +1,6 @@
 package tn.esprit.spring.service;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 /*import tn.esprit.spring.entities.Product;*/
@@ -22,6 +23,8 @@ public interface IStockService {
 	
 	public void increaseStock(int qte , int id);
 	public String decreaseStock(int qte , int id);
+	
+	/*public ByteArrayInputStream load();*/
 	
 	/*
 	public List<Long> missingProduct();

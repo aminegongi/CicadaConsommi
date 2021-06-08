@@ -64,19 +64,19 @@
 					<b:row styleClass="table-responsive">
 						<b:dataTable styleClass="table table-striped" value="#{rayonController.rayons}" var="rayon" rows="15">
 
-							<b:dataTableColumn>
+							<b:column>
 								<f:facet name="header">
 									<h:outputText value="Id Rayon" />
 								</f:facet>
 								<h:outputText value="#{rayon.id}" />
-							</b:dataTableColumn>
-							<b:dataTableColumn>
+							</b:column>
+							<b:column>
 								<f:facet name="header">
 									<h:outputText value="Type" />
 								</f:facet>
 								<h:outputText value="#{rayon.type}" />
-							</b:dataTableColumn>
-							<b:dataTableColumn>
+							</b:column>
+							<b:column>
 								<f:facet name="header">
 									<h:outputText value="Action" />
 								</f:facet>
@@ -84,14 +84,14 @@
 									class="btn btn-danger"
 									action="#{rayonController.deleteRayon(rayon.id)}"
 									value="Delete" />
-							</b:dataTableColumn>
-							<b:dataTableColumn>
+							</b:column>
+							<b:column>
 								<f:facet name="header">
 									<h:outputText value="Action" />
 								</f:facet>
 								<h:commandButton class="btn btn-primary" action="#{rayonController.displayRayon(rayon)}"
 									value="Show" />
-							</b:dataTableColumn>
+							</b:column>
 						</b:dataTable>
 						</b:row>
 					</h:form>

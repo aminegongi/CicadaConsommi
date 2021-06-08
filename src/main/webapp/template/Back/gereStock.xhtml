@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.prime.com.tr/ui">
 <h:head>
 	<title>Dashboard Template for BootsFaces</title>
 	<meta name="author" content="Riccardo Massera"></meta>
@@ -74,7 +74,7 @@
 					<h:form>
 					<b:row styleClass="table-responsive">
 				
-						<b:dataTable styleClass="table table-striped" value="#{stockController.stocks}" var="stock" rows="15">
+						<b:dataTable  id="tb1" styleClass="table table-striped" value="#{stockController.stocks}" var="stock" rows="15" >
 
 							<b:dataTableColumn>
 								<f:facet name="header">
@@ -122,9 +122,12 @@
 									value="Show" class="btn btn-primary" />
 							</b:dataTableColumn>
 						</b:dataTable>
+					<h:commandButton value="Excel Export">
+<p:dataExporter target="tb1" type="xls" fileName="Pass Percentage" />
+</h:commandButton>
 					</b:row>
 					</h:form>
-
+								
 				</h:panelGroup>
 				</center>
 
@@ -194,7 +197,9 @@
 							</td>
 						</tr>
 						<tr>
-							<td><h:outputText value="#{stockController.result}"></h:outputText></td>
+						<h:form rendered="#{stockController.result != ''}">
+						<b:alert severity="danger"><strong>Be Careful !</strong> #{stockController.result}</b:alert>
+							</h:form>
 						</tr>
 					</h:form>
 					</td></tr>
@@ -260,8 +265,15 @@
 							<tr>
 								<td colspan="2"><h:commandButton class="btn btn-success"  value="Add / Update Stock"
 										action="#{stockController.addStock()}" /></td>
-								<td><h:outputText value="#{stockController.result2}"
-										color="red"></h:outputText></td>
+										
+								</tr>
+								<tr>
+								<h:form rendered="#{stockController.result2 == 'Stock has be added Succesfuly !!'}">
+						<b:alert severity="success"><strong>Well done!</strong> #{stockController.result2}</b:alert>
+							</h:form>
+							<h:form rendered="#{stockController.result2 == '(Amount + Stock Out) must be equal to (Stock out)'}">
+						<b:alert severity="danger"><strong>Be Careful !</strong> #{stockController.result2}</b:alert>
+							</h:form>
 							</tr>
 
 						</table>

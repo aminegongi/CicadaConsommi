@@ -1,6 +1,7 @@
 package tn.esprit.spring.service;
 
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import tn.esprit.spring.repository.StockRepository;
 /*import tn.esprit.spring.entities.Command;*/
 /*import tn.esprit.spring.entities.Product;*/
 import tn.esprit.spring.entity.Stock;
-
+import tn.esprit.spring.helper.ExcelHelper;
 
 
 
@@ -102,6 +103,13 @@ public class StockServiceImpl implements IStockService {
 			return "There's no insufficient Amount in the Stock";
 		
 	}
+	
+	/*public ByteArrayInputStream load() {
+	    List<Stock> stocks = (List<Stock>) stockRepository.findAll();
+
+	    ByteArrayInputStream in = ExcelHelper.tutorialsToExcel(stocks);
+	    return in;
+	  }*/
 	
 	/*@Override
 	public List<Long> missingProduct() {

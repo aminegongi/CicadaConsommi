@@ -2,7 +2,7 @@ package tn.esprit.spring.entity;
 
 import java.io.Serializable;
 
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +24,10 @@ private static final long serialVersionUID = 1L;
 private int id ;
 
 private String name ;
-
+/*
+@Column(nullable = true, length = 64)
+private String photos;
+*/
 @ManyToOne
 protected Rayon rayon;
 

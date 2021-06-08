@@ -1,18 +1,36 @@
 package tn.esprit.spring.BackController;
 
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
 import org.ocpsoft.rewrite.annotation.Join;
 import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import tn.esprit.spring.service.IStockService;
 import tn.esprit.spring.entity.Produit;
 /*import tn.esprit.spring.entities.Product;*/
 import tn.esprit.spring.entity.Stock;
+import tn.esprit.spring.helper.ExcelHelper;
 
 @Scope(value = "session")
 @Controller(value = "stockController") // Name of the bean in Spring IoC
@@ -72,8 +90,12 @@ public class StockBackController {
 	    	st.setQtee(s.getQtee());
 	    	st.setQtes(s.getQtes());
 	    	this.setId_produit(s.getP().getId_produit());
+	    	result="";
+	    	result2="";
 
 		}
+	 
+	 
 	 
 	 
 	 
@@ -138,6 +160,50 @@ public class StockBackController {
 		 stocks = stockService.getAllStocks();
 		
 	}
+	
+	
+	
+	/*public void postProcessXLS(Object document) {
+        HSSFWorkbook wb = (HSSFWorkbook) document;
+        HSSFSheet sheet = wb.getSheetAt(0);
+        CellStyle style = wb.createCellStyle();
+        style.setFillBackgroundColor(IndexedColors.AQUA.getIndex());
+
+        for (Row row : sheet) {
+            for (Cell cell : row) {
+                cell.setCellValue(cell.getStringCellValue().toUpperCase());
+                cell.setCellStyle(style);
+            }
+        }
+    }*/
+	
+	/*@GetMapping("/users/export/excel")*/
+    /*public void exportToExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+         
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+         
+        List<Stock> listUsers = stockService.getAllStocks();
+         
+        ExcelHelper excelExporter = new ExcelHelper(listUsers);
+         
+        excelExporter.export(response);    
+    }  
+	*/
+	/*@GetMapping("/download/customers.xlsx")*/
+	/*public ResponseEntity<Resource> export() {
+	    String filename = "C:/exl/excel.xlsx";
+	    InputStreamResource file = new InputStreamResource(stockService.load());
+
+	    return ResponseEntity.ok()
+	        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+	        .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+	        .body(file);
+	  }*/
 
 
 	public Stock getSt() {

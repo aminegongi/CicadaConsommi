@@ -71,8 +71,11 @@
 		</dependency>
 		<!-- Bootfaces Bootstrap -->
 		
+		<!-- https://mvnrepository.com/artifact/org.primefaces.themes/all-themes -->
+
 		
 				
+		
 		<!-- Dependance ThymeLeaf 
 		<dependency> 
 		<groupId>org.springframework.boot</groupId> 
@@ -86,6 +89,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!-- Apache POI -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-scratchpad</artifactId>
+			<version>3.6</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -160,6 +169,23 @@
 		    <version>4.0.0.Final</version>
 		</dependency>
 		
+		
+			<dependency>
+				<groupId>org.wildfly.bom</groupId>
+				<artifactId>wildfly-javaee8-with-tools</artifactId>
+				<version>17.0.0.Final</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+	
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
+		</dependency>
+
+		
+
 
 	</dependencies>
 
