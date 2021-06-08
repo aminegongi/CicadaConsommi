@@ -29,24 +29,24 @@
 				</div>
 			</div>
 			<br />
-			<h:panelGroup rendered="#{fsujetController.listMesSujets eq null }" >  
-			<br/>
-			<h2> Please Sign In  </h2>
-			<br/>
-			<h:link class="btn btn-outline-primary-2"
-			outcome="/pages/client/userSignIn.jsf" value="GO TO SIGNIN">
-			</h:link>
-			<br/>
-			<br/>
+			<h:panelGroup rendered="#{fmsujetController.listMesSujets eq null }" >  
+				<br/>
+				<h2> Please Sign In  </h2>
+				<br/>
+				<h:link class="btn btn-outline-primary-2"
+				outcome="/pages/client/userSignIn.jsf" value="GO TO SIGNIN">
+				</h:link>
+				<br/>
+				<br/>
 			</h:panelGroup>
-			<h:panelGroup rendered="#{fsujetController.listMesSujets ne null }" >  
+			<h:panelGroup rendered="#{fmsujetController.listMesSujets ne null }" >  
 				<div class="row">
 					<div class="col-md-12">
 					<div class="card my-12">
 							<h5 class="card-header">Affichage les Sujets</h5>
 							<div class="card-body">
 							<h:form  id="tableSujet" >
-							  <b:dataTable var="sujets" value="#{fsujetController.listMesSujets}" >
+							  <b:dataTable var="sujets" value="#{fmsujetController.listMesSujets}" >
 							    <b:dataTableColumn value="#{sujets.id}" label="#" />
 							    <b:dataTableColumn value="#{sujets.titre}" label="Titre" />
 							    <b:dataTableColumn value="#{fn:substring(sujets.description, 0,250)}" label="Description" />
@@ -57,10 +57,10 @@
 								</f:facet>
 							    <h:panelGrid columns="2" styleClass="ui-panelgrid-blank">
 									<b:commandButton style="width:30%" iconAwesome="trash" ajax="true" onclick="return confirm('Voulez vous vraiment supprimer #{sujets.titre} ?');" 
-										look="danger" actionListener="#{fsujetController.deleteSujet(sujets.id)}" 
+										look="danger" actionListener="#{fmsujetController.deleteSujet(sujets.id)}" 
 										immediate="true" update="@(#tableSujet)"/>
 									
-									<b:commandButton iconAwesome="edit" ajax="true" look="info" actionListener="#{fsujetController.remplirChamps(sujets)}" immediate="true" update="@(#formam)"/>
+									<b:commandButton iconAwesome="edit" ajax="true" look="info" actionListener="#{fmsujetController.remplirChamps(sujets)}" immediate="true" update="@(#formam)"/>
 			
 							    </h:panelGrid >
 							    </h:column>
@@ -80,28 +80,42 @@
 							<div class="card-body">
 								<div class="input">
 									<h:form enctype="multipart/form-data" id="formam">
-										<h:inputText value="#{fsujetController.sujet_titre}"
+										<h:inputText value="#{fmsujetController.sujet_titre}"
 											pt:placeholder="Titre" class="form-control" required="true">
 										</h:inputText>
 										<label> Image du Sujet </label>
-    									<h:inputFile class="form-control" value="#{fsujetController.uploadedFile}"></h:inputFile>
+    									<h:inputFile class="form-control" value="#{fmsujetController.uploadedFile}" onchange="checkFileSize(this)" ></h:inputFile>
 										<br />
 									
 										
-										 <p:textEditor value="#{fsujetController.sujet_description}" widgetVar="editor1" height="300"  />
+										 <p:textEditor value="#{fmsujetController.sujet_description}" widgetVar="editor1" height="300"  />
 										
 										<hr />
 										<h:panelGrid columns="2" >
 											<h:commandButton ajax="true" value="Ajouter" class="btn btn-success"
-												action="#{fsujetController.addSujet()}" />
+												action="#{fmsujetController.addSujet()}" />
 											
 											<h:commandButton ajax="true" value="Modifier" class="btn btn-warning"
-												action="#{fsujetController.update()}" />	
+												action="#{fmsujetController.update()}" />	
 										</h:panelGrid>
 										<h:outputText>
-											#{fsujetController.sujet_AMOut}
+											#{fmsujetController.sujet_AMOut}
 										</h:outputText>
 									</h:form>
+									
+									<SCRIPT type="text/javascript">
+									//<![CDATA[
+									function checkFileSize(inputFile) {
+									    var max = 1 * 1024 * 1024; // 500MB
+
+									    if (inputFile.files && inputFile.files[0].size > max) {
+									        alert("File too large."); // Do your thing to handle the error.
+									        inputFile.value = null; // Clears the field.
+									    }
+									}
+									//]]>
+									</SCRIPT>
+									
 									
 								</div>
 							</div>

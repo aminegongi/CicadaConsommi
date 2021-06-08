@@ -39,6 +39,10 @@ public class ChatFrontController {
 	private boolean userLoggedIn ;
 	
 	
+	public void conTest() {
+		System.err.println("--------------cTest Con -------  --" );
+		Con = UserConnected.userconnected;
+	}
 	
 	public boolean isUserLoggedIn() {
 		if( Con == null ){
@@ -87,12 +91,18 @@ public class ChatFrontController {
 	}
 	
 	public void setConvWith(Chat c){
+		System.err.println("----------------eeeeee aaaaa----------------" );
 		this.setAutre(c.getSenderUser());
 		Long id_autre = this.getAutre().getId();
 		Long id_uCon = Con.getId();
 	}
 	
 	public List<Chat> getConvsWith(){
+		List<Chat> l = null;
+		if( this.getAutre() == null){
+			return l;
+		}
+		System.err.println("--------------------------------" );
 		Long id_autre = this.getAutre().getId();
 		Long id_uCon = Con.getId();		
 		return chatService.getConversationUserConnectedSender(id_uCon.intValue(), id_autre.intValue());
@@ -110,5 +120,23 @@ public class ChatFrontController {
 		
 		return null;
 	}
+	
+	public List<Chat> getConvsWithOther (Long id ){
+		Con = UserConnected.userconnected;
+		Long id_autre = id;
+		Long id_uCon = Con.getId();		
+		return chatService.getConversationUserConnectedSender(id_uCon.intValue(), id_autre.intValue());
+	}
+	
+	public void sendWithOther(Long id ){
+		Long id_autre = id;
+		User u = new User();
+		u.setId(id_autre);
+				
+		chatService.add( new Chat(u, this.getCon(), this.getMessage()));
+		this.setMessage(null);
+	}
+	
+	
 	
 }

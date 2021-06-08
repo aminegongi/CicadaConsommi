@@ -9,7 +9,7 @@
 	template="/template/template.xhtml">
 
 
-	<ui:param name="page_name" value="CT-Chat" />
+	<ui:param name="page_name" value="CT-Chat With Other" />
 	<ui:param name="page_title" value="Chat"></ui:param>
 	<ui:param name="page_title_sub" value=""></ui:param>
 	<ui:define name="content">
@@ -229,34 +229,30 @@ img {
 	overflow-y: auto;
 }
 </style>
-
+#{fchatController.conTest()}
+<h:panelGroup rendered="#{fchatController.con eq null}" >  
+			<br/>
+			<h2> Please Sign In  </h2>
+			<br/>
+			<h:link class="btn btn-outline-primary-2"
+			outcome="/pages/client/userSignIn.jsf" value="GO TO SIGNIN">
+			</h:link>
+			<br/>
+			<br/>
+</h:panelGroup>
+<h:panelGroup rendered="#{fchatController.con ne null}" >  
 		<div class="page-content">
 			<div class="dashboard">
 				<div class="container">
 					<div class="row" style="margin-right: -300px;">
-						<ul class="nav nav-dashboard flex-column mb-3 mb-md-0">
-
-							<li class="nav-item"><a class="nav-link"
-								href="/pages/client/userProfile.jsf"> Profile </a></li>
-							<li class="nav-item"><a class="nav-link "
-								href="/pages/client/userReclamation.jsf"> Claim </a></li>
-
-							<li class="nav-item"><a class="nav-link"
-								id="tab-address-link" href="#tab-address">Adresses</a></li>
-								
-							<li class="nav-item"><a class="nav-link active"
-								href="/pages/client/chat.jsf"> Chat </a></li>
-								
-							<li class="nav-item"><a class="nav-link" href="#">Sign
-									Out</a></li>
-						</ul>
+						
 						<!--  End .col-lg-3 -->
 						<div class="col-md-8 col-lg-9">
 							<div class="tab-content">
 								<div class="show active" style="padding-left: 6%;">
 
 								<h:form>
-								  <p:poll interval="1" update="paneformainboxchat laconv" />  
+								  <p:poll interval="1" update="laconv" />  
 								</h:form>
 								
 									<h3 class=" text-center">Messaging </h3>
@@ -264,56 +260,11 @@ img {
 
 										<div class="inbox_msg">
 
-											<div class="inbox_people">
-
-												<div class="headind_srch">
-
-													<div class="recent_heading">
-
-														<h4>Chat</h4>
-													</div>
-
-												</div>
-												
-												<h:panelGroup id="paneformainboxchat" >
-												<div class="inbox_chat">
-
-												<ui:repeat var="userChat" value="#{fchatController.getlistconv()}">
-													<div class="chat_list">
-														<div class="chat_people">
-															<div class="chat_img">
-																<img
-																	src="https://ptetutorials.com/images/user-profile.png"
-																	alt="sunil" />
-															</div>
-															<div class="chat_ib">
-																#{chat_list.senderUser.id}
-																<h5>
-																	<h:form>
-																		<h:commandLink ajax="true" action="#{fchatController.setConvWith(userChat)}" value="#{userChat.senderUser.username}"> 
-																			<f:ajax execute="@form" render="paneformainboxchat laconv" />
-																		</h:commandLink>
-																	</h:form>
-																	
-																</h5>
-
-																<p>#{fn:substring(userChat.description, 0,20)}</p>
-															</div>
-														</div>
-													</div>
-												</ui:repeat>
-													
-
-													
-												</div>
-												</h:panelGroup>
-											</div>
-
-											<div class="mesgs">
+											<div class="mesgs" style="width:100%;" >
 
 												<div class="msg_history">
 													<h:panelGroup id ="laconv">
-													<ui:repeat var="conv" value="#{fchatController.getConvsWith()}">
+													<ui:repeat var="conv" value="#{fchatController.getConvsWithOther( param['id'] )}">
 													
 													
 													<h:panelGroup rendered="#{conv.senderUser.id eq fchatController.con.id}" >
@@ -352,7 +303,7 @@ img {
 														
 														
 								              				<b:commandButton class="btn btn-outline-primary-2" iconAwesome="paper-plane" value="Send" ajax="true" 
-              												look="secondary" action="#{fchatController.send()}" update="paneformainboxchat laconv formsendchat" />
+              												look="secondary" action="#{fchatController.sendWithOther(param['id'])}" update="laconv formsendchat" />
 							              				</h:form>
 							              			</h:panelGrid>
 													
@@ -378,7 +329,7 @@ img {
 			<!--  End .dashboard -->
 		</div>
 		<!--  End .page-content -->
-
+</h:panelGroup>
 
 	</ui:define>
 </ui:composition>

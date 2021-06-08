@@ -18,19 +18,13 @@
           <div class="row" style="flex-wrap:nowrap;">
             <div class="col-lg-8">
             
-<h:form enctype="multipart/form-data">
-    <h:inputFile value="#{fsujetController.uploadedFile}">
-    </h:inputFile>
-    <h:commandButton action="#{fsujetController.upload}" ></h:commandButton>
-</h:form>
-            
             <ui:repeat value="#{fsujetController.listSujets}" var="sujets">
 	            <!-- min houni ka3ba card blog -->
 	              <div class="row align-items-center">
 	                <div class="col-lg-10">
 	                  <div class="entry-body">
 	                    <div class="entry-meta">
-	                      <span class="entry-author"> by #{sujets.sujetUser.username}</span> 
+	                      <span class="entry-author"> by <a href="/pages/client/userChatWithOther.jsf?id=#{sujets.sujetUser.id}" > #{sujets.sujetUser.username} </a>  </span> 
 	                      <span class="meta-separator">|</span>
 	                      <h:outputText value="#{sujets.datePublication}">
 						     <f:convertDateTime pattern="MM/dd/yyyy" type="date" />

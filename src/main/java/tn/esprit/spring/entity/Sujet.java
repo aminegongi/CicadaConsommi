@@ -44,16 +44,9 @@ public class Sujet {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ratingSujet")
 	private Set<Rating> sujetRating;
 
+	@Column(name = "image")
+	private String image;
 	
-	
-	
-	public Sujet(String titre, String description, User sujetUser) {
-		super();
-		Titre = titre;
-		this.description = description;
-		this.sujetUser = sujetUser;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -106,13 +99,6 @@ public class Sujet {
 		this.sujetRating = sujetRating;
 	}
 
-	@Override
-	public String toString() {
-		return "Sujet [id=" + id + ", Titre=" + Titre + ", description=" + description + ", datePublication="
-				+ datePublication + ", sujetUser=" + sujetUser + ", sujetComms=" + sujetComms + ", sujetRating="
-				+ sujetRating + "]";
-	}
-
 	public User getSujetUser() {
 		return sujetUser;
 	}
@@ -126,16 +112,12 @@ public class Sujet {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((Titre == null) ? 0 : Titre.hashCode());
-		result = prime * result + ((datePublication == null) ? 0 : datePublication.hashCode());
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((sujetUser == null) ? 0 : sujetUser.hashCode());
-		return result;
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	@Override
@@ -164,6 +146,21 @@ public class Sujet {
 			return false;
 		if (id != other.id)
 			return false;
+		if (image == null) {
+			if (other.image != null)
+				return false;
+		} else if (!image.equals(other.image))
+			return false;
+		if (sujetComms == null) {
+			if (other.sujetComms != null)
+				return false;
+		} else if (!sujetComms.equals(other.sujetComms))
+			return false;
+		if (sujetRating == null) {
+			if (other.sujetRating != null)
+				return false;
+		} else if (!sujetRating.equals(other.sujetRating))
+			return false;
 		if (sujetUser == null) {
 			if (other.sujetUser != null)
 				return false;
@@ -172,14 +169,36 @@ public class Sujet {
 		return true;
 	}
 
-	public Sujet(int id, String titre, String description, User sujetUser) {
+	@Override
+	public String toString() {
+		return "Sujet [id=" + id + ", Titre=" + Titre + ", description=" + description + ", datePublication="
+				+ datePublication + ", sujetUser=" + sujetUser + ", sujetComms=" + sujetComms + ", sujetRating="
+				+ sujetRating + ", image=" + image + "]";
+	}
+
+	public Sujet(String titre, String description, User sujetUser, String image) {
+		super();
+		Titre = titre;
+		this.description = description;
+		this.sujetUser = sujetUser;
+		this.image = image;
+	}
+
+	public Sujet(int id, String titre, String description, User sujetUser, String image) {
 		super();
 		this.id = id;
 		Titre = titre;
 		this.description = description;
 		this.sujetUser = sujetUser;
+		this.image = image;
 	}
 
+
+	
+	
+	
+	
+	
 	
 
 }

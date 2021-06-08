@@ -25,7 +25,7 @@
                 </h1>
                 <!--  End .entry-title -->
       			<div class="entry-meta" style="margin-bottom: 32px;">
-	                      By<span> </span> <span class="entry-author"> #{fsujetController.leSujet.sujetUser.username}</span> 
+	                      By<span> </span> <span class="entry-author"> <a href="/pages/client/userChatWithOther.jsf?id=#{fsujetController.leSujet.sujetUser.id}" > #{fsujetController.leSujet.sujetUser.username} </a> </span> 
 	                      <span class="meta-separator">|</span>
 	                      <h:outputText value="#{fsujetController.leSujet.datePublication}">
 						     <f:convertDateTime pattern="MM/dd/yyyy" type="date" />
@@ -37,8 +37,14 @@
 	             </div>
 	             <!--  End .entry-meta -->
 	             
+	             
+	             
+	             
                 <div class="entry-content editor-content">
-                  <h:outputText value="#{fsujetController.leSujet.description}" escape="false" />
+                	<center>
+                		<img src="/assets/ForumImg/#{fsujetController.leSujet.image}" alt="image" />
+                	</center>
+                  	<h:outputText value="#{fsujetController.leSujet.description}" escape="false" />
                 </div>
                 <!--  End .entry-content -->
                 <div class="entry-footer row no-gutters">
