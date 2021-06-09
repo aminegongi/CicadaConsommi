@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tn.esprit.spring.service.ICategoryService;
 import tn.esprit.spring.service.IRayonService;
 import tn.esprit.spring.entity.Category;
+import tn.esprit.spring.entity.Produit;
 /*import tn.spring.esprit.entities.Product;*/
 import tn.esprit.spring.entity.Rayon;
 
@@ -88,6 +89,7 @@ public class RayonBackController {
 		return categories;
 		
 	}
+	
 	
 	
 /*	@PutMapping(value = "/updateRayon") 

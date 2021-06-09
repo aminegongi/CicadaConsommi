@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import tn.esprit.spring.service.ICategoryService;
 import tn.esprit.spring.service.IStockService;
 import tn.esprit.spring.entity.Produit;
 /*import tn.esprit.spring.entities.Product;*/
@@ -30,6 +31,8 @@ public class StockBackController {
 	@Autowired
 	IStockService stockService;
 	
+	@Autowired
+	ICategoryService categoryService;
 		
 	private Stock st = new Stock();
     private List<Stock> stocks;
@@ -155,6 +158,13 @@ public class StockBackController {
 		 stocks = stockService.getAllStocks();
 		
 	}
+	
+	public List<Produit> getAllProducts() {
+
+		
+		return categoryService.getAllProducts();
+
+		} 
 	
 	
 	

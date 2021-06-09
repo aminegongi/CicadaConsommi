@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import tn.esprit.spring.repository.CategoryRepository;
 import tn.esprit.spring.repository.RayonRepository;
 import tn.esprit.spring.entity.Category;
+import tn.esprit.spring.entity.Produit;
 /*import tn.esprit.spring.entities.Rating;*/
 import tn.esprit.spring.entity.Rayon;
 
@@ -74,6 +75,12 @@ public class CategoryServiceImpl implements ICategoryService {
 		CategoryRepository.save(categoryEntity);
 		return"Rayon affected to category";
 
+	}
+	
+	@Override
+	public List<Produit> getAllProducts()
+	{
+		return CategoryRepository.getAllProducts();
 	}
 
 }

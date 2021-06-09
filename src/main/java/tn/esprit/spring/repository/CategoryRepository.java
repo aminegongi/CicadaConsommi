@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import tn.esprit.spring.entity.Category;
+import tn.esprit.spring.entity.Produit;
 
 @Repository
 public interface CategoryRepository extends JpaRepository <Category, Integer>{
@@ -17,5 +18,8 @@ public interface CategoryRepository extends JpaRepository <Category, Integer>{
 	
 	@Query(value="SELECT * FROM category  WHERE rayon_id = ? ",nativeQuery=true)
 	List<Category> groupedByRayon(int idRayon);
+	
+	@Query(value="SELECT * FROM produit",nativeQuery=true)
+	List<Produit> getAllProducts();
 
 }

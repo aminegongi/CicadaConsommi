@@ -187,7 +187,7 @@
       								<b:icon value="arrow-down" />
     								</f:facet>
  								</b:inputText>
- 								<b:message for="@previous" />
+ 								
 						</tr>
 						<tr>
 							<td colspan="2">
@@ -197,7 +197,10 @@
 							</td>
 						</tr>
 						<tr>
-						<h:form rendered="#{stockController.result != ''}">
+								<h:form rendered="#{stockController.result == 'An amout Has taken from the Stock'}">
+						<b:alert severity="success"><strong>Well done!</strong> #{stockController.result}</b:alert>
+							</h:form>
+						<h:form rendered="#{stockController.result == 'There s no insufficient Amount in the Stock'}">
 						<b:alert severity="danger"><strong>Be Careful !</strong> #{stockController.result}</b:alert>
 							</h:form>
 						</tr>
@@ -254,6 +257,7 @@
 								
 							</tr>
 							<tr>
+							
 								<b:inputText placeholder="ProduitId" required="true" label="Produit"  type="number" value="#{stockController.id_produit}">
 									<f:facet name="prepend">
       								<b:icon value="grain" />

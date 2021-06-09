@@ -3,6 +3,7 @@ package tn.esprit.spring.service;
 import java.util.List;
 
 import tn.esprit.spring.entity.Category;
+import tn.esprit.spring.entity.Produit;
 
 public interface ICategoryService {
 	
@@ -17,6 +18,6 @@ public interface ICategoryService {
 	
 	public String affectRayonToCategory(int rayId, int catId);
 	
-
+	public List<Produit> getAllProducts();
 	
 }

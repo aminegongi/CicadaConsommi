@@ -100,7 +100,7 @@ public class StockServiceImpl implements IStockService {
 		return "An amout Has taken from the Stock";
 		}
 		else
-			return "There's no insufficient Amount in the Stock";
+		return "There s no insufficient Amount in the Stock";
 		
 	}
 	

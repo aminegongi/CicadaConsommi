@@ -21,6 +21,7 @@ import tn.esprit.spring.service.CategoryServiceImpl;
 import tn.esprit.spring.service.ICategoryService;
 import tn.esprit.spring.service.IRayonService;
 import tn.esprit.spring.entity.Category;
+import tn.esprit.spring.entity.Produit;
 import tn.esprit.spring.entity.Rayon;
 
 
@@ -99,6 +100,12 @@ return categories =categoryService.retrieveAllCategories();
 public List<Rayon> getRayons() {
 
 return rayons =rayonService.getAllRayons();
+
+} 
+
+public List<Produit> getAllProducts() {
+
+return categoryService.getAllProducts();
 
 } 
 
