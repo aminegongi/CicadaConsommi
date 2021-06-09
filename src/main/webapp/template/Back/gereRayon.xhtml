@@ -31,11 +31,13 @@
 			<b:column col-sm="3" col-md="2" styleClass="sidebar">
 				<b:listLinks>
 					<b:navLink header="Dasboard Links" />
-					<b:navLink href="/template/Back/Dashboard.jsf" value="Dashboard"
-						active="true" />
-					<b:navLink href="/template/Back/Back.jsf" value="Users" />
-					<b:navLink href="#" value="Reclamation" />
-					<b:navLink href="#" value="Delivery" />
+					
+					    
+                        <b:navLink href="/template/Back/Dashboard.jsf" value="Dashboard" />
+                        <b:navLink href="/template/Back/Back.jsf" value="Users"  />
+                        <b:navLink href="/template/Back/gereStock.jsf" value="Stocks"  />
+                        <b:navLink href="/template/Back/gereRayon.jsf" value="Rayons"  active="true"/>
+                        <b:navLink href="/template/Back/gereCategory.jsf" value="Categories"  />
 				</b:listLinks>
 				<b:listLinks>
 					<b:navLink value="Product" />
@@ -64,19 +66,19 @@
 					<b:row styleClass="table-responsive">
 						<b:dataTable styleClass="table table-striped" value="#{rayonController.rayons}" var="rayon" rows="15">
 
-							<b:column>
+							<b:dataTableColumn>
 								<f:facet name="header">
 									<h:outputText value="Id Rayon" />
 								</f:facet>
 								<h:outputText value="#{rayon.id}" />
-							</b:column>
-							<b:column>
+							</b:dataTableColumn>
+							<b:dataTableColumn>
 								<f:facet name="header">
 									<h:outputText value="Type" />
 								</f:facet>
 								<h:outputText value="#{rayon.type}" />
-							</b:column>
-							<b:column>
+							</b:dataTableColumn>
+							<b:dataTableColumn>
 								<f:facet name="header">
 									<h:outputText value="Action" />
 								</f:facet>
@@ -84,14 +86,14 @@
 									class="btn btn-danger"
 									action="#{rayonController.deleteRayon(rayon.id)}"
 									value="Delete" />
-							</b:column>
-							<b:column>
+							</b:dataTableColumn>
+							<b:dataTableColumn>
 								<f:facet name="header">
 									<h:outputText value="Action" />
 								</f:facet>
 								<h:commandButton class="btn btn-primary" action="#{rayonController.displayRayon(rayon)}"
 									value="Show" />
-							</b:column>
+							</b:dataTableColumn>
 						</b:dataTable>
 						</b:row>
 					</h:form>
@@ -126,7 +128,7 @@
 
 <hr />
 
-				<h1>Related Products</h1>
+				<h1>Related Categories</h1>
 				<hr />
 				<br />
 				<h:panelGroup columns="2" style="width: 50%;margin: 0 auto;" layout="block">

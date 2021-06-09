@@ -30,12 +30,13 @@
 		<b:row>
 			<b:column col-sm="3" col-md="2" styleClass="sidebar">
 				<b:listLinks>
-					<b:navLink header="Dasboard Links" />
-					<b:navLink href="/template/Back/Dashboard.jsf" value="Dashboard"
-						active="true" />
-					<b:navLink href="/template/Back/Back.jsf" value="Users" />
-					<b:navLink href="#" value="Reclamation" />
-					<b:navLink href="#" value="Delivery" />
+					
+					    <b:navLink header="Dasboard Links" />
+                        <b:navLink href="/template/Back/Dashboard.jsf" value="Dashboard" />
+                        <b:navLink href="/template/Back/Back.jsf" value="Users"  />
+                        <b:navLink href="/template/Back/gereStock.jsf" value="Stocks"  active="true"/>
+                        <b:navLink href="/template/Back/gereRayon.jsf" value="Rayons"  />
+                        <b:navLink href="/template/Back/gereCategory.jsf" value="Categories"  />
 				</b:listLinks>
 				<b:listLinks>
 					<b:navLink value="Product" />
@@ -122,15 +123,14 @@
 									value="Show" class="btn btn-primary" />
 							</b:dataTableColumn>
 						</b:dataTable>
-					<h:commandButton value="Excel Export">
-<p:dataExporter target="tb1" type="xls" fileName="Pass Percentage" />
-</h:commandButton>
+					
 					</b:row>
 					</h:form>
+						
 								
 				</h:panelGroup>
 				</center>
-
+ 
 				
 				<br />
 
@@ -271,7 +271,7 @@
 								<h:form rendered="#{stockController.result2 == 'Stock has be added Succesfuly !!'}">
 						<b:alert severity="success"><strong>Well done!</strong> #{stockController.result2}</b:alert>
 							</h:form>
-							<h:form rendered="#{stockController.result2 == '(Amount + Stock Out) must be equal to (Stock out)'}">
+							<h:form rendered="#{stockController.result2 == '(Amount + Stock Out) must be equal to (Stock In)'}">
 						<b:alert severity="danger"><strong>Be Careful !</strong> #{stockController.result2}</b:alert>
 							</h:form>
 							</tr>

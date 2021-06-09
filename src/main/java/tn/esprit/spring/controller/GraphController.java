@@ -21,10 +21,12 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import tn.esprit.spring.entity.Produit;
+import tn.esprit.spring.entity.Stock;
 import tn.esprit.spring.entity.Sujet;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.UserRepository;
 import tn.esprit.spring.service.ProduitServiceImpl;
+import tn.esprit.spring.service.StockServiceImpl;
 import tn.esprit.spring.service.SujetService;
 import tn.esprit.spring.service.UserServiceImpl;
 
@@ -38,16 +40,43 @@ public class GraphController {
 	@Autowired
 	SujetService sujetservice;
 	@Autowired
+	StockServiceImpl stockservice;
+	@Autowired
 	UserServiceImpl userservice;
 	@Autowired
 	ProduitServiceImpl produitservice;
 	@Autowired 
 	UserRepository userrepository;
 	
+	
+	
 
 		private PieChartModel Piemodel;
+		private PieChartModel Piemodels;
+
 		public GraphController() {
 		}
+		
+		
+		
+		
+		public PieChartModel getPiemodelS() {
+			List<Stock> gg = stockservice.getAllStocks();
+			Piemodels = new PieChartModel();
+			for( int i=0 ; i< gg.size() ; i++){
+				Piemodels.set(gg.get(i).getP().getNom_produit(),gg.get(i).getAmount());
+				
+				}
+
+			Piemodels.setTitle("PIE CHART COMMENTS PER SUBJECT");
+			Piemodels.setLegendPosition("w");
+			return Piemodels;
+		}
+		public void setPiemodelS(PieChartModel piemodels) {
+			Piemodels = piemodels;
+		}
+		
+		
 		
 		public PieChartModel getPiemodel() {
 			List<Sujet> gg = sujetservice.getAll();
